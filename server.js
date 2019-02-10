@@ -29,8 +29,6 @@ app.get('/api/artists', (req, res) => {
 app.put('/api/songs/update/:id', (req, res) => {
     var id = req.params.id;
     var data = req.body;
-    console.log("SONGS BODY ", data)
-    console.log("SONGS ID ", id)
     Songs.updateSong({_id: id}, data, function(error, data){
         if (error) throw error
         res.json(data);

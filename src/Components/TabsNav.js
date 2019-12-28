@@ -6,7 +6,12 @@ import Songs from './Songs'
 import Artists from './Artists';
 import Fab from '@material-ui/core/Fab';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
-import ReactAudioPlayer from 'react-audio-player';
+import { ReactAudioPlayer } from './AudioPlayer';
+
+const TABS = {
+    SONGS: 0,
+    ARTISTS: 1
+}
 
 class TabsNav extends React.Component{
     constructor(){
@@ -28,6 +33,7 @@ class TabsNav extends React.Component{
     }
     render(){        
         const {currentTab} = this.state
+        const { SONGS, ARTISTS} = TABS;
         const {songs, artists, songFn} = this.props
         return(
             <div>
@@ -37,16 +43,15 @@ class TabsNav extends React.Component{
                         <Tab label="Artists" />
                     </Tabs>
                 </AppBar>
-                {currentTab === 0 && <Songs songs={songs} songFn={songFn}/>}
-                {currentTab === 1 && <Artists artists={artists} songFn={songFn}/>}
-                <div style={{display: "flex", alignItems:"center", justifyContent: "center"}}>
-                    {
-                        songFn.getSongPath().visible && <ReactAudioPlayer style={{position:"absolute", bottom: "2vw", width: "40vw"}} 
-                                                    autoPlay src={songFn.getSongPath().path} controls/>
-                    }
-                    <Fab onClick={() => this.playRandomSong(songs)} color="secondary" style={{position:"absolute", right: "1.5vw", bottom: "2vw"}}>
+                {currentTab === SONGS && <Songs songs={songs} songFn={songFn}/>}
+                {currentTab === ARTISTS && <Artists artists={artists} songFn={songFn}/>}
+                <div>                    
+                    <Fab onClick={() => this.playRandomSong(songs)} color="secondary" style={{position:"fixed", right: "1.5vw", bottom: "8vw"}}>
                         <ShuffleIcon />
                     </Fab>
+                </div>
+                <div>
+                    <ReactAudioPlayer src={songFn.getSongPath().path}/>
                 </div>
             </div>
         )

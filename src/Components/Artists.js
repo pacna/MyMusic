@@ -67,8 +67,8 @@ class Artists extends React.Component {
                                             a.albums.map((x, index) => {
                                                 return(
                                                     <div key={index}>
-                                                        <ListItem button onClick={() => this.handleAlbumClick(index)} style={{marginLeft: "10px"}}>
-                                                            <ListItemText primary={x.name} 
+                                                        <ListItem button onClick={() => this.handleAlbumClick(index)}>
+                                                            <ListItemText primary={x.title} 
                                                             secondary={
                                                                 <Typography>
                                                                     {
@@ -79,8 +79,8 @@ class Artists extends React.Component {
                                                             }
                                                             />
                                                             {
-                                                                showSongs && (currentAlbumIndex === index) ? <ExpandLess style={{marginRight: "25px"}} /> 
-                                                                : <ExpandMore  style={{marginRight: "25px"}}/>
+                                                                showSongs && (currentAlbumIndex === index) ? <ExpandLess/> 
+                                                                : <ExpandMore/>
                                                             }
                                                         </ListItem>
                                                         <Collapse in={showSongs && (currentAlbumIndex === index)}>
@@ -91,12 +91,11 @@ class Artists extends React.Component {
                                                                             <div key={index}>
                                                                                 <ListItem 
                                                                                     button 
-                                                                                    onClick={() => this.playMusic(i.path)} 
-                                                                                    style={{marginLeft: "20px"}}
+                                                                                    onClick={() => this.playMusic(i.path)}
                                                                                 >
-                                                                                    <ListItemText primary={i.name} />
+                                                                                    <ListItemText primary={i.title} />
                                                                                 </ListItem>
-                                                                                <Divider  style={{marginLeft: "35px", marginRight: "70px"}}/>
+                                                                                <Divider/>
                                                                             </div>
                                                                         )
                                                                     })

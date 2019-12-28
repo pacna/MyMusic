@@ -15,7 +15,7 @@ class Songs extends React.Component{
         const {showGif} = this.state
         const {songs, songFn} = this.props;
         return(
-            <div>
+            <div style={{marginBottom: '12vh'}}>
                 <List>
                     {
                         songs && songs.map((a,index) => {

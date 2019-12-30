@@ -1,6 +1,6 @@
 import React from 'react';
 import TopNav from './Components/TopNav'
-class App extends React.Component {
+export class App extends React.Component {
     constructor(){
         super()
         this.state = {
@@ -10,19 +10,19 @@ class App extends React.Component {
         }
     }
     componentDidMount() {
-        fetch('api/songs')
-        .then(response => response.json())
-        .catch( error => console.log("ERROR ", error))
-        .then(json => this.setState({
-            songs: json
-        }))
+        fetch(`${process.env.REACT_APP_API}/songs`)
+            .then(response => response.json())
+            .catch(error => console.error("ERROR ", error))
+            .then(json => this.setState({
+                songs: json
+            }))
 
-        fetch('api/artists')
-        .then(response => response.json())
-        .catch( error => console.log("ERROR ", error))
-        .then(json => this.setState({
-            artists: json
-        }))
+        fetch(`${process.env.REACT_APP_API}/artists`)
+            .then(response => response.json())
+            .catch(error => console.error("ERROR ", error))
+            .then(json => this.setState({
+                artists: json
+            }))
     }
     setSongPath = (path, index, visible) => {
         this.setState({
@@ -45,5 +45,3 @@ class App extends React.Component {
         );
     }
 }
-
-export default App;

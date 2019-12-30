@@ -3,7 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 import Songs from './Songs'
-import Artists from './Artists';
+import { Artists } from './Artists';
 import Fab from '@material-ui/core/Fab';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
 import { ReactAudioPlayer } from './AudioPlayer';

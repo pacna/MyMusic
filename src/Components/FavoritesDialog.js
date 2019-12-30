@@ -15,17 +15,18 @@ class FavoritesDialog extends React.Component{
         super()
         this.state = {
             open: false,
-            songs: []
+            favorites: []
         }
     }
     componentDidMount(){
-        const { open, songs } = this.props
-        this.setState({
-            open: open,
-            songs: songs && songs.filter(a => a.favorite !== false).map( x => {
-                return x;
-            })
-        })
+        const { open } = this.props
+        fetch(`${process.env.REACT_APP_API}/songs/favorites`)
+            .then(response => response.json())
+            .catch(error => console.error('ERROR', error))
+            .then(json => this.setState({
+                open: open,
+                favorites: json
+            }))
     }
     handleClose = () => {
         const { open } = this.props
@@ -43,10 +44,11 @@ class FavoritesDialog extends React.Component{
     }
     render(){
         const { closeFavDialog} = this.props;
+        const { open, favorites} = this.state;
         return(
             <div>
                 <Dialog
-                    open={this.state.open}
+                    open={open}
                     onClose={this.handleClose}
                     fullWidth={true}
                     maxWidth = {'sm'}
@@ -56,10 +58,10 @@ class FavoritesDialog extends React.Component{
                     <DialogContent>
                             <List>
                                 {
-                                    this.state.songs && this.state.songs.map((a)=> {
+                                    favorites && favorites.map((a)=> {
                                         return(
                                             <div key={a._id}>
-                                                <ListItem button onClick={()=> this.playMusic(a.title, this.props.songs)}>
+                                                <ListItem button onClick={()=> this.playMusic(a.title, favorites)}>
                                                     <ListItemText primary={a.title}/>
                                                 </ListItem>
                                                 <Divider />

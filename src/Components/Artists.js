@@ -1,14 +1,13 @@
+// react
 import React from 'react';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-import { Typography } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
 
-class Artists extends React.Component {
+// @material-ui
+import { ListItemText, List, ListItem, Collapse, Typography, Divider } from '@material-ui/core';
+
+// @material-ui icons
+import { ExpandMore, ExpandLess } from '@material-ui/icons';
+
+export class Artists extends React.Component {
     constructor(){
         super()
         this.state = {
@@ -21,7 +20,6 @@ class Artists extends React.Component {
         }
     }
     handleClick = (index) =>{
-        console.log(index);
         const {open} = this.state
         this.setState({
             open: !open,
@@ -50,7 +48,7 @@ class Artists extends React.Component {
                             return(
                                 <div key={index}>
                                     <ListItem key={index} button onClick={() => this.handleClick(index)}>
-                                        <ListItemText primary={a.artist} 
+                                        <ListItemText primary={a.artist ? a.artist : "Unknown artist"} 
                                         secondary={
                                             <Typography>
                                                 {
@@ -68,7 +66,7 @@ class Artists extends React.Component {
                                                 return(
                                                     <div key={index}>
                                                         <ListItem button onClick={() => this.handleAlbumClick(index)}>
-                                                            <ListItemText primary={x.title} 
+                                                            <ListItemText primary={x.title ? x.title : "Unknown album"} 
                                                             secondary={
                                                                 <Typography>
                                                                     {
@@ -117,4 +115,3 @@ class Artists extends React.Component {
         )
     }
 }
-export default Artists

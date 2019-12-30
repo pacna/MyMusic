@@ -27,7 +27,7 @@ class Song extends React.Component{
     changeFavorites = (evt, id, fav) => {
         const {isFav} = this.state;
         evt.stopPropagation();
-        fetch('api/songs/update/'+ id, {
+        fetch(`${process.env.REACT_APP_API}/songs/favorite/update/${id}`, {
             method: "PUT",
             body: JSON.stringify({favorite: !fav}),
             headers:{
@@ -35,13 +35,12 @@ class Song extends React.Component{
             }
         })
         .then(response => response.json())
-        .then(response => console.log("IS IT SUCCESSFUL ", JSON.stringify(response)))
         .then(() => 
             this.setState({
                 isFav: !isFav
             })
         )
-        .catch(error => console.log("ERROR ", error))
+        .catch(error => console.error("ERROR ", error))
         
         
     }
@@ -54,7 +53,7 @@ class Song extends React.Component{
                     <ListItemText primary={a.title} 
                     secondary={
                         <Typography style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
-                            {a.artist}
+                            {a.artist ? a.artist : "Unknown artist"}
                             <span style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
                                 {
                                     songFn.getSongPath().index === index ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 

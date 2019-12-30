@@ -40,9 +40,9 @@ export class SearchDialog extends React.Component{
             [params]: evt.target.value
         })
     }
-    playMusic = (path, index) => {
+    playMusic = (path, id) => {
         const {songFn} = this.props;
-        songFn.setSongPath(path, index, true)
+        songFn.setSongPath(path, id, true)
     }
     render(){
         const {closeSearchDialog, songs} = this.props;
@@ -63,11 +63,11 @@ export class SearchDialog extends React.Component{
                             songs && (
                                 <List>
                                     {
-                                        songs.filter(x => x.title.toLowerCase().indexOf(input.toLowerCase()) !== -1).map((a,index) => {
+                                        songs.filter(song => song.title.toLowerCase().indexOf(input.toLowerCase()) !== -1).map((song, index) => {
                                             return(
                                                 <div key={index}>
-                                                    <ListItem button  style={{paddingLeft: "0px"}} onClick={() => this.playMusic(a.path, index)}>
-                                                        <ListItemText primary={a.title} />
+                                                    <ListItem button  style={{paddingLeft: "0px"}} onClick={() => this.playMusic(song.path, song._id)}>
+                                                        <ListItemText primary={song.title} />
                                                     </ListItem>
                                                     <Divider />
                                                 </div>  

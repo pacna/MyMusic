@@ -21,22 +21,38 @@ export class TabsNav extends React.Component{
     constructor(){
         super()
         this.state = {
-            currentTab: 0 
+            currentTab: 0,
+            soundWave: false
         }
     }
+
     changeTab = (evt, newValue) => {
         this.setState({
             currentTab: newValue
         })
     }
-    playRandomSong = (songs) =>{
+
+    playRandomSong = songs => {
         const {songFn} = this.props;
         let random = Math.floor(Math.random() * songs.length)
-        songFn.setSongPath(songs[random].path, random, true);
-
+        songFn.setSongPath(songs[random].path, songs[random]._id, true);
     }
+
+    showSoundWave = () => {
+        this.setState({
+            soundWave: true
+        })
+    }
+
+    hideSoundWave = () => {
+        this.setState({
+            soundWave: false
+        })
+    }
+
+
     render(){        
-        const {currentTab} = this.state
+        const { currentTab, soundWave } = this.state
         const { SONGS, ARTISTS} = TABS;
         const {songs, artists, songFn} = this.props
         return(
@@ -47,7 +63,7 @@ export class TabsNav extends React.Component{
                         <Tab label="Artists" />
                     </Tabs>
                 </AppBar>
-                {currentTab === SONGS && <Songs songs={songs} songFn={songFn}/>}
+                {currentTab === SONGS && <Songs songs={songs} songFn={songFn} soundWave={soundWave}/>}
                 {currentTab === ARTISTS && <Artists artists={artists} songFn={songFn}/>}
                 <div>                    
                     <Fab onClick={() => this.playRandomSong(songs)} color="secondary" style={{position:"fixed", right: "1.5vw", bottom: "8vw"}}>
@@ -55,7 +71,11 @@ export class TabsNav extends React.Component{
                     </Fab>
                 </div>
                 <div>
-                    <ReactAudioPlayer src={songFn.getSongPath().path}/>
+                    <ReactAudioPlayer 
+                        src={songFn.getSongPath().path}
+                        showSoundWave={this.showSoundWave}
+                        hideSoundWave={this.hideSoundWave}
+                    />
                 </div>
             </div>
         )

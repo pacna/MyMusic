@@ -15,14 +15,14 @@ export class Song extends React.Component{
         }
     }
     componentDidMount(){
-        const {a} = this.props
+        const {song} = this.props
         this.setState({
-            isFav: a.favorite
+            isFav: song.favorite
         })
     }
-    playMusic = (path, index) => {
+    playMusic = (path, id) => {
         const {songFn} = this.props;
-        songFn.setSongPath(path, index, true)
+        songFn.setSongPath(path, id, true)
     }
     changeFavorites = (evt, id) => {
         const {isFav} = this.state;
@@ -45,26 +45,26 @@ export class Song extends React.Component{
         
     }
     render(){
-        const { a, index, songFn } = this.props
+        const { song, id, soundWave, songFn } = this.props
         const {isFav} = this.state
         return(
             <div>
-                <ListItem button onClick={() => this.playMusic(a.path, index)}>
-                    <ListItemText primary={a.title} 
+                <ListItem button onClick={() => this.playMusic(song.path, song._id)}>
+                    <ListItemText primary={song.title} 
                     secondary={
                         <Typography style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
-                            {a.artist ? a.artist : "Unknown artist"}
+                            {song.artist ? song.artist : "Unknown artist"}
                             <span style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
                                 {
-                                    songFn.getSongPath().index === index ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
+                                    songFn.getSongPath().id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
                                     : ""
                                 }
-                                <IconButton onClick={(evt) => this.changeFavorites(evt, a._id)}>
+                                <IconButton onClick={(evt) => this.changeFavorites(evt, song._id)}>
                                     {
                                         (isFav ) ? <Favorite /> : <FavoriteBorder />
                                     }
                                 </IconButton>
-                                {a.length}
+                                {song.length}
                             </span>
                         </Typography>
                     }/>

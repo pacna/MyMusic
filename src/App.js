@@ -28,11 +28,11 @@ export class App extends React.Component {
                 artists: json
             }))
     }
-    setSongPath = (path, index, visible) => {
+    setSongPath = (path, id, visible) => {
         this.setState({
             songData: {
                 path: path,
-                index: index,
+                id: id,
                 visible: visible
             }
         })

@@ -18,14 +18,21 @@ export class Songs extends React.Component{
     }
     render(){
         const {showGif} = this.state
-        const {songs, songFn} = this.props;
+        const {songs, songFn, soundWave} = this.props;
         return(
             <div style={{marginBottom: '12vh'}}>
                 <List>
                     {
-                        songs && songs.map((a,index) => {
+                        songs && songs.map(song => {
                             return(
-                                <Song songFn={songFn} index={index} showGif={showGif} a={a} key={a._id}/>              
+                                <Song 
+                                    songFn={songFn} 
+                                    id={song._id} 
+                                    showGif={showGif} 
+                                    song={song}
+                                    soundWave={soundWave}
+                                    key={song._id}
+                                />              
                             )
                         })
                     }

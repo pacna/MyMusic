@@ -41,9 +41,9 @@ export class FavoritesDialog extends React.Component{
     }
     playMusic = (title, songs) => {
         const {songFn} = this.props;
-        songs.forEach((x, index) => {
-            if(x.title === title){
-                songFn.setSongPath(x.path, index, true);
+        songs.forEach(song => {
+            if(song.title === title){
+                songFn.setSongPath(song.path, song._id, true);
             }
         })
     }

@@ -43,9 +43,11 @@ export class App extends React.Component {
     render() {
         const {songs, artists} = this.state
         return (
-            <div>
-                <TopNav songs={songs} artists={artists} songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath}}></TopNav>
-            </div>
+            <TopNav 
+                songs={songs} 
+                artists={artists}
+                songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath}}
+            />
         );
     }
 }

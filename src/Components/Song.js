@@ -24,12 +24,12 @@ export class Song extends React.Component{
         const {songFn} = this.props;
         songFn.setSongPath(path, index, true)
     }
-    changeFavorites = (evt, id, fav) => {
+    changeFavorites = (evt, id) => {
         const {isFav} = this.state;
         evt.stopPropagation();
         fetch(`${process.env.REACT_APP_API}/songs/favorite/update/${id}`, {
             method: "PUT",
-            body: JSON.stringify({favorite: !fav}),
+            body: JSON.stringify({favorite: !isFav}),
             headers:{
                 "Content-Type": "application/json"
             }
@@ -59,7 +59,7 @@ export class Song extends React.Component{
                                     songFn.getSongPath().index === index ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
                                     : ""
                                 }
-                                <IconButton onClick={(evt) => this.changeFavorites(evt, a._id, a.favorite)}>
+                                <IconButton onClick={(evt) => this.changeFavorites(evt, a._id)}>
                                     {
                                         (isFav ) ? <Favorite /> : <FavoriteBorder />
                                     }

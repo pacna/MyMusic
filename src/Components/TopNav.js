@@ -6,34 +6,17 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    Drawer,
     IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Grid,
-    withStyles
+    Grid
 } from '@material-ui/core';
 
 // @material-ui icons
-import { Menu, LibraryMusic, FavoriteBorder, Search } from '@material-ui/icons';
+import { Menu, Search } from '@material-ui/icons';
 
 // components
-import { SearchDialog } from './SearchDialog'
-import { FavoritesDialog } from './FavoritesDialog';
-import { TabsNav } from './TabsNav'
-
-const styles = {
-    list: {
-      width: 240,
-    },
-    header: {
-        backgroundColor: '#DBD7D6'
-    },
-    color:{
-        red: '#FF2C5C'
-    }
-};
+import { SearchDialog } from './SearchDialog';
+import { TabsNav } from './TabsNav';
+import { Sidebar } from './Sidebar';
 
 export class TopNav extends React.Component{
     constructor(){
@@ -77,12 +60,11 @@ export class TopNav extends React.Component{
     render(){
         const {toggle, searchOpen, favOpen} = this.state
         const { songs, artists, songFn } = this.props;
-        const classes = withStyles(styles);
         return(
             <div>
                 <AppBar position="static">
                     <Toolbar style={{paddingLeft: "0px"}}>
-                        <Grid container spacing={24} alignItems="center">
+                        <Grid container spacing={6} alignItems="center">
                             <Grid item xs={1} >
                                 <IconButton onClick={this.toggleDrawer} style={{color: "white"}}>
                                     <Menu />
@@ -105,59 +87,14 @@ export class TopNav extends React.Component{
                 {
                     searchOpen && <SearchDialog songFn={songFn} open={searchOpen} closeSearchDialog={this.closeSearchDialog} songs={songs}/>
                 }
-                <Drawer open={toggle} onClose={this.closeDrawer}>
-                    <div className={classes.list}>
-                        <List>
-                            <ListItem className={classes.header}>
-                                <ListItemText primary={
-                                    <Typography style={
-                                        {color: styles.color.red, 
-                                        fontSize: "15px", 
-                                        fontWeight: "bold"}
-                                    }>
-                                        General
-                                    </Typography> 
-                                }/>
-                            </ListItem>
-                            <ListItem button onClick={this.closeDrawer}>
-                                <LibraryMusic />
-                                <ListItemText primary={
-                                    <Typography style={
-                                        {color: "black", 
-                                        fontSize: "15px"}
-                                    }>
-                                        Music Library
-                                    </Typography> 
-                                }/>
-                            </ListItem>
-                            <ListItem className={classes.header}>
-                                <ListItemText primary={
-                                    <Typography style={
-                                        {color: styles.color.red, 
-                                        fontSize: "15px", 
-                                        fontWeight: "bold"}
-                                    }>
-                                        My List
-                                    </Typography> 
-                                }/>
-                            </ListItem>
-                            <ListItem button onClick={this.openFavDialog}>
-                                <FavoriteBorder />
-                                <ListItemText primary={
-                                    <Typography style={
-                                        {color: "black", 
-                                        fontSize: "15px"}
-                                    }>
-                                        Favorites
-                                    </Typography> 
-                                }/>
-                            </ListItem>
-                        </List>
-                        {
-                            favOpen && <FavoritesDialog songFn={songFn} open={favOpen} closeFavDialog={this.closeFavDialog} songs={songs}/>
-                        }
-                    </div>
-                </Drawer>
+                <Sidebar
+                    toggle={toggle}
+                    closeDrawer={this.closeDrawer}
+                    closeFavDialog={this.closeFavDialog}
+                    openFavDialog={this.openFavDialog}
+                    favOpen={favOpen}
+                    songFn={songFn}
+                />
             </div>
         )
     }

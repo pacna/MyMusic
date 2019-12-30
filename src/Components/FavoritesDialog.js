@@ -1,16 +1,21 @@
+// react
 import React from 'react'
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+
+// @material-ui
+import {
+    Dialog, 
+    DialogActions, 
+    DialogContent, 
+    DialogTitle, 
+    Button, 
+    List,
+    ListItem,
+    ListItemText,
+    Divider
+} from '@material-ui/core';
 
 
-class FavoritesDialog extends React.Component{
+export class FavoritesDialog extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -79,4 +84,3 @@ class FavoritesDialog extends React.Component{
         )
     }
 }
-export default FavoritesDialog

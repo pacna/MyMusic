@@ -1,13 +1,13 @@
+// react
 import React from 'react'
-import Typography from '@material-ui/core/Typography';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Favorite from '@material-ui/icons/Favorite';
-import IconButton from '@material-ui/core/IconButton';
 
-class Song extends React.Component{
+// @material-ui
+import { Typography, ListItem, ListItemText, Divider, IconButton } from '@material-ui/core';
+
+// @material-ui icons
+import { FavoriteBorder, Favorite } from '@material-ui/icons';
+
+export class Song extends React.Component{
     constructor(){
         super()
         this.state ={
@@ -74,4 +74,3 @@ class Song extends React.Component{
         )
     }
 }
-export default Song

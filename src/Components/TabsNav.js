@@ -1,11 +1,15 @@
+// react
 import React from 'react';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
-import Songs from './Songs'
+
+// @material-ui
+import { Tabs, Tab, AppBar, Fab } from '@material-ui/core';
+
+// @material-ui icons
+import { Shuffle } from '@material-ui/icons';
+
+// components
+import { Songs } from './Songs'
 import { Artists } from './Artists';
-import Fab from '@material-ui/core/Fab';
-import ShuffleIcon from '@material-ui/icons/Shuffle';
 import { ReactAudioPlayer } from './AudioPlayer';
 
 const TABS = {
@@ -13,7 +17,7 @@ const TABS = {
     ARTISTS: 1
 }
 
-class TabsNav extends React.Component{
+export class TabsNav extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -47,7 +51,7 @@ class TabsNav extends React.Component{
                 {currentTab === ARTISTS && <Artists artists={artists} songFn={songFn}/>}
                 <div>                    
                     <Fab onClick={() => this.playRandomSong(songs)} color="secondary" style={{position:"fixed", right: "1.5vw", bottom: "8vw"}}>
-                        <ShuffleIcon />
+                        <Shuffle />
                     </Fab>
                 </div>
                 <div>
@@ -57,4 +61,3 @@ class TabsNav extends React.Component{
         )
     }
 }
-export default TabsNav

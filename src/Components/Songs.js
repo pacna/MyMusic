@@ -1,8 +1,13 @@
+// react
 import React from 'react';
-import List from '@material-ui/core/List';
-import Song from './Song'
 
-class Songs extends React.Component{
+// @material-ui
+import { List } from '@material-ui/core';
+
+// components
+import { Song } from './Song'
+
+export class Songs extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -29,4 +34,3 @@ class Songs extends React.Component{
         )
     }
 }
-export default Songs

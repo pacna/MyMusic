@@ -41,7 +41,7 @@ export class Artists extends React.Component {
         const { open, currentIndex, showSongs, currentAlbumIndex} = this.state
         const {artists} = this.props
         return(
-            <div>
+            <div style={{marginBottom: '12vh'}}>
                 <List>
                     {
                         artists && artists.map((a, index) =>{

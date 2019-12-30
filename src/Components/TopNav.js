@@ -1,21 +1,27 @@
+// react
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import LibraryMusic from '@material-ui/icons/LibraryMusic';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Search from '@material-ui/icons/Search';
-import SearchDialog from './SearchDialog'
-import FavoritesDialog from './FavoritesDialog';
-import TabsNav from './TabsNav'
+
+// @material-ui
+import { 
+    AppBar,
+    Toolbar,
+    Typography,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    Grid,
+    withStyles
+} from '@material-ui/core';
+
+// @material-ui icons
+import { Menu, LibraryMusic, FavoriteBorder, Search } from '@material-ui/icons';
+
+// components
+import { SearchDialog } from './SearchDialog'
+import { FavoritesDialog } from './FavoritesDialog';
+import { TabsNav } from './TabsNav'
 
 const styles = {
     list: {
@@ -27,8 +33,9 @@ const styles = {
     color:{
         red: '#FF2C5C'
     }
-  };
-class TopNav extends React.Component{
+};
+
+export class TopNav extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -69,7 +76,8 @@ class TopNav extends React.Component{
     }
     render(){
         const {toggle, searchOpen, favOpen} = this.state
-        const { classes, songs, artists, songFn } = this.props;
+        const { songs, artists, songFn } = this.props;
+        const classes = withStyles(styles);
         return(
             <div>
                 <AppBar position="static">
@@ -77,7 +85,7 @@ class TopNav extends React.Component{
                         <Grid container spacing={24} alignItems="center">
                             <Grid item xs={1} >
                                 <IconButton onClick={this.toggleDrawer} style={{color: "white"}}>
-                                    <MenuIcon />
+                                    <Menu />
                                 </IconButton>
                             </Grid>
                             <Grid item xs={4}>
@@ -154,4 +162,3 @@ class TopNav extends React.Component{
         )
     }
 }
-export default withStyles(styles)(TopNav);

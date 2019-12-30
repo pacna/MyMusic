@@ -1,5 +1,9 @@
+// react
 import React from 'react';
-import TopNav from './Components/TopNav'
+
+// components
+import { TopNav } from './Components/TopNav'
+
 export class App extends React.Component {
     constructor(){
         super()

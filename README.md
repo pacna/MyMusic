@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-* [API Music](https://github.com/pacna/api.music)
+* [Api Music](https://github.com/pacna/Api.Music)
 
 ## Environment variable
 

@@ -13,12 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search'
 
 // self props/states
-import { TopNavProps, TopNavStates } from '../interfaces/TopNav.interface';
+import { TopNavProps, TopNavStates } from '../interfaces';
 
 // components
-// import { SearchDialog } from './SearchDialog';
-// import { TabsNav } from './TabsNav';
-// import { Sidebar } from './Sidebar';
+import { SearchDialog } from './SearchDialog';
+import { TabsNav } from './TabsNav';
+import { Sidebar } from './Sidebar';
 
 export class TopNav extends Component<TopNavProps, TopNavStates>{
     constructor(props: TopNavProps){
@@ -93,7 +93,7 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
                         </Grid>
                     </Toolbar>
                 </AppBar>
-                {/* <TabsNav songs={songs} artists={artists} songFn={songFn}/>
+                <TabsNav songs={songs} artists={artists} songFn={songFn}/>
                 {
                     searchOpen && <SearchDialog songFn={songFn} open={searchOpen} closeSearchDialog={this.closeSearchDialog} songs={songs}/>
                 }
@@ -104,7 +104,7 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
                     openFavDialog={this.openFavDialog}
                     favOpen={favOpen}
                     songFn={songFn}
-                /> */}
+                />
             </div>
         )
     }

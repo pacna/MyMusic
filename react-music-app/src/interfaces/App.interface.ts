@@ -18,6 +18,7 @@ export interface Song {
     length: string;
     path: string;
     favorite: boolean;
+    _id: string;
 }
 
 export interface Artist {

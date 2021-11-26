@@ -1,6 +1,13 @@
+// react
 import { Component } from 'react';
+
+// styles
 import './App.css';
+
+// components
 import { TopNav } from './components/TopNav';
+
+// interfaces
 import { AppProps, AppStates, SongData } from './interfaces';
 
 export class App extends Component<AppProps, AppStates> {

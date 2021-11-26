@@ -1,16 +1,16 @@
 // react
 import { Component, SyntheticEvent } from 'react';
 
-// @material-ui
+// @mui
 import { Tabs, Tab, AppBar, Fab } from '@mui/material';
 
-// @material-ui icons
+// @mui
 import { Shuffle } from '@mui/icons-material';
 
 // components
 import { Songs } from './Songs'
 import { Artists } from './Artists';
-// import { ReactAudioPlayer } from './AudioPlayer';
+import { ReactAudioPlayer } from './AudioPlayer';
 import { TabsNavProps, TabsNavStates } from '../interfaces/TabsNav.interface';
 import { SongResponse } from '../interfaces';
 
@@ -72,13 +72,13 @@ export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
                         <Shuffle />
                     </Fab>
                 </div>
-                {/* <div>
+                <div>
                     <ReactAudioPlayer 
                         src={songFn.getSongPath().path}
                         showSoundWave={this.showSoundWave}
                         hideSoundWave={this.hideSoundWave}
                     />
-                </div> */}
+                </div>
             </div>
         )
     }

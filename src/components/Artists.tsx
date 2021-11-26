@@ -1,7 +1,4 @@
-// react
-import React from 'react';
-
-// @material-ui
+// @mui
 import { 
     ListItemText, 
     List, 
@@ -13,7 +10,7 @@ import {
     Accordion
 } from '@mui/material';
 
-// @material-ui icons
+// @mui icons
 import { ExpandMore } from '@mui/icons-material';
 import { ArtistsProps } from '../interfaces/Artists.interface';
 import { Album, ArtistResponse, SongResponse } from '../interfaces/App.interface';

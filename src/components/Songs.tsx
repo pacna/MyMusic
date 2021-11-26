@@ -1,7 +1,7 @@
 // react
 import { Component } from 'react';
 
-// @material-ui
+// @mui
 import { List } from '@mui/material';
 
 // components

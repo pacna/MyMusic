@@ -1,7 +1,7 @@
 // react
 import { Component } from 'react'
 
-// @material-ui
+// @mui
 import {
     Dialog, 
     DialogActions, 
@@ -28,13 +28,7 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
 
     componentDidMount(): void {
         const { open } = this.props
-        fetch(`${process.env.REACT_APP_API}/songs/favorites`)
-            .then(response => response.json())
-            .catch(error => console.error('ERROR', error))
-            .then(json => this.setState({
-                open: open,
-                favorites: json
-            }))
+        this.fetchFavorites(open);
     }
 
     handleClose = (): void => {
@@ -53,6 +47,16 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
                 songFn.setSongPath(song.path, song._id, true);
             }
         })
+    }
+
+    private fetchFavorites(open: boolean): void {
+        fetch(`${process.env.REACT_APP_API}/songs/favorites`)
+            .then(response => response.json())
+            .catch(error => console.error('ERROR', error))
+            .then(json => this.setState({
+                open: open,
+                favorites: json
+            }))
     }
 
     render(): JSX.Element {

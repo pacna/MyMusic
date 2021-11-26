@@ -1,14 +1,14 @@
 // react
 import {Component } from 'react';
 
-// @material-ui
+// @mui
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-// @material-ui icons
+// @mui icons
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search'
 
@@ -75,17 +75,17 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
                 <AppBar position="static">
                     <Toolbar style={{paddingLeft: "0px"}}>
                         <Grid container spacing={6} alignItems="center">
-                            <Grid item xs={1} >
+                            <Grid item xs={2} >
                                 <IconButton onClick={this.toggleDrawer} style={{color: "white"}}>
                                     <MenuIcon />
                                 </IconButton>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={6}>
                                 <Typography variant="h6" style={{color: "white"}}>
                                     Music Library
                                 </Typography>
                             </Grid>
-                            <Grid item xs={7}>
+                            <Grid item xs={4}>
                                 <IconButton onClick={this.openSearchDialog} style={{color: "white", float: "right"}}>
                                     <SearchIcon />
                                 </IconButton>                               

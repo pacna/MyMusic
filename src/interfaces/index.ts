@@ -1,5 +1,6 @@
 export * from './App.interface'
 export * from './Artists.interface'
+export * from './AudioPlayer.interface'
 export * from './FavoritesDialog.interface'
 export * from './SearchDialog.interface'
 export * from './Sidebar.interface'

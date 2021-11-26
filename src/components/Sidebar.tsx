@@ -1,4 +1,4 @@
-// @material-ui
+// @mui
 import {
     Typography,
     Drawer,
@@ -9,7 +9,7 @@ import {
     Box
 } from '@mui/material';
 
-// @material-ui icons
+// @mui icons
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
 import { makeStyles } from '@mui/styles';

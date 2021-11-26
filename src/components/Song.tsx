@@ -1,10 +1,10 @@
 // react
 import { Component, MouseEvent } from 'react'
 
-// @material-ui
+// @mui
 import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/material';
 
-// @material-ui icons
+// @mui icons
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import { SongProps, SongStates } from '../interfaces/Song.interface';
 

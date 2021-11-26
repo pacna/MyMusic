@@ -1,7 +1,7 @@
 // react
 import { ChangeEvent, Component } from 'react';
 
-// @material-ui
+// @mui
 import { 
     Dialog, 
     DialogActions, 

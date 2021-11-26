@@ -1,30 +1,34 @@
 // react
-import React from 'react'
+import { Component, MouseEvent } from 'react'
 
 // @material-ui
-import { Typography, ListItem, ListItemText, Divider, IconButton } from '@material-ui/core';
+import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/material';
 
 // @material-ui icons
-import { FavoriteBorder, Favorite } from '@material-ui/icons';
+import { FavoriteBorder, Favorite } from '@mui/icons-material';
+import { SongProps, SongStates } from '../interfaces/Song.interface';
 
-export class Song extends React.Component{
-    constructor(){
-        super()
+export class Song extends Component<SongProps, SongStates>{
+    constructor(props: SongProps){
+        super(props)
         this.state ={
             isFav: false
         }
     }
-    componentDidMount(){
+
+    componentDidMount(): void {
         const {song} = this.props
         this.setState({
             isFav: song.favorite
         })
     }
-    playMusic = (path, id) => {
+
+    playMusic = (path: string, id: string): void => {
         const {songFn} = this.props;
         songFn.setSongPath(path, id, true)
     }
-    changeFavorites = (evt, id) => {
+
+    changeFavorites = (evt: MouseEvent, id: string): void  => {
         const {isFav} = this.state;
         evt.stopPropagation();
         fetch(`${process.env.REACT_APP_API}/songs/favorite/update/${id}`, {
@@ -34,7 +38,7 @@ export class Song extends React.Component{
                 "Content-Type": "application/json"
             }
         })
-        .then(response => response.json())
+        .then((response: Response) => response.json())
         .then(() => 
             this.setState({
                 isFav: !isFav
@@ -44,7 +48,8 @@ export class Song extends React.Component{
         
         
     }
-    render(){
+
+    render(): JSX.Element {
         const { song, id, soundWave, songFn } = this.props
         const {isFav} = this.state
         return(

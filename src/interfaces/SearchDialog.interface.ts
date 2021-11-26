@@ -1,11 +1,11 @@
-import { Song } from "./App.interface";
+import { SongResponse } from "./App.interface";
 import { SongFn } from "./TopNav.interface";
 
 export interface SearchDialogProps {
     songFn: SongFn;
     open: boolean;
     closeSearchDialog: () => void;
-    songs: Array<Song>
+    songs: Array<SongResponse>
 }
 
 export interface SearchDialogStates {

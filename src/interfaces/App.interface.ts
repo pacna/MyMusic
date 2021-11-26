@@ -1,8 +1,8 @@
 export interface AppProps {}
 
 export interface AppStates {
-    artists: Array<Artist>;
-    songs: Array<Song>;
+    artists: Array<ArtistResponse>;
+    songs: Array<SongResponse>;
     songData: SongData
 }
 
@@ -12,7 +12,7 @@ export interface SongData {
     visible: boolean;
 }
 
-export interface Song {
+export interface SongResponse {
     title: string;
     artist: string;
     length: string;
@@ -21,12 +21,12 @@ export interface Song {
     _id: string;
 }
 
-export interface Artist {
+export interface ArtistResponse {
     artist: string;
     albums: Array<Album>
 }
 
 export interface Album {
-    name: string;
-    songs: Array<Song>
+    title: string;
+    songs: Array<SongResponse>
 }

@@ -1,5 +1,5 @@
-import { Artist, SongData } from '.';
-import { Song } from './App.interface';
+import { ArtistResponse, SongData } from '.';
+import { SongResponse } from './App.interface';
 
 export interface TopNavStates {
     toggle: boolean;
@@ -8,8 +8,8 @@ export interface TopNavStates {
 }
 
 export interface TopNavProps {
-    songs: Song[]
-    artists: Artist[]
+    songs: SongResponse[]
+    artists: ArtistResponse[]
     songFn: SongFn
 }
 

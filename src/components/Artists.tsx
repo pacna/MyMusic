@@ -8,17 +8,19 @@ import {
     ListItem,
     Typography, 
     Divider, 
-    ExpansionPanel, 
-    ExpansionPanelSummary,
-    ExpansionPanelDetails
-} from '@material-ui/core';
+    AccordionSummary, 
+    AccordionDetails,
+    Accordion
+} from '@mui/material';
 
 // @material-ui icons
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMore } from '@mui/icons-material';
+import { ArtistsProps } from '../interfaces/Artists.interface';
+import { Album, ArtistResponse, SongResponse } from '../interfaces/App.interface';
 
-export const Artists = props => {
+export const Artists = (props: ArtistsProps) => {
     
-    const playMusic = path => {
+    const playMusic = (path: string): void => {
         const {songFn} = props;
         songFn.setSongPath(path, "", true)
     }
@@ -28,10 +30,10 @@ export const Artists = props => {
     return(
         <div style={{marginBottom: '12vh'}}>
             {
-                artists && artists.map((artist, index) => {
+                artists && artists.map((artist: ArtistResponse, index: number) => {
                     return(
-                        <ExpansionPanel key={index}>
-                            <ExpansionPanelSummary
+                        <Accordion key={index}>
+                            <AccordionSummary
                                 expandIcon={<ExpandMore />}>
                                     <Typography>
                                         {artist.artist ? artist.artist + " " : "Unknown artist "}
@@ -39,20 +41,20 @@ export const Artists = props => {
                                             artist.albums.length > 1 ? `${artist.albums.length} albums` : "1 album"
                                         }
                                     </Typography>
-                            </ExpansionPanelSummary>
+                            </AccordionSummary>
                             {
-                                artist.albums.map((album, index) => {
+                                artist.albums.map((album: Album, index: number) => {
                                     return(
-                                        <ExpansionPanel key={index}>
-                                            <ExpansionPanelSummary
+                                        <Accordion key={index}>
+                                            <AccordionSummary
                                                 expandIcon={<ExpandMore />}>
                                                     <Typography>
                                                         {album.title ? album.title : "Unknown album"}
                                                     </Typography>
-                                            </ExpansionPanelSummary>
-                                            <ExpansionPanelDetails>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
                                                 {
-                                                    album.songs.map((song, index) => {
+                                                    album.songs.map((song: SongResponse, index: number) => {
                                                         return(
                                                             <List style={{width: "100%"}} key={index}>
                                                                 <ListItem 
@@ -70,12 +72,12 @@ export const Artists = props => {
                                                         )
                                                     })
                                                 }
-                                            </ExpansionPanelDetails>
-                                        </ExpansionPanel>
+                                            </AccordionDetails>
+                                        </Accordion>
                                     )
                                 })
                             }
-                        </ExpansionPanel>
+                        </Accordion>
                     )
                 })
             }

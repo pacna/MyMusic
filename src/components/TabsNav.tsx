@@ -1,64 +1,66 @@
 // react
-import React from 'react';
+import { Component, SyntheticEvent } from 'react';
 
 // @material-ui
-import { Tabs, Tab, AppBar, Fab } from '@material-ui/core';
+import { Tabs, Tab, AppBar, Fab } from '@mui/material';
 
 // @material-ui icons
-import { Shuffle } from '@material-ui/icons';
+import { Shuffle } from '@mui/icons-material';
 
 // components
 import { Songs } from './Songs'
 import { Artists } from './Artists';
-import { ReactAudioPlayer } from './AudioPlayer';
+// import { ReactAudioPlayer } from './AudioPlayer';
+import { TabsNavProps, TabsNavStates } from '../interfaces/TabsNav.interface';
+import { SongResponse } from '../interfaces';
 
-const TABS = {
-    SONGS: 0,
-    ARTISTS: 1
+enum TABS {
+    SONGS = 0,
+    ARTISTS = 1
 }
 
-export class TabsNav extends React.Component{
-    constructor(){
-        super()
+export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
+    constructor(props: TabsNavProps){
+        super(props)
         this.state = {
-            currentTab: 0,
+            currentTab: TABS.SONGS,
             soundWave: false
         }
     }
 
-    changeTab = (evt, newValue) => {
+    changeTab = (evt: SyntheticEvent<Element, Event>, newValue: number): void => {
         this.setState({
             currentTab: newValue
         })
     }
 
-    playRandomSong = songs => {
+    playRandomSong = (songs: Array<SongResponse>): void => {
         const {songFn} = this.props;
         let random = Math.floor(Math.random() * songs.length)
         songFn.setSongPath(songs[random].path, songs[random]._id, true);
     }
 
-    showSoundWave = () => {
+    showSoundWave = (): void => {
         this.setState({
             soundWave: true
         })
     }
 
-    hideSoundWave = () => {
+    hideSoundWave = (): void => {
         this.setState({
             soundWave: false
         })
     }
 
 
-    render(){        
+    render(): JSX.Element {        
         const { currentTab, soundWave } = this.state
         const { SONGS, ARTISTS} = TABS;
         const {songs, artists, songFn} = this.props
         return(
             <div>
                 <AppBar position="static">
-                    <Tabs value={currentTab} onChange={this.changeTab} variant="fullWidth">
+                    <Tabs value={currentTab} onChange={this.changeTab} textColor="inherit" variant="fullWidth" indicatorColor="secondary">
                         <Tab label="Songs" />
                         <Tab label="Artists" />
                     </Tabs>
@@ -70,13 +72,13 @@ export class TabsNav extends React.Component{
                         <Shuffle />
                     </Fab>
                 </div>
-                <div>
+                {/* <div>
                     <ReactAudioPlayer 
                         src={songFn.getSongPath().path}
                         showSoundWave={this.showSoundWave}
                         hideSoundWave={this.hideSoundWave}
                     />
-                </div>
+                </div> */}
             </div>
         )
     }

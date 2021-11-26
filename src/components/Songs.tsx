@@ -1,29 +1,31 @@
 // react
-import React from 'react';
+import { Component } from 'react';
 
 // @material-ui
-import { List } from '@material-ui/core';
+import { List } from '@mui/material';
 
 // components
-import { Song } from './Song'
+import { SongsProps, SongsStates } from '../interfaces/Songs.interface';
+import { SongResponse } from '../interfaces';
+import { Song } from './Song';
 
-export class Songs extends React.Component{
-    constructor(){
-        super()
+export class Songs extends Component<SongsProps, SongsStates>{
+    constructor(props: SongsProps){
+        super(props)
         this.state = {
             musicPath: "",
             visible: false,
             showGif: "",
         }
     }
-    render(){
+    render(): JSX.Element {
         const {showGif} = this.state
         const {songs, songFn, soundWave} = this.props;
         return(
             <div style={{marginBottom: '12vh'}}>
                 <List>
                     {
-                        songs && songs.map(song => {
+                        songs && songs.map((song: SongResponse) => {
                             return(
                                 <Song 
                                     songFn={songFn} 

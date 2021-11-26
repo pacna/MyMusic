@@ -1,5 +1,5 @@
 // react
-import { cloneElement, Component } from 'react'
+import { Component } from 'react'
 
 // @material-ui
 import {
@@ -14,7 +14,7 @@ import {
     Divider
 } from '@mui/material';
 import { Favorite, FavoritesDialogProps, FavoritesDialogStates } from '../interfaces/FavoritesDialog.interface';
-import { Song } from '../interfaces';
+import { SongResponse } from '../interfaces';
 
 
 export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDialogStates>{
@@ -46,7 +46,7 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
 
     }
 
-    playMusic = (title: string, songs: Array<Song>): void => {
+    playMusic = (title: string, songs: Array<SongResponse>): void => {
         const {songFn} = this.props;
         songs.forEach(song => {
             if(song.title === title){

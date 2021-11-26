@@ -6,43 +6,45 @@ import {
     ListItem,
     ListItemText,
     ListItemIcon,
-    Box
+    Box,
+    Theme,
+    ClassNameMap
 } from '@mui/material';
 
 // @mui icons
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
-import { makeStyles } from '@mui/styles';
+// @mui styles
+import { createStyles, makeStyles } from '@mui/styles';
+
+// interfaces
 import { SidebarProps } from '../interfaces/Sidebar.interface';
 
 // components
 import { FavoritesDialog } from './FavoritesDialog';
 
-const styles = {
+const useStyles: (props?: any) => ClassNameMap<"list" | "header"> = makeStyles((theme: Theme) => createStyles({
     list: {
-      width: 240,
+        width: 240,
     },
     header: {
         backgroundColor: '#DBD7D6'
-    },
-    color: '#FF2C5C'
-};
-
-const useStyles: any = makeStyles({styles});
+    }
+}));
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
 
     const { toggle, closeDrawer, closeFavDialog, openFavDialog, favOpen, songFn} = props;
-    const classes = useStyles();
+    const classes: ClassNameMap<"list" | "header"> = useStyles();
 
     return(
         <Drawer open={toggle} onClose={closeDrawer}>
-            <Box sx={styles.list}>
+            <Box className={classes.list}>
                 <List>
                     <ListItem className={classes.header}>
                         <ListItemText primary={
                             <Typography style={
-                                {color: styles.color, 
+                                {color: '#FF2C5C', 
                                 fontSize: "15px", 
                                 fontWeight: "bold"}
                             }>
@@ -66,7 +68,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                     <ListItem className={classes.header}>
                         <ListItemText primary={
                             <Typography style={
-                                {color: styles.color, 
+                                {color: '#FF2C5C', 
                                 fontSize: "15px", 
                                 fontWeight: "bold"}
                             }>

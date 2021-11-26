@@ -14,7 +14,10 @@ import {
     ListItem,
     Divider
 } from '@mui/material';
+
+// interfaces
 import { SearchDialogProps, SearchDialogStates } from '../interfaces/SearchDialog.interface';
+import { SongResponse } from '../interfaces/responses/SongResponse.interface';
 
 export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDialogStates>>{
     constructor(props:SearchDialogProps) {
@@ -33,7 +36,7 @@ export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDia
         })
     }
 
-    handleClose = (): void =>{
+    handleClose = (): void => {
         const { open, closeSearchDialog } = this.props;
         closeSearchDialog()
 
@@ -42,6 +45,7 @@ export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDia
         })
 
     }
+
     handleInput = (params: string) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         this.setState({
             [params]: (event.target).value
@@ -71,7 +75,7 @@ export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDia
                             songs && (
                                 <List>
                                     {
-                                        songs.filter(song => song.title.toLowerCase().indexOf(input.toLowerCase()) !== -1).map((song, index) => {
+                                        songs.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input.toLowerCase()) !== -1).map((song, index) => {
                                             return(
                                                 <div key={index}>
                                                     <ListItem button  style={{paddingLeft: "0px"}} onClick={() => this.playMusic(song.path, song._id)}>

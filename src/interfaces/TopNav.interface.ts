@@ -1,5 +1,6 @@
-import { ArtistResponse, SongData } from '.';
-import { SongResponse } from './App.interface';
+import { SongData } from "./App.interface";
+import { SongResponse, ArtistResponse } from "./responses";
+
 
 export interface TopNavStates {
     toggle: boolean;

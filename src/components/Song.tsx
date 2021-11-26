@@ -6,6 +6,8 @@ import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/ma
 
 // @mui icons
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
+
+// interfaces
 import { SongProps, SongStates } from '../interfaces/Song.interface';
 
 export class Song extends Component<SongProps, SongStates>{
@@ -64,7 +66,7 @@ export class Song extends Component<SongProps, SongStates>{
                                     songFn.getSongPath().id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
                                     : ""
                                 }
-                                <IconButton onClick={(evt) => this.changeFavorites(evt, song._id)}>
+                                <IconButton onClick={(evt: MouseEvent) => this.changeFavorites(evt, song._id)}>
                                     {
                                         (isFav ) ? <Favorite /> : <FavoriteBorder />
                                     }

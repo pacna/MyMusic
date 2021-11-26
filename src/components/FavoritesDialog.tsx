@@ -13,8 +13,10 @@ import {
     ListItemText,
     Divider
 } from '@mui/material';
-import { Favorite, FavoritesDialogProps, FavoritesDialogStates } from '../interfaces/FavoritesDialog.interface';
-import { SongResponse } from '../interfaces';
+
+// interfaces
+import { FavoritesDialogProps, FavoritesDialogStates } from '../interfaces/FavoritesDialog.interface';
+import { FavoriteResponse, SongResponse } from '../interfaces/responses';
 
 
 export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDialogStates>{
@@ -40,9 +42,9 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
 
     }
 
-    playMusic = (title: string, songs: Array<SongResponse>): void => {
+    playMusic = (title: string, songs: SongResponse[]): void => {
         const {songFn} = this.props;
-        songs.forEach(song => {
+        songs.forEach((song: SongResponse) => {
             if(song.title === title){
                 songFn.setSongPath(song.path, song._id, true);
             }
@@ -73,11 +75,11 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
                     <DialogContent>
                             <List>
                                 {
-                                    favorites && favorites.map((a: Favorite)=> {
+                                    favorites?.map((favorite: FavoriteResponse)=> {
                                         return(
-                                            <div key={a._id}>
-                                                <ListItem button onClick={()=> this.playMusic(a.title, favorites)}>
-                                                    <ListItemText primary={a.title}/>
+                                            <div key={favorite._id}>
+                                                <ListItem button onClick={()=> this.playMusic(favorite.title, favorites)}>
+                                                    <ListItemText primary={favorite.title}/>
                                                 </ListItem>
                                                 <Divider />
                                             </div>

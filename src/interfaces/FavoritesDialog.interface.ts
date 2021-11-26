@@ -1,3 +1,4 @@
+import { FavoriteResponse } from "./responses/FavoriteResponse.interface";
 import { SongFn } from "./TopNav.interface";
 
 export interface FavoritesDialogProps {
@@ -8,14 +9,5 @@ export interface FavoritesDialogProps {
 
 export interface FavoritesDialogStates {
     open: boolean;
-    favorites: Array<Favorite>
-}
-
-export interface Favorite {
-    title: string;
-    artist: string;
-    length: string;
-    path: string;
-    favorite: boolean;
-    _id: string;
+    favorites: Array<FavoriteResponse>
 }

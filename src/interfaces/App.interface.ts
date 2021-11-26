@@ -1,3 +1,6 @@
+import { ArtistResponse } from "./responses/ArtistResponse.interface";
+import { SongResponse } from "./responses/SongResponse.interface";
+
 export interface AppProps {}
 
 export interface AppStates {
@@ -10,23 +13,4 @@ export interface SongData {
     path: string;
     id: string;
     visible: boolean;
-}
-
-export interface SongResponse {
-    title: string;
-    artist: string;
-    length: string;
-    path: string;
-    favorite: boolean;
-    _id: string;
-}
-
-export interface ArtistResponse {
-    artist: string;
-    albums: Array<Album>
-}
-
-export interface Album {
-    title: string;
-    songs: Array<SongResponse>
 }

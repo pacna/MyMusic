@@ -12,8 +12,10 @@ import {
 
 // @mui icons
 import { ExpandMore } from '@mui/icons-material';
+
+// interfaces
 import { ArtistsProps } from '../interfaces/Artists.interface';
-import { Album, ArtistResponse, SongResponse } from '../interfaces/App.interface';
+import { Album, SongResponse, ArtistResponse } from '../interfaces/responses';
 
 export const Artists = (props: ArtistsProps) => {
     
@@ -22,12 +24,12 @@ export const Artists = (props: ArtistsProps) => {
         songFn.setSongPath(path, "", true)
     }
 
-    const {artists} = props
+    const { artists } = props
 
     return(
         <div style={{marginBottom: '12vh'}}>
             {
-                artists && artists.map((artist: ArtistResponse, index: number) => {
+                artists?.map((artist: ArtistResponse, index: number) => {
                     return(
                         <Accordion key={index}>
                             <AccordionSummary

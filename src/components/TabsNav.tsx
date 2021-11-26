@@ -11,8 +11,10 @@ import { Shuffle } from '@mui/icons-material';
 import { Songs } from './Songs'
 import { Artists } from './Artists';
 import { ReactAudioPlayer } from './AudioPlayer';
+
+// interfaces
 import { TabsNavProps, TabsNavStates } from '../interfaces/TabsNav.interface';
-import { SongResponse } from '../interfaces';
+import { SongResponse } from '../interfaces/responses/SongResponse.interface';
 
 enum TABS {
     SONGS = 0,

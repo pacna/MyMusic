@@ -1,5 +1,5 @@
 import { SongFn } from './TopNav.interface';
-import { SongResponse } from "./App.interface";
+import { SongResponse } from "./responses/SongResponse.interface";
 
 export interface SongsProps {
     songs: Array<SongResponse>

@@ -1,4 +1,4 @@
-import { SongResponse } from "./App.interface";
+import { SongResponse } from "./responses/SongResponse.interface";
 import { SongFn } from "./TopNav.interface";
 
 export interface SearchDialogProps {

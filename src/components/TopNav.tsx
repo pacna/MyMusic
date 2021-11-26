@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search'
 
-// self props/states
+// interfaces
 import { TopNavProps, TopNavStates } from '../interfaces';
 
 // components

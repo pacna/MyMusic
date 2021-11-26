@@ -4,9 +4,11 @@ import { Component } from 'react';
 // @mui
 import { List } from '@mui/material';
 
-// components
+// interfaces
 import { SongsProps, SongsStates } from '../interfaces/Songs.interface';
-import { SongResponse } from '../interfaces';
+import { SongResponse } from '../interfaces/responses/SongResponse.interface';
+
+// components
 import { Song } from './Song';
 
 export class Songs extends Component<SongsProps, SongsStates>{
@@ -25,7 +27,7 @@ export class Songs extends Component<SongsProps, SongsStates>{
             <div style={{marginBottom: '12vh'}}>
                 <List>
                     {
-                        songs && songs.map((song: SongResponse) => {
+                        songs?.map((song: SongResponse) => {
                             return(
                                 <Song 
                                     songFn={songFn} 

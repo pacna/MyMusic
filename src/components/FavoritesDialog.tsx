@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 
 // interfaces
-import { FavoritesDialogProps, FavoritesDialogStates } from '../interfaces/FavoritesDialog.interface';
-import { FavoriteResponse, SongResponse } from '../interfaces/responses';
+import { FavoritesDialogProps, FavoritesDialogStates } from '../types/FavoritesDialog.interface';
+import { FavoriteResponse, SongResponse } from '../types/responses';
 
 
 export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDialogStates>{

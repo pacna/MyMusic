@@ -13,13 +13,9 @@ import { Artists } from './Artists';
 import { ReactAudioPlayer } from './AudioPlayer';
 
 // interfaces
-import { TabsNavProps, TabsNavStates } from '../interfaces/TabsNav.interface';
-import { SongResponse } from '../interfaces/responses/SongResponse.interface';
-
-enum TABS {
-    SONGS = 0,
-    ARTISTS = 1
-}
+import { TabsNavProps, TabsNavStates } from '../types/TabsNav.interface';
+import { SongResponse } from '../types/responses/SongResponse.interface';
+import { TABS } from '../types/tabs.enum';
 
 export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
     constructor(props: TabsNavProps){

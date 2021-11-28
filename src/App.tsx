@@ -8,7 +8,7 @@ import './App.css';
 import { TopNav } from './components/TopNav';
 
 // interfaces
-import { AppProps, AppStates, SongData } from './interfaces';
+import { AppProps, AppStates, SongData } from './types';
 
 export class App extends Component<AppProps, AppStates> {
   constructor(props: AppProps){

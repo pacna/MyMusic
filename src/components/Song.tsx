@@ -8,7 +8,7 @@ import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/ma
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
 // interfaces
-import { SongProps, SongStates } from '../interfaces/Song.interface';
+import { SongProps, SongStates } from '../types/Song.interface';
 
 export class Song extends Component<SongProps, SongStates>{
     constructor(props: SongProps){

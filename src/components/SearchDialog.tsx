@@ -16,8 +16,8 @@ import {
 } from '@mui/material';
 
 // interfaces
-import { SearchDialogProps, SearchDialogStates } from '../interfaces/SearchDialog.interface';
-import { SongResponse } from '../interfaces/responses/SongResponse.interface';
+import { SearchDialogProps, SearchDialogStates } from '../types/SearchDialog.interface';
+import { SongResponse } from '../types/responses/SongResponse.interface';
 
 export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDialogStates>>{
     constructor(props:SearchDialogProps) {

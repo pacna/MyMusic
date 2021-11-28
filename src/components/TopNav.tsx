@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search'
 
 // interfaces
-import { TopNavProps, TopNavStates } from '../interfaces';
+import { TopNavProps, TopNavStates } from '../types';
 
 // components
 import { SearchDialog } from './SearchDialog';

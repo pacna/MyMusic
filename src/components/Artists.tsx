@@ -14,8 +14,8 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 
 // interfaces
-import { ArtistsProps } from '../interfaces/Artists.interface';
-import { Album, SongResponse, ArtistResponse } from '../interfaces/responses';
+import { ArtistsProps } from '../types/Artists.interface';
+import { Album, SongResponse, ArtistResponse } from '../types/responses';
 
 export const Artists = (props: ArtistsProps) => {
     

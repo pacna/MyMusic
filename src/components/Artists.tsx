@@ -13,7 +13,7 @@ import {
 // @mui icons
 import { ExpandMore } from '@mui/icons-material';
 
-// interfaces
+// types
 import { ArtistsProps } from '../types/Artists.interface';
 import { Album, SongResponse, ArtistResponse } from '../types/responses';
 

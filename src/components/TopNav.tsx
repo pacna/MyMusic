@@ -12,12 +12,10 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search'
 
-// interfaces
+// types
 import { TopNavProps, TopNavStates } from '../types';
 
 // components
-import { SearchDialog } from './SearchDialog';
-import { TabsNav } from './TabsNav';
 import { Sidebar } from './Sidebar';
 
 export class TopNav extends Component<TopNavProps, TopNavStates>{
@@ -26,7 +24,6 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
 
         this.state = {
             toggle: false,
-            searchOpen: false,
             favOpen: false
         }
     }
@@ -55,21 +52,9 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
         })
     }
 
-    openSearchDialog = (): void => {
-        this.setState({
-            searchOpen: true
-        })
-    }
-
-    closeSearchDialog = (): void => {
-        this.setState({
-            searchOpen: false
-        })
-    }
-
     render(): JSX.Element {
-        const {toggle, searchOpen, favOpen} = this.state
-        const { songs, artists, songFn } = this.props;
+        const {toggle, favOpen} = this.state
+        const { songFn } = this.props;
         return(
             <div>
                 <AppBar position="static">
@@ -86,17 +71,13 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
                                 </Typography>
                             </Grid>
                             <Grid item xs={4}>
-                                <IconButton onClick={this.openSearchDialog} style={{color: "white", float: "right"}}>
+                                <IconButton onClick={songFn.openSearchDialog} style={{color: "white", float: "right"}}>
                                     <SearchIcon />
                                 </IconButton>                               
                             </Grid>
                         </Grid>
                     </Toolbar>
                 </AppBar>
-                <TabsNav songs={songs} artists={artists} songFn={songFn}/>
-                {
-                    searchOpen && <SearchDialog songFn={songFn} open={searchOpen} closeSearchDialog={this.closeSearchDialog} songs={songs}/>
-                }
                 <Sidebar
                     toggle={toggle}
                     closeDrawer={this.closeDrawer}

@@ -4,7 +4,7 @@ import { Component } from 'react';
 // @mui
 import { List } from '@mui/material';
 
-// interfaces
+// types
 import { SongsProps, SongsStates } from '../types/Songs.interface';
 import { SongResponse } from '../types/responses/SongResponse.interface';
 

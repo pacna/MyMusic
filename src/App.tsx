@@ -6,9 +6,14 @@ import './App.css';
 
 // components
 import { TopNav } from './components/TopNav';
+import { TabsNav } from './components/TabsNav';
+import { SearchDialog } from './components/SearchDialog';
 
-// interfaces
-import { AppProps, AppStates, SongData } from './types';
+// third party
+import axios, { AxiosResponse } from 'axios';
+
+// types
+import { AppProps, AppStates, ArtistResponse, SongData, SongResponse } from './types';
 
 export class App extends Component<AppProps, AppStates> {
   constructor(props: AppProps){
@@ -16,7 +21,8 @@ export class App extends Component<AppProps, AppStates> {
     this.state = {
         artists: [],
         songs:[],
-        songData: {} as SongData
+        songData: {} as SongData,
+        searchOpen: false
     }
   }
 
@@ -39,33 +45,55 @@ export class App extends Component<AppProps, AppStates> {
     return this.state.songData
   }
 
+  openSearchDialog = (): void => {
+    this.setState({
+        searchOpen: true
+    })
+  }
+
+  closeSearchDialog = (): void => {
+    this.setState({
+        searchOpen: false
+    })
+  }
+
   private fetchSongs(): void {
-    fetch(`${process.env.REACT_APP_API}/songs`)
-        .then((response: Response) => response.json())
-        .catch(error => console.error("ERROR ", error))
-        .then(json => this.setState({
+    axios.get(`${process.env.REACT_APP_API}/songs`)
+        .then(((response: AxiosResponse) => response.data))
+        .catch(error => console.error(error))
+        .then((json: Array<SongResponse>) => {
+          this.setState({
             songs: json
-        }))
+          })
+        })
   }
 
   private fetchArtists(): void {
-    fetch(`${process.env.REACT_APP_API}/artists`)
-        .then((response: Response) => response.json())
-        .catch(error => console.error("ERROR ", error))
-        .then(json => this.setState({
+    axios.get(`${process.env.REACT_APP_API}/artists`)
+        .then(((response: AxiosResponse) => response.data))
+        .catch(error => console.error(error))
+        .then((json: Array<ArtistResponse>) => {
+          this.setState({
             artists: json
-        }))
+          })
+        })
   }
 
   render(): JSX.Element {
-    const {songs, artists} = this.state
+    const {songs, artists, searchOpen} = this.state
 
     return (
+      <div>
         <TopNav 
             songs={songs} 
             artists={artists}
-            songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath}}
+            songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath, openSearchDialog: this.openSearchDialog}}
         />
+        <TabsNav songs={songs} artists={artists} songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath, openSearchDialog: this.openSearchDialog}}/>
+        {
+            searchOpen && <SearchDialog songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath, openSearchDialog: this.openSearchDialog}} open={searchOpen} closeSearchDialog={this.closeSearchDialog} songs={songs}/>
+        }
+      </div>
     );
   }
 }

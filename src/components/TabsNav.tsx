@@ -12,7 +12,7 @@ import { Songs } from './Songs'
 import { Artists } from './Artists';
 import { ReactAudioPlayer } from './AudioPlayer';
 
-// interfaces
+// types
 import { TabsNavProps, TabsNavStates } from '../types/TabsNav.interface';
 import { SongResponse } from '../types/responses/SongResponse.interface';
 import { TABS } from '../types/tabs.enum';

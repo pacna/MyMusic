@@ -15,7 +15,7 @@ import {
     Divider
 } from '@mui/material';
 
-// interfaces
+// types
 import { SearchDialogProps, SearchDialogStates } from '../types/SearchDialog.interface';
 import { SongResponse } from '../types/responses/SongResponse.interface';
 

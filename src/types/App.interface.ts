@@ -6,7 +6,8 @@ export interface AppProps {}
 export interface AppStates {
     artists: Array<ArtistResponse>;
     songs: Array<SongResponse>;
-    songData: SongData
+    songData: SongData;
+    searchOpen: boolean;
 }
 
 export interface SongData {

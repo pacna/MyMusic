@@ -14,7 +14,10 @@ import {
     Divider
 } from '@mui/material';
 
-// interfaces
+// third party
+import axios, { AxiosResponse } from 'axios';
+
+// types
 import { FavoritesDialogProps, FavoritesDialogStates } from '../types/FavoritesDialog.interface';
 import { FavoriteResponse, SongResponse } from '../types/responses';
 
@@ -47,18 +50,21 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
         songs.forEach((song: SongResponse) => {
             if(song.title === title){
                 songFn.setSongPath(song.path, song._id, true);
+                return;
             }
         })
     }
 
     private fetchFavorites(open: boolean): void {
-        fetch(`${process.env.REACT_APP_API}/songs/favorites`)
-            .then(response => response.json())
-            .catch(error => console.error('ERROR', error))
-            .then(json => this.setState({
-                open: open,
-                favorites: json
-            }))
+        axios.get(`${process.env.REACT_APP_API}/songs/favorites`)
+        .then(((response: AxiosResponse) => response.data))
+        .catch(error => console.error(error))
+        .then((json: Array<FavoriteResponse>) => {
+          this.setState({
+            open: open,
+            favorites: json
+          })
+        })
     }
 
     render(): JSX.Element {

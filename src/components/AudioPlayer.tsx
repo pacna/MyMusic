@@ -2,7 +2,7 @@
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-// interfaces
+// types
 import { AudioPlayerProps } from '../types';
  
 export const ReactAudioPlayer = (props: AudioPlayerProps) => {

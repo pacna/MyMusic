@@ -7,8 +7,11 @@ import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/ma
 // @mui icons
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
-// interfaces
+// types
 import { SongProps, SongStates } from '../types/Song.interface';
+
+// third party
+import axios, { AxiosResponse } from 'axios';
 
 export class Song extends Component<SongProps, SongStates>{
     constructor(props: SongProps){
@@ -31,24 +34,22 @@ export class Song extends Component<SongProps, SongStates>{
     }
 
     changeFavorites = (evt: MouseEvent, id: string): void  => {
-        const {isFav} = this.state;
         evt.stopPropagation();
-        fetch(`${process.env.REACT_APP_API}/songs/favorite/update/${id}`, {
-            method: "PUT",
-            body: JSON.stringify({favorite: !isFav}),
-            headers:{
-                "Content-Type": "application/json"
-            }
+        this.updateFavorite(id);
+    }
+
+    updateFavorite(id: string): void {
+        const { isFav } = this.state;
+        axios.put(`${process.env.REACT_APP_API}/songs/favorite/update/${id}`, {
+            favorite: !isFav
         })
-        .then((response: Response) => response.json())
-        .then(() => 
+        .then((response: AxiosResponse) => response.data)
+        .catch(error => console.error(error))
+        .then(() => {
             this.setState({
                 isFav: !isFav
             })
-        )
-        .catch(error => console.error("ERROR ", error))
-        
-        
+        })
     }
 
     render(): JSX.Element {

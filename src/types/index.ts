@@ -7,6 +7,7 @@ export * from './SearchDialog.interface';
 export * from './Sidebar.interface';
 export * from './Song.interface';
 export * from './Songs.interface';
-export * from './TabsNav.interface';
+export * from './MainContent.interface';
 export * from './TopNav.interface';
+export * from './MainContent.interface';
 export * from './tabs.enum'

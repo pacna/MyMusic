@@ -6,14 +6,14 @@ import './App.css';
 
 // components
 import { TopNav } from './components/TopNav';
-import { TabsNav } from './components/TabsNav';
+import { MainContent } from './components/MainContent';
 import { SearchDialog } from './components/SearchDialog';
 
 // third party
 import axios, { AxiosResponse } from 'axios';
 
 // types
-import { AppProps, AppStates, ArtistResponse, SongData, SongResponse } from './types';
+import { AppProps, AppStates, ArtistResponse, SongData, SongFn, SongResponse } from './types';
 
 export class App extends Component<AppProps, AppStates> {
   constructor(props: AppProps){
@@ -79,20 +79,38 @@ export class App extends Component<AppProps, AppStates> {
         })
   }
 
+  private createSongFnObj(): SongFn {
+    return {
+      getSongPath: this.getSongPath,
+      setSongPath: this.setSongPath,
+      openSearchDialog: this.openSearchDialog
+    }
+  }
+
   render(): JSX.Element {
-    const {songs, artists, searchOpen} = this.state
+    const { songs, artists, searchOpen } = this.state
 
     return (
       <div>
         <TopNav 
             songs={songs} 
             artists={artists}
-            songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath, openSearchDialog: this.openSearchDialog}}
+            songFn={this.createSongFnObj()}
         />
-        <TabsNav songs={songs} artists={artists} songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath, openSearchDialog: this.openSearchDialog}}/>
-        {
-            searchOpen && <SearchDialog songFn={{getSongPath: this.getSongPath, setSongPath: this.setSongPath, openSearchDialog: this.openSearchDialog}} open={searchOpen} closeSearchDialog={this.closeSearchDialog} songs={songs}/>
-        }
+        <MainContent 
+          songs={songs} 
+          artists={artists} 
+          songFn={this.createSongFnObj()}
+          />
+          {
+            searchOpen &&
+            <SearchDialog 
+              songFn={this.createSongFnObj()} 
+              open={searchOpen} 
+              closeSearchDialog={this.closeSearchDialog} 
+              songs={songs}
+              />
+          }
       </div>
     );
   }

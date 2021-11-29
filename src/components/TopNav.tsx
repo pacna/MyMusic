@@ -58,8 +58,8 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
         return(
             <div>
                 <AppBar position="static">
-                    <Toolbar style={{paddingLeft: "0px"}}>
-                        <Grid container spacing={6} alignItems="center">
+                    <Toolbar>
+                        <Grid container alignItems="center">
                             <Grid item xs={2} >
                                 <IconButton onClick={this.toggleDrawer} style={{color: "white"}}>
                                     <MenuIcon />

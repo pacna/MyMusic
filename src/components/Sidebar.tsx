@@ -7,15 +7,11 @@ import {
     ListItemText,
     ListItemIcon,
     Box,
-    Theme,
     ClassNameMap
 } from '@mui/material';
 
 // @mui icons
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
-
-// @mui styles
-import { createStyles, makeStyles } from '@mui/styles';
 
 // types
 import { SidebarProps } from '../types/Sidebar.interface';
@@ -23,19 +19,13 @@ import { SidebarProps } from '../types/Sidebar.interface';
 // components
 import { FavoritesDialog } from './FavoritesDialog';
 
-const useStyles: (props?: any) => ClassNameMap<"list" | "header"> = makeStyles((theme: Theme) => createStyles({
-    list: {
-        width: 240,
-    },
-    header: {
-        backgroundColor: '#DBD7D6'
-    }
-}));
+// styles
+import { sideBarUseStyles } from '../styles/Sidebar.style';
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
 
     const { toggle, closeDrawer, closeFavDialog, openFavDialog, favOpen, songFn} = props;
-    const classes: ClassNameMap<"list" | "header"> = useStyles();
+    const classes: ClassNameMap = sideBarUseStyles();
 
     return(
         <Drawer open={toggle} onClose={closeDrawer}>
@@ -43,11 +33,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                 <List>
                     <ListItem className={classes.header}>
                         <ListItemText primary={
-                            <Typography style={
-                                {color: '#FF2C5C', 
-                                fontSize: "15px", 
-                                fontWeight: "bold"}
-                            }>
+                            <Typography className={classes.headerText}>
                                 General
                             </Typography> 
                         }/>
@@ -57,21 +43,14 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                             <LibraryMusic />
                         </ListItemIcon>
                         <ListItemText primary={
-                            <Typography style={
-                                {color: "black", 
-                                fontSize: "15px"}
-                            }>
+                            <Typography className={classes.secondaryHeaderText}>
                                 Music Library
                             </Typography> 
                         }/>
                     </ListItem>
                     <ListItem className={classes.header}>
                         <ListItemText primary={
-                            <Typography style={
-                                {color: '#FF2C5C', 
-                                fontSize: "15px", 
-                                fontWeight: "bold"}
-                            }>
+                            <Typography className={classes.headerText}>
                                 My List
                             </Typography> 
                         }/>
@@ -81,17 +60,19 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                             <FavoriteBorder />
                         </ListItemIcon>
                         <ListItemText primary={
-                            <Typography style={
-                                {color: "black", 
-                                fontSize: "15px"}
-                            }>
+                            <Typography className={classes.secondaryHeaderText}>
                                 Favorites
                             </Typography> 
                         }/>
                     </ListItem>
                 </List>
                 {
-                    favOpen && <FavoritesDialog songFn={songFn} open={favOpen} closeFavDialog={closeFavDialog}/>
+                    favOpen && 
+                    <FavoritesDialog 
+                        songFn={songFn} 
+                        open={favOpen} 
+                        closeFavDialog={closeFavDialog}
+                    />
                 }
             </Box>
         </Drawer>

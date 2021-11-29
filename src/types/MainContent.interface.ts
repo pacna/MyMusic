@@ -1,8 +1,8 @@
 import { TopNavProps } from './TopNav.interface';
 
-export interface TabsNavProps extends TopNavProps {}
+export interface MainContentProps extends TopNavProps {}
 
-export interface TabsNavStates {
+export interface MainContentStates {
     currentTab: number;
     soundWave: boolean;
 }

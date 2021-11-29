@@ -10,5 +10,4 @@ export interface SongsProps {
 export interface SongsStates {
     musicPath: string;
     visible: boolean;
-    showGif: string;
 }

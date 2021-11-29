@@ -4,21 +4,22 @@ import { Component, SyntheticEvent } from 'react';
 // @mui
 import { Tabs, Tab, AppBar, Fab } from '@mui/material';
 
-// @mui
+// @mui icons
 import { Shuffle } from '@mui/icons-material';
 
 // components
 import { Songs } from './Songs'
 import { Artists } from './Artists';
 import { ReactAudioPlayer } from './AudioPlayer';
+import { TabPanel } from './TabPanel';
 
 // types
-import { TabsNavProps, TabsNavStates } from '../types/TabsNav.interface';
+import { MainContentProps, MainContentStates } from '../types/MainContent.interface';
 import { SongResponse } from '../types/responses/SongResponse.interface';
 import { TABS } from '../types/tabs.enum';
 
-export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
-    constructor(props: TabsNavProps){
+export class MainContent extends Component<MainContentProps, MainContentStates>{
+    constructor(props: MainContentProps){
         super(props)
         this.state = {
             currentTab: TABS.SONGS,
@@ -26,9 +27,9 @@ export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
         }
     }
 
-    changeTab = (evt: SyntheticEvent<Element, Event>, newValue: number): void => {
+    changeTab = (evt: SyntheticEvent<Element, Event>, tabIndex: number): void => {
         this.setState({
-            currentTab: newValue
+            currentTab: tabIndex
         })
     }
 
@@ -50,7 +51,6 @@ export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
         })
     }
 
-
     render(): JSX.Element {        
         const { currentTab, soundWave } = this.state
         const { SONGS, ARTISTS} = TABS;
@@ -63,20 +63,20 @@ export class TabsNav extends Component<TabsNavProps, TabsNavStates>{
                         <Tab label="Artists" />
                     </Tabs>
                 </AppBar>
-                {currentTab === SONGS && <Songs songs={songs} songFn={songFn} soundWave={soundWave}/>}
-                {currentTab === ARTISTS && <Artists artists={artists} songFn={songFn}/>}
-                <div>                    
-                    <Fab onClick={() => this.playRandomSong(songs)} color="secondary" style={{position:"fixed", right: "1.5vw", bottom: "8vw"}}>
-                        <Shuffle />
-                    </Fab>
-                </div>
-                <div>
-                    <ReactAudioPlayer 
-                        src={songFn.getSongPath().path}
-                        showSoundWave={this.showSoundWave}
-                        hideSoundWave={this.hideSoundWave}
-                    />
-                </div>
+                <TabPanel value={currentTab} index={SONGS}>
+                    <Songs songs={songs} songFn={songFn} soundWave={soundWave}/>
+                </TabPanel>
+                <TabPanel value={currentTab} index={ARTISTS}>
+                    <Artists artists={artists} songFn={songFn}/>
+                </TabPanel>
+                <Fab onClick={() => this.playRandomSong(songs)} color="secondary" style={{position:"fixed", right: "1.5vw", bottom: "8vw"}}>
+                    <Shuffle />
+                </Fab>
+                <ReactAudioPlayer 
+                    src={songFn.getSongPath().path}
+                    showSoundWave={this.showSoundWave}
+                    hideSoundWave={this.hideSoundWave}
+                />
             </div>
         )
     }

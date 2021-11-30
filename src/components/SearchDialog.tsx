@@ -61,41 +61,35 @@ export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDia
         const {songs} = this.props;
         const {input} = this.state
         return(
-            <div>
-                <Dialog
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    fullWidth={true}
-                    maxWidth = {'md'}
-                >
-                    <DialogTitle>Search</DialogTitle>
-                    <DialogContent>
-                        <TextField label="Songs" fullWidth margin="dense" onChange={this.handleInput("input")}/>
-                        {
-                            songs && (
-                                <List>
-                                    {
-                                        songs.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input.toLowerCase()) !== -1).map((song, index) => {
-                                            return(
-                                                <div key={index}>
-                                                    <ListItem button  style={{paddingLeft: "0px"}} onClick={() => this.playMusic(song.path, song._id)}>
-                                                        <ListItemText primary={song.title} />
-                                                    </ListItem>
-                                                    <Divider />
-                                                </div>  
-                                            )
-                                        })
-                                    }
-                                </List>
-
-                            )
-                        }
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">Close</Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
+            <Dialog
+                open={this.state.open}
+                onClose={this.handleClose}
+                fullWidth={true}
+                
+                maxWidth = {'md'}
+            >
+                <DialogTitle>Search</DialogTitle>
+                <DialogContent>
+                    <TextField label="Songs" fullWidth margin="dense" onChange={this.handleInput("input")}/>
+                        <List>
+                            {
+                                songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input.toLowerCase()) !== -1).map((song, index) => {
+                                    return(
+                                        <div key={index}>
+                                            <ListItem button  style={{paddingLeft: "0px"}} onClick={() => this.playMusic(song.path, song._id)}>
+                                                <ListItemText primary={song.title} />
+                                            </ListItem>
+                                            <Divider />
+                                        </div>  
+                                    )
+                                })
+                            }
+                        </List>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">Close</Button>
+                </DialogActions>
+            </Dialog>
         )
     }
 }

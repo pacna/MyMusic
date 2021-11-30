@@ -70,35 +70,33 @@ export class FavoritesDialog extends Component<FavoritesDialogProps, FavoritesDi
     render(): JSX.Element {
         const { open, favorites} = this.state;
         return(
-            <div>
-                <Dialog
-                    open={open}
-                    onClose={this.handleClose}
-                    fullWidth={true}
-                    maxWidth = {'sm'}
-                >
-                    <DialogTitle>Favorites</DialogTitle>
-                    <DialogContent>
-                            <List>
-                                {
-                                    favorites?.map((favorite: FavoriteResponse)=> {
-                                        return(
-                                            <div key={favorite._id}>
-                                                <ListItem button onClick={()=> this.playMusic(favorite.title, favorites)}>
-                                                    <ListItemText primary={favorite.title}/>
-                                                </ListItem>
-                                                <Divider />
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </List>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">Close</Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
+            <Dialog
+                open={open}
+                onClose={this.handleClose}
+                fullWidth={true}
+                maxWidth = {'sm'}
+            >
+                <DialogTitle>Favorites</DialogTitle>
+                <DialogContent>
+                        <List>
+                            {
+                                favorites?.map((favorite: FavoriteResponse)=> {
+                                    return(
+                                        <div key={favorite._id}>
+                                            <ListItem button onClick={()=> this.playMusic(favorite.title, favorites)}>
+                                                <ListItemText primary={favorite.title}/>
+                                            </ListItem>
+                                            <Divider />
+                                        </div>
+                                    )
+                                })
+                            }
+                        </List>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">Close</Button>
+                </DialogActions>
+            </Dialog>
         )
     }
 }

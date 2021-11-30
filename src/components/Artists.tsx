@@ -24,10 +24,18 @@ export const Artists = (props: ArtistsProps) => {
         songFn.setSongPath(path, "", true)
     }
 
+    const displayArtist = (artist: string): string => {
+        return artist ? artist : "Unknown artist";
+    }
+
+    const displayNumberOfAlbums = (albums: Album[]): string => {
+        return albums.length > 1 ? `${albums.length} albums` : "1 album";
+    }
+
     const { artists } = props
 
     return(
-        <div style={{marginBottom: '12vh'}}>
+        <div>
             {
                 artists?.map((artist: ArtistResponse, index: number) => {
                     return(
@@ -35,10 +43,7 @@ export const Artists = (props: ArtistsProps) => {
                             <AccordionSummary
                                 expandIcon={<ExpandMore />}>
                                     <Typography>
-                                        {artist.artist ? artist.artist + " " : "Unknown artist "}
-                                        {
-                                            artist.albums.length > 1 ? `${artist.albums.length} albums` : "1 album"
-                                        }
+                                        {displayArtist(artist.artist) + " " + displayNumberOfAlbums(artist.albums)}
                                     </Typography>
                             </AccordionSummary>
                             {

@@ -22,23 +22,21 @@ export class Songs extends Component<SongsProps, SongsStates>{
     render(): JSX.Element {
         const {songs, songFn, soundWave} = this.props;
         return(
-            <div style={{marginBottom: '12vh'}}>
-                <List>
-                    {
-                        songs?.map((song: SongResponse) => {
-                            return(
-                                <Song 
-                                    songFn={songFn} 
-                                    id={song._id}  
-                                    song={song}
-                                    soundWave={soundWave}
-                                    key={song._id}
-                                />              
-                            )
-                        })
-                    }
-                </List>
-            </div>
+            <List>
+                {
+                    songs?.map((song: SongResponse) => {
+                        return(
+                            <Song 
+                                songFn={songFn} 
+                                id={song._id}  
+                                song={song}
+                                soundWave={soundWave}
+                                key={song._id}
+                            />              
+                        )
+                    })
+                }
+            </List>
         )
     }
 }

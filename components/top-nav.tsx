@@ -71,7 +71,7 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
                                 </Typography>
                             </Grid>
                             <Grid item xs={4}>
-                                <IconButton onClick={songFn.openSearchDialog} style={{color: "white", float: "right"}}>
+                                <IconButton onClick={songFn?.openSearchDialog} style={{color: "white", float: "right"}}>
                                     <SearchIcon />
                                 </IconButton>                               
                             </Grid>

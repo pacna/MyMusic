@@ -9,27 +9,19 @@ import { TopNav } from './top-nav';
 import { MainContent } from './main-content';
 import { SearchDialog } from './search-dialog';
 
-// third party
-import axios, { AxiosResponse } from 'axios';
-
 // types
-import { AppProps, AppStates, ArtistResponse, SongData, SongFn, SongResponse } from './types';
+import { AppProps, AppStates, SongData, SongFn } from './types';
 
 export class App extends Component<AppProps, AppStates> {
   constructor(props: AppProps){
     super(props)
     this.state = {
-        artists: [],
-        songs:[],
         songData: {} as SongData,
         searchOpen: false
     }
   }
 
-  componentDidMount(): void {
-    this.fetchSongs();
-    this.fetchArtists();
-  }
+  componentDidMount(): void {}
 
   setSongPath = (path: string, id: string, visible: boolean): void => {
     this.setState({
@@ -57,27 +49,6 @@ export class App extends Component<AppProps, AppStates> {
     })
   }
 
-  private fetchSongs(): void {
-    axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/songs`)
-        .then(((response: AxiosResponse) => response.data))
-        .catch(error => console.error(error))
-        .then((json: Array<SongResponse>) => {
-          this.setState({
-            songs: json
-          })
-        })
-  }
-
-  private fetchArtists(): void {
-    axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/artists`)
-        .then(((response: AxiosResponse) => response.data))
-        .catch(error => console.error(error))
-        .then((json: Array<ArtistResponse>) => {
-          this.setState({
-            artists: json
-          })
-        })
-  }
 
   private createSongFnObj(): SongFn {
     return {
@@ -88,15 +59,11 @@ export class App extends Component<AppProps, AppStates> {
   }
 
   render(): JSX.Element {
-    const { songs, artists, searchOpen } = this.state
+    const { songs, artists } = this.props;
+    const { searchOpen } = this.state
 
     return (
       <div>
-        <TopNav 
-            songs={songs} 
-            artists={artists}
-            songFn={this.createSongFnObj()}
-        />
         <MainContent 
           songs={songs} 
           artists={artists} 

@@ -64,7 +64,7 @@ export class Song extends Component<SongProps, SongStates>{
                             {song.artist ? song.artist : "Unknown artist"}
                             <span style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
                                 {
-                                    songFn.getSongPath().id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
+                                    songFn?.getSongPath().id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
                                     : ""
                                 }
                                 <IconButton onClick={(evt: MouseEvent) => this.changeFavorites(evt, song._id)}>

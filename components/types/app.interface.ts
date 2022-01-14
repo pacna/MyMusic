@@ -1,17 +1,18 @@
 import { ArtistResponse } from "./responses/artist-response.interface";
 import { SongResponse } from "./responses/song-response.interface";
 
-export interface AppProps {}
+export interface AppProps {
+  artists: Array<ArtistResponse>;
+  songs: Array<SongResponse>;
+}
 
 export interface AppStates {
-    artists: Array<ArtistResponse>;
-    songs: Array<SongResponse>;
-    songData: SongData;
-    searchOpen: boolean;
+  songData: SongData;
+  searchOpen: boolean;
 }
 
 export interface SongData {
-    path: string;
-    id: string;
-    visible: boolean;
+  path: string;
+  id: string;
+  visible: boolean;
 }

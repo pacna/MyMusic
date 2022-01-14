@@ -57,12 +57,6 @@ export class MainContent extends Component<MainContentProps, MainContentStates>{
         const {songs, artists, songFn} = this.props
         return(
             <div>
-                <AppBar position="static">
-                    <Tabs value={currentTab} onChange={this.changeTab} textColor="inherit" variant="fullWidth" indicatorColor="secondary">
-                        <Tab label="Songs" />
-                        <Tab label="Artists" />
-                    </Tabs>
-                </AppBar>
                 <TabPanel value={currentTab} index={SONGS}>
                     <Songs songs={songs} songFn={songFn} soundWave={soundWave}/>
                 </TabPanel>

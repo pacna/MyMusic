@@ -1,6 +1,6 @@
 import { AppBar, Tabs, Tab } from "@mui/material"
-import { useRouter } from "next/router";
-import React, { SyntheticEvent } from "react"
+import { NextRouter, useRouter } from "next/router";
+import React, { SyntheticEvent, useEffect } from "react"
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { TABS } from "../components/types";
 import {
@@ -10,7 +10,7 @@ import {
 export const MusicTabs = (): JSX.Element => {
     const tab = useSelector((state: RootStateOrAny) => state.tab.value);
     const dispatch = useDispatch();
-    const router = useRouter();
+    const router: NextRouter = useRouter();
 
     const changeTab = (evt: SyntheticEvent<Element, Event>, tabIndex: number): void => {
         switch(tabIndex)
@@ -28,6 +28,18 @@ export const MusicTabs = (): JSX.Element => {
 
         dispatch(changeToDifferentTab(tabIndex))
     }
+
+    const changeTabOnMount = (): void => {
+        if (router.pathname === '/songs') {
+            dispatch(changeToDifferentTab(TABS.SONGS));
+        } else {
+            dispatch(changeToDifferentTab(TABS.ARTISTS));
+        }
+    }
+
+    useEffect(() => {
+        changeTabOnMount();
+    }, [])
 
     return(
         <AppBar position="static">

@@ -21,11 +21,20 @@ import { FavoritesDialog } from './favorites-dialog';
 
 // styles
 import { sideBarUseStyles } from './styles/sidebar.style';
+import { useState } from 'react';
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
-
-    const { toggle, closeDrawer, closeFavDialog, openFavDialog, favOpen, songFn} = props;
+    const [isFavDialogOpen, setIsFavDialogOpen] = useState(false);
+    const { toggle, closeDrawer, songFn} = props;
     const classes: ClassNameMap = sideBarUseStyles();
+
+    const openFavDialog = (): void => {
+        setIsFavDialogOpen(true);
+    }
+
+    const closeFavDialog = (): void => {
+        setIsFavDialogOpen(false);
+    }
 
     return(
         <Drawer open={toggle} onClose={closeDrawer}>
@@ -67,10 +76,10 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                     </ListItem>
                 </List>
                 {
-                    favOpen && 
+                    isFavDialogOpen && 
                     <FavoritesDialog 
                         songFn={songFn} 
-                        open={favOpen} 
+                        open={isFavDialogOpen} 
                         closeFavDialog={closeFavDialog}
                     />
                 }

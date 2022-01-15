@@ -6,10 +6,10 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 // styles
-import { audioPlayerUseStyles } from './styles/audio-player.style';
+import { audioPlayerUseStyles } from '../components/styles/audio-player.style';
 
 // types
-import { AudioPlayerProps } from './types';
+import { AudioPlayerProps } from '../components/types';
  
 export const ReactAudioPlayer = (props: AudioPlayerProps): JSX.Element => {
     const { src, showSoundWave, hideSoundWave } = props;

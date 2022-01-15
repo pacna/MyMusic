@@ -8,10 +8,7 @@ import { Tabs, Tab, AppBar, Fab } from '@mui/material';
 import { Shuffle } from '@mui/icons-material';
 
 // components
-import { Songs } from './songs'
-import { Artists } from './artists';
-import { ReactAudioPlayer } from './audio-player';
-import { TabPanel } from './tab-panel';
+import { ReactAudioPlayer } from '../componentsv2/react-audio-player';
 
 // types
 import { MainContentProps, MainContentStates } from './types/main-content.interface';
@@ -57,7 +54,7 @@ export class MainContent extends Component<MainContentProps, MainContentStates>{
         const {songs, artists, songFn} = this.props
         return(
             <div>
-                <TabPanel value={currentTab} index={SONGS}>
+                {/* <TabPanel value={currentTab} index={SONGS}>
                     <Songs songs={songs} songFn={songFn} soundWave={soundWave}/>
                 </TabPanel>
                 <TabPanel value={currentTab} index={ARTISTS}>
@@ -70,7 +67,7 @@ export class MainContent extends Component<MainContentProps, MainContentStates>{
                     src={songFn.getSongPath().path}
                     showSoundWave={this.showSoundWave}
                     hideSoundWave={this.hideSoundWave}
-                />
+                /> */}
             </div>
         )
     }

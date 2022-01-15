@@ -81,9 +81,6 @@ export class TopNav extends Component<TopNavProps, TopNavStates>{
                 <Sidebar
                     toggle={toggle}
                     closeDrawer={this.closeDrawer}
-                    closeFavDialog={this.closeFavDialog}
-                    openFavDialog={this.openFavDialog}
-                    favOpen={favOpen}
                     songFn={songFn}
                 />
             </div>

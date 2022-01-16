@@ -14,12 +14,12 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 
 // types
-import { Album, SongResponse, ArtistResponse, SongData } from '../../components/types';
+import { Album, SongResponse, ArtistResponse, SongData, ArtistsProps } from '../../components/types';
 import { useDispatch } from 'react-redux';
 import { setSongData } from '../../reducers/song-data-slice';
 import axios from 'axios';
 
-export default function Artists (props: { artists: Array<ArtistResponse>}): JSX.Element {
+export default function Artists (props: ArtistsProps): JSX.Element {
     const dispatch = useDispatch();
     const { artists } = props;
 

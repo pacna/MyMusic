@@ -1,7 +1,5 @@
-import { ArtistResponse } from './responses/artist-response.interface';
-import { SongFn } from './top-nav.interface';
+import { ArtistResponse } from "./responses/artist-response.interface";
 
 export interface ArtistsProps {
-    songFn: SongFn;
-    artists: Array<ArtistResponse>
+  artists: Array<ArtistResponse>;
 }

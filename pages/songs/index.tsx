@@ -2,14 +2,14 @@ import { SongResponse } from "../../components/types/responses";
 import { Fab, List } from '@mui/material';
 import { Song } from './../../componentsv2/song';
 import React from 'react';
-import { SongData, SongFn } from "../../components/types";
+import { SongData, SongFn, SongsProps } from "../../components/types";
 import { Shuffle } from "@mui/icons-material";
 import { setSongData } from '../../reducers/song-data-slice';
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 // third party
 import axios, { AxiosResponse } from 'axios';
 
-export default function Songs (props: { songs: Array<SongResponse> }): JSX.Element {
+export default function Songs (props: SongsProps): JSX.Element {
     const { songs } = props;
     const songData = useSelector((state: RootStateOrAny) => state.songData.value);
     const toggleSoundWave = useSelector((state: RootStateOrAny) => state.toggleSoundWave.value);

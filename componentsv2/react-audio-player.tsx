@@ -7,7 +7,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import { useDispatch } from 'react-redux';
 
 // styles
-import { audioPlayerUseStyles } from '../components/styles/audio-player.style';
+import { audioPlayerUseStyles } from './styles/audio-player.style';
 
 // types
 import { AudioPlayerProps } from '../components/types';

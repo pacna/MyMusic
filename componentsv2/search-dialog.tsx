@@ -1,5 +1,5 @@
 // react
-import { ChangeEvent, Component, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 // @mui
 import { 
@@ -16,13 +16,13 @@ import {
 } from '@mui/material';
 
 // types
-import { SearchDialogProps, SearchDialogStates } from './types/search-dialog.interface';
-import { SongResponse } from './types/responses/song-response.interface';
+import { SongResponse } from '../components/types/responses/song-response.interface';
 import { useDispatch } from 'react-redux';
 import { setSongData } from '../reducers/song-data-slice';
 import axios, { AxiosResponse } from 'axios';
+import { SearchDialogProps } from '../components/types';
 
-export const SearchDialog = (props: { open: boolean, closeSearchDialog: () => void}): JSX.Element => {
+export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
     const { open, closeSearchDialog } = props;
     const [ isSearchDialogOpen, setSearchDialogOpen ] = useState(open);
     const [ input, setInput ] = useState('');

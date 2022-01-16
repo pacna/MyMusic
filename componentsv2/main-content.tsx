@@ -19,7 +19,6 @@ export const MainContent = (props: { children: ReactElement}): JSX.Element => {
             <Sidebar
                     toggle={toggleDrawer}
                     closeDrawer={hideDrawer}
-                    songFn={null} 
             />
             <Fragment> { children } </Fragment>
             <ReactAudioPlayer

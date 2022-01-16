@@ -20,7 +20,7 @@ import { SidebarProps } from '../components/types/sidebar.interface';
 import { FavoritesDialog } from './favorites-dialog';
 
 // styles
-import { sideBarUseStyles } from '../components/styles/sidebar.style';
+import { sideBarUseStyles } from './styles/sidebar.style';
 import { useState } from 'react';
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {

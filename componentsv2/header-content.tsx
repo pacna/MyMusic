@@ -1,6 +1,6 @@
 import React, { Fragment, ReactElement } from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { SearchDialog } from '../components/search-dialog';
+import { SearchDialog } from './search-dialog';
 import { closeSearch } from '../reducers/toggle-search-slice';
 
 export const HeaderContent = (props: { children: ReactElement[] }): JSX.Element => {

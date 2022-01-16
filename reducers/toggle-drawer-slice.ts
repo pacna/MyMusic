@@ -10,7 +10,7 @@ export const toggleDrawerSlice: Slice<
   "toggleDrawer"
 > = createSlice({
   name: "toggleDrawer",
-  initialState: { value: {} as boolean },
+  initialState: { value: false },
   reducers: {
     closeDrawer: (state: { value: boolean }): void => {
       state.value = false;
@@ -21,6 +21,6 @@ export const toggleDrawerSlice: Slice<
   },
 });
 
-export const { closeDrawer } = toggleDrawerSlice.actions;
+export const { closeDrawer, openDrawer } = toggleDrawerSlice.actions;
 
 export default toggleDrawerSlice.reducer;

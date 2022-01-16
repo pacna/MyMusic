@@ -7,13 +7,16 @@ import { TopNav } from './../componentsv2/top-nav';
 import { MusicTabs } from './../componentsv2/music-tabs';
 import { MainContent } from '../componentsv2/main-content';
 import { Header } from './../componentsv2/header';
+import { HeaderContent } from './../componentsv2/header-content';
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <Provider store={store}>
       <Header />
-      <TopNav />
-      <MusicTabs />
+      <HeaderContent> 
+        <TopNav />
+        <MusicTabs />
+      </HeaderContent>
       <MainContent>
         <Component {...pageProps} />
       </MainContent>

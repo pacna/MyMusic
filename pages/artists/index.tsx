@@ -15,12 +15,11 @@ import { ExpandMore } from '@mui/icons-material';
 
 // types
 import { Album, SongResponse, ArtistResponse, SongData } from '../../components/types';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSongData } from '../../reducers/song-data-slice';
-import { ReactAudioPlayer } from '../../componentsv2/react-audio-player';
+import axios from 'axios';
 
 export default function Artists (props: { artists: Array<ArtistResponse>}): JSX.Element {
-    const songData = useSelector((state: RootStateOrAny) => state.songData.value);
     const dispatch = useDispatch();
     const { artists } = props;
 
@@ -97,7 +96,7 @@ export default function Artists (props: { artists: Array<ArtistResponse>}): JSX.
 
 // This function gets called at build time on server-side.
 export async function getStaticProps(): Promise<{ props: { artists }}> {
-  const artists = await (await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_API}/artists`)).json();
+  const artists = await (await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/artists`)).data;
   return {
     props: {
       artists

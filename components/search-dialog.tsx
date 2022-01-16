@@ -1,5 +1,5 @@
 // react
-import { ChangeEvent, Component } from 'react';
+import { ChangeEvent, Component, useEffect, useState } from 'react';
 
 // @mui
 import { 
@@ -18,78 +18,74 @@ import {
 // types
 import { SearchDialogProps, SearchDialogStates } from './types/search-dialog.interface';
 import { SongResponse } from './types/responses/song-response.interface';
+import { useDispatch } from 'react-redux';
+import { setSongData } from '../reducers/song-data-slice';
+import axios, { AxiosResponse } from 'axios';
 
-export class SearchDialog extends Component<SearchDialogProps, Partial<SearchDialogStates>>{
-    constructor(props:SearchDialogProps) {
-        super(props)
+export const SearchDialog = (props: { open: boolean, closeSearchDialog: () => void}): JSX.Element => {
+    const { open, closeSearchDialog } = props;
+    const [ isSearchDialogOpen, setSearchDialogOpen ] = useState(open);
+    const [ input, setInput ] = useState('');
+    const [ songs, setSongs ] = useState([] as Array<SongResponse>);
+    const dispatch = useDispatch(); 
 
-        this.state = {
-            open: false,
-            input: ''
-        }
+    const handleClose = (): void => {
+        closeSearchDialog();
+        setSearchDialogOpen(!open);
     }
 
-    componentDidMount(): void {
-        const { open } = this.props;
-        this.setState({
-            open: open
-        })
+    const handleInput = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+        setInput((event.target).value);
     }
 
-    handleClose = (): void => {
-        const { open, closeSearchDialog } = this.props;
-        closeSearchDialog()
-
-        this.setState({
-            open: !open
-        })
-
+    const setSongPath = (path: string, id: string, visible: boolean): void => {
+        dispatch(setSongData({ path: path, id: id, visible: visible}));
     }
 
-    handleInput = (params: string) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        this.setState({
-            [params]: (event.target).value
-        })
+    const playMusic = (path: string, id: string): void => {
+        setSongPath(path, id, true)
     }
 
-    playMusic = (path: string, id: string): void => {
-        const {songFn} = this.props;
-        songFn.setSongPath(path, id, true)
+    const getSongs = (): void => {
+        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/songs`)
+            .then((response: AxiosResponse) => response.data)
+            .catch((error: Error) => console.error(error))
+            .then((result: Array<SongResponse>) => setSongs(result));
     }
 
-    render(): JSX.Element {
-        const {songs} = this.props;
-        const {input} = this.state
-        return(
-            <Dialog
-                open={this.state.open!}
-                onClose={this.handleClose}
-                fullWidth={true}
-                
-                maxWidth = {'md'}
-            >
-                <DialogTitle>Search</DialogTitle>
-                <DialogContent>
-                    <TextField label="Songs" fullWidth margin="dense" onChange={this.handleInput("input")}/>
-                        <List>
-                            {
-                                songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song, index) => {
-                                    return(
-                                        <div key={index}>
-                                            <ListItem button  style={{paddingLeft: "0px"}} onClick={() => this.playMusic(song.path, song._id)}>
-                                                <ListItemText primary={song.title} />
-                                            </ListItem>
-                                            <Divider />
-                                        </div>  
-                                    )
-                                })
-                            }
-                        </List>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">Close</Button>
-                </DialogActions>
-            </Dialog>
-        )
-    }
+    useEffect(() => {
+        getSongs();
+    }, []);
+
+    return(
+        <Dialog
+            open={isSearchDialogOpen}
+            onClose={handleClose}
+            fullWidth={true}
+            
+            maxWidth = {'md'}
+        >
+            <DialogTitle>Search</DialogTitle>
+            <DialogContent>
+                <TextField label="Songs" fullWidth margin="dense" onChange={handleInput}/>
+                    <List>
+                        {
+                            songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song, index) => {
+                                return(
+                                    <div key={index}>
+                                        <ListItem button  style={{paddingLeft: "0px"}} onClick={() => playMusic(song.path, song._id)}>
+                                            <ListItemText primary={song.title} />
+                                        </ListItem>
+                                        <Divider />
+                                    </div>  
+                                )
+                            })
+                        }
+                    </List>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">Close</Button>
+            </DialogActions>
+        </Dialog>
+    )
 }

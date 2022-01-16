@@ -1,11 +1,6 @@
 // react
 import { Component } from 'react';
 
-// styles
-// import '../styles/app.css';
-
-// components
-import { TopNav } from './top-nav';
 import { MainContent } from './main-content';
 import { SearchDialog } from './search-dialog';
 
@@ -72,10 +67,8 @@ export class App extends Component<AppProps, AppStates> {
           {
             searchOpen &&
             <SearchDialog 
-              songFn={this.createSongFnObj()} 
               open={searchOpen} 
-              closeSearchDialog={this.closeSearchDialog} 
-              songs={songs}
+              closeSearchDialog={this.closeSearchDialog}
               />
           }
       </div>

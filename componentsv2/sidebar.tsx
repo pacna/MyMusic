@@ -14,18 +14,18 @@ import {
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
 // types
-import { SidebarProps } from './types/sidebar.interface';
+import { SidebarProps } from '../components/types/sidebar.interface';
 
 // components
 import { FavoritesDialog } from './favorites-dialog';
 
 // styles
-import { sideBarUseStyles } from './styles/sidebar.style';
+import { sideBarUseStyles } from '../components/styles/sidebar.style';
 import { useState } from 'react';
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
     const [isFavDialogOpen, setIsFavDialogOpen] = useState(false);
-    const { toggle, closeDrawer, songFn} = props;
+    const { toggle, closeDrawer } = props;
     const classes: ClassNameMap = sideBarUseStyles();
 
     const openFavDialog = (): void => {
@@ -77,8 +77,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                 </List>
                 {
                     isFavDialogOpen && 
-                    <FavoritesDialog 
-                        songFn={songFn} 
+                    <FavoritesDialog  
                         open={isFavDialogOpen} 
                         closeFavDialog={closeFavDialog}
                     />

@@ -1,4 +1,4 @@
-// @mui
+// material
 import { ClassNameMap } from '@mui/material/styles';
 
 // third party
@@ -11,6 +11,8 @@ import { audioPlayerUseStyles } from './styles/audio-player.style';
 
 // types
 import { AudioPlayerProps } from './types';
+
+// others
 import { showSoundWave, hideSoundWave } from '../reducers/toggle-soundwave-slice';
  
 export const ReactAudioPlayer = (props: AudioPlayerProps): JSX.Element => {

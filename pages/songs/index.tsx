@@ -1,17 +1,24 @@
-import { SongResponse } from "../../components/types/api";
-import { Fab, List } from '@mui/material';
-import { Song } from '../../components/song';
+// react
 import React from 'react';
-import { SongData, SongFn, SongsProps } from "../../components/types";
+
+// material
+import { Fab, List } from '@mui/material';
 import { Shuffle } from "@mui/icons-material";
-import { setSongData } from '../../reducers/song-data-slice';
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+
+// types
+import { SongResponse } from "../../components/types/api";
+import { SongData, SongsProps } from "../../components/types";
+
 // third party
-import axios, { AxiosResponse } from 'axios';
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+
+// others
+import { Song } from '../../components/song';
+import { setSongData } from '../../reducers/song-data-slice';
 
 export default function Songs (props: SongsProps): JSX.Element {
     const { songs } = props;
-    const songData = useSelector((state: RootStateOrAny) => state.songData.value);
     const toggleSoundWave = useSelector((state: RootStateOrAny) => state.toggleSoundWave.value);
     const dispatch = useDispatch();
 
@@ -24,29 +31,16 @@ export default function Songs (props: SongsProps): JSX.Element {
         dispatch(setSongData({ path: path, id: id, visible: visible } as SongData))
     }
 
-    const getSongPath = (): SongData => {
-        return songData;
-    }
-
-    const createSongFnObj = (): SongFn => {
-        return {
-            getSongPath: getSongPath,
-            setSongPath: setSongPath
-        }
-  }
-
     return (
         <div>
             <List>
                 {
                     songs?.map((song: SongResponse) => {
                         return(
-                            <Song 
-                                songFn={createSongFnObj()} 
+                            <Song
                                 id={song._id}  
                                 song={song}
                                 soundWave={toggleSoundWave}
-                                key={song._id}
                             />              
                         )
                     })

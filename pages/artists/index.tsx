@@ -1,4 +1,4 @@
-// @mui
+// material
 import { 
     ListItemText, 
     List, 
@@ -9,15 +9,17 @@ import {
     AccordionDetails,
     Accordion
 } from '@mui/material';
-
-// @mui icons
 import { ExpandMore } from '@mui/icons-material';
 
 // types
 import { Album, SongResponse, ArtistResponse, SongData, ArtistsProps } from '../../components/types';
+
+// third party
 import { useDispatch } from 'react-redux';
-import { setSongData } from '../../reducers/song-data-slice';
 import axios from 'axios';
+
+// others
+import { setSongData } from '../../reducers/song-data-slice';
 
 export default function Artists (props: ArtistsProps): JSX.Element {
     const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 // react
 import { ChangeEvent, useEffect, useState } from 'react';
 
-// @mui
+// material
 import { 
     Dialog, 
     DialogActions, 
@@ -17,10 +17,14 @@ import {
 
 // types
 import { SongResponse } from './types/api/song-response.interface';
-import { useDispatch } from 'react-redux';
-import { setSongData } from '../reducers/song-data-slice';
-import axios, { AxiosResponse } from 'axios';
 import { SearchDialogProps } from './types';
+
+// third party
+import { useDispatch } from 'react-redux';
+import axios, { AxiosResponse } from 'axios';
+
+// others
+import { setSongData } from '../reducers/song-data-slice';
 
 export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
     const { open, closeSearchDialog } = props;
@@ -62,7 +66,6 @@ export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
             open={isSearchDialogOpen}
             onClose={handleClose}
             fullWidth={true}
-            
             maxWidth = {'md'}
         >
             <DialogTitle>Search</DialogTitle>
@@ -70,7 +73,7 @@ export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
                 <TextField label="Songs" fullWidth margin="dense" onChange={handleInput}/>
                     <List>
                         {
-                            songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song, index) => {
+                            songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song: SongResponse, index: number)  => {
                                 return(
                                     <div key={index}>
                                         <ListItem button  style={{paddingLeft: "0px"}} onClick={() => playMusic(song.path, song._id)}>

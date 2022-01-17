@@ -1,7 +1,11 @@
-import '../styles/globals.css'
+// next
 import type { AppProps } from 'next/app'
+import '../styles/globals.css'
 
+// third party
 import { Provider } from 'react-redux'
+
+// others
 import store from './../stores/store';
 import { TopNav } from '../components/top-nav';
 import { MusicTabs } from '../components/music-tabs';

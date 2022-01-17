@@ -1,10 +1,8 @@
 // react
 import React, {useState, MouseEvent } from "react"
 
-// @mui
+// material
 import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/material';
-
-// @mui icons
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
 // types
@@ -12,19 +10,26 @@ import { SongProps } from './types/song.interface';
 
 // third party
 import axios, { AxiosResponse } from 'axios';
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { setSongData } from "../reducers/song-data-slice";
 
 export const Song = (props: SongProps): JSX.Element => {
-    const { song, id, soundWave, songFn } = props;
+    const { song, id, soundWave} = props;
+    const songData = useSelector((state: RootStateOrAny) => state.songData.value);
+    const dispatch = useDispatch();
     const [isFav, setIsFav ] = useState(song.favorite);
 
     const playMusic = (path: string, id: string): void => {
-        const {songFn} = props;
-        songFn.setSongPath(path, id, true)
+        setSongPath(path, id, true)
     }
 
     const changeFavorites = (evt: MouseEvent, id: string): void  => {
         evt.stopPropagation();
         updateFavorite(id);
+    }
+
+    const setSongPath = (path: string, id: string, visible: boolean): void => {
+        dispatch(setSongData({path: path, id: id, visible: visible}))
     }
 
     const updateFavorite = (id: string): void => {
@@ -47,7 +52,7 @@ export const Song = (props: SongProps): JSX.Element => {
                         {song.artist ? song.artist : "Unknown artist"}
                         <span style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
                             {
-                                songFn?.getSongPath().id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
+                                songData.id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
                                 : ""
                             }
                             <IconButton onClick={(evt: MouseEvent) => changeFavorites(evt, song._id)}>

@@ -1,5 +1,9 @@
+// third party
 import { createSlice, Slice } from "@reduxjs/toolkit";
+
+// others
 import { SongData } from "../components/types";
+
 export const songDataSlice: Slice<
   {
     value: SongData;

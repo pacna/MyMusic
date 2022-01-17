@@ -1,6 +1,13 @@
-import { AppBar, Tabs, Tab } from "@mui/material"
-import { NextRouter, useRouter } from "next/router";
+// react
 import React, { SyntheticEvent, useEffect, useState } from "react"
+
+// material
+import { AppBar, Tabs, Tab } from "@mui/material"
+
+// next
+import { NextRouter, useRouter } from "next/router";
+
+// types
 import { TABS } from "./types";
 
 export const MusicTabs = (): JSX.Element => {

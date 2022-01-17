@@ -1,7 +1,7 @@
 // react
 import { useEffect, useState } from 'react'
 
-// @mui
+// material
 import {
     Dialog, 
     DialogActions, 
@@ -16,10 +16,14 @@ import {
 
 // types
 import { FavoriteResponse, SongResponse } from './types/api';
-import { useDispatch } from 'react-redux';
-import { setSongData } from '../reducers/song-data-slice';
-import axios, { AxiosResponse } from 'axios';
 import { FavoritesDialogProps } from './types';
+
+// third party
+import { useDispatch } from 'react-redux';
+import axios, { AxiosResponse } from 'axios';
+
+// others
+import { setSongData } from '../reducers/song-data-slice';
 
 export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
     const { open, closeFavDialog } = props;
@@ -30,7 +34,6 @@ export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
     const handleClose = (): void => {
         closeFavDialog();
         setIsFavDialogOpen(!isFavDialogOpen);
-
     }
 
     const setSongPath = (path: string, id: string, visible: boolean): void => {

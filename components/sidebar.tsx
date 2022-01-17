@@ -1,4 +1,7 @@
-// @mui
+// react
+import { useState } from 'react';
+
+// material
 import {
     Typography,
     Drawer,
@@ -9,8 +12,6 @@ import {
     Box,
     ClassNameMap
 } from '@mui/material';
-
-// @mui icons
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
 // types
@@ -21,7 +22,6 @@ import { FavoritesDialog } from './favorites-dialog';
 
 // styles
 import { sideBarUseStyles } from './styles/sidebar.style';
-import { useState } from 'react';
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
     const [isFavDialogOpen, setIsFavDialogOpen] = useState(false);

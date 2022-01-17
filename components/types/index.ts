@@ -1,5 +1,5 @@
-export * from "./responses";
-export * from "./song-data.interface";
+export * from "./api";
+export * from "./custom";
 export * from "./artists.interface";
 export * from "./audio-player.interface";
 export * from "./favorites-dialog.interface";
@@ -7,5 +7,3 @@ export * from "./search-dialog.interface";
 export * from "./sidebar.interface";
 export * from "./song.interface";
 export * from "./songs.interface";
-export * from "./top-nav.interface";
-export * from "./tabs.enum";

@@ -8,7 +8,7 @@ import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/ma
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
 // types
-import { SongProps } from '../components/types/song.interface';
+import { SongProps } from './types/song.interface';
 
 // third party
 import axios, { AxiosResponse } from 'axios';

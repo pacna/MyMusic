@@ -1,6 +1,6 @@
-import { SongResponse } from "../../components/types/responses";
+import { SongResponse } from "../../components/types/api";
 import { Fab, List } from '@mui/material';
-import { Song } from './../../componentsv2/song';
+import { Song } from '../../components/song';
 import React from 'react';
 import { SongData, SongFn, SongsProps } from "../../components/types";
 import { Shuffle } from "@mui/icons-material";
@@ -31,8 +31,7 @@ export default function Songs (props: SongsProps): JSX.Element {
     const createSongFnObj = (): SongFn => {
         return {
             getSongPath: getSongPath,
-            setSongPath: setSongPath,
-            openSearchDialog: null
+            setSongPath: setSongPath
         }
   }
 

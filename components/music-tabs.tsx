@@ -1,7 +1,7 @@
 import { AppBar, Tabs, Tab } from "@mui/material"
 import { NextRouter, useRouter } from "next/router";
 import React, { SyntheticEvent, useEffect, useState } from "react"
-import { TABS } from "../components/types";
+import { TABS } from "./types";
 
 export const MusicTabs = (): JSX.Element => {
     const [tab, setTab] = useState(TABS.SONGS)

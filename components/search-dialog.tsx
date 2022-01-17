@@ -16,11 +16,11 @@ import {
 } from '@mui/material';
 
 // types
-import { SongResponse } from '../components/types/responses/song-response.interface';
+import { SongResponse } from './types/api/song-response.interface';
 import { useDispatch } from 'react-redux';
 import { setSongData } from '../reducers/song-data-slice';
 import axios, { AxiosResponse } from 'axios';
-import { SearchDialogProps } from '../components/types';
+import { SearchDialogProps } from './types';
 
 export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
     const { open, closeSearchDialog } = props;

@@ -14,7 +14,7 @@ import {
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
 // types
-import { SidebarProps } from '../components/types/sidebar.interface';
+import { SidebarProps } from './types/sidebar.interface';
 
 // components
 import { FavoritesDialog } from './favorites-dialog';

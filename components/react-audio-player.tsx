@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { audioPlayerUseStyles } from './styles/audio-player.style';
 
 // types
-import { AudioPlayerProps } from '../components/types';
+import { AudioPlayerProps } from './types';
 import { showSoundWave, hideSoundWave } from '../reducers/toggle-soundwave-slice';
  
 export const ReactAudioPlayer = (props: AudioPlayerProps): JSX.Element => {

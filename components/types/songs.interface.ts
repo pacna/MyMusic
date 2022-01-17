@@ -1,4 +1,4 @@
-import { SongResponse } from "./responses/song-response.interface";
+import { SongResponse } from "./api/song-response.interface";
 
 export interface SongsProps {
   songs: Array<SongResponse>;

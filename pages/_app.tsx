@@ -1,13 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
-import { Provider, RootStateOrAny, useSelector } from 'react-redux'
+import { Provider } from 'react-redux'
 import store from './../stores/store';
-import { TopNav } from './../componentsv2/top-nav';
-import { MusicTabs } from './../componentsv2/music-tabs';
-import { MainContent } from '../componentsv2/main-content';
-import { Header } from './../componentsv2/header';
-import { HeaderContent } from './../componentsv2/header-content';
+import { TopNav } from '../components/top-nav';
+import { MusicTabs } from '../components/music-tabs';
+import { MainContent } from '../components/main-content';
+import { Header } from '../components/header';
+import { HeaderContent } from '../components/header-content';
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (

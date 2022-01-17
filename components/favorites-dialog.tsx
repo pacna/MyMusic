@@ -15,11 +15,11 @@ import {
 } from '@mui/material';
 
 // types
-import { FavoriteResponse, SongResponse } from '../components/types/responses';
+import { FavoriteResponse, SongResponse } from './types/api';
 import { useDispatch } from 'react-redux';
 import { setSongData } from '../reducers/song-data-slice';
 import axios, { AxiosResponse } from 'axios';
-import { FavoritesDialogProps } from '../components/types';
+import { FavoritesDialogProps } from './types';
 
 export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
     const { open, closeFavDialog } = props;
@@ -62,7 +62,7 @@ export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
             open={isFavDialogOpen}
             onClose={handleClose}
             fullWidth={true}
-            maxWidth = {'sm'}
+            maxWidth = {'md'}
         >
             <DialogTitle>Favorites</DialogTitle>
             <DialogContent>

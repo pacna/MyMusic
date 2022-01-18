@@ -1,0 +1,14 @@
+@import "./colors.scss";
+
+.menu {
+  color: $plainWhite !important;
+}
+
+.musicLibrary {
+  color: $plainWhite;
+}
+
+.search {
+  color: $plainWhite !important;
+  float: right;
+}

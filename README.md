@@ -16,6 +16,12 @@ Create a `.env` file in the root directory and then add `NEXT_PUBLIC_REACT_APP_A
 NEXT_PUBLIC_REACT_APP_API = http://localhost:5000
 ```
 
+## Install dependencies
+
+```bash
+$ npm ci
+```
+
 ## Available Scripts for development
 
 ```bash

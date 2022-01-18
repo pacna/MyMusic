@@ -1,11 +1,12 @@
 {
-  "name": "react-music-app",
+  "name": "react-music-player",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "pkill -f node"
   },
   "dependencies": {
     "@emotion/react": "^11.7.0",
@@ -20,7 +21,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-h5-audio-player": "^3.8.1",
-    "react-redux": "^7.2.6"
+    "react-redux": "^7.2.6",
+    "sass": "^1.48.0"
   },
   "devDependencies": {
     "@types/node": "16.11.11",

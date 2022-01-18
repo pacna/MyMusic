@@ -1,36 +1,46 @@
 # React Music Player
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+A web music player app
 
-## Getting Started
+## Prerequisites
 
-First, run the development server:
+1. [nodejs](https://nodejs.org/en/)
+2. [Api.Music](https://github.com/pacna/Api.Music)
+
+## Setup Env
+
+Create a `.env` file in the root directory and then add `NEXT_PUBLIC_REACT_APP_API` variable in the `.env`
 
 ```bash
-npm run dev
-# or
-yarn dev
+# .env
+NEXT_PUBLIC_REACT_APP_API = http://localhost:5000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Available Scripts for development
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+$ npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in the browser.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+$ npm run clean
+```
 
-## Learn More
+Clear out any stuck node processes.
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts for production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+$ npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Generates an optimized version of the application for production.
 
-## Deploy on Vercel
+```bash
+$ npm run start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To run in production mode

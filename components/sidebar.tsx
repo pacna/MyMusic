@@ -9,8 +9,7 @@ import {
     ListItem,
     ListItemText,
     ListItemIcon,
-    Box,
-    ClassNameMap
+    Box
 } from '@mui/material';
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
@@ -21,12 +20,11 @@ import { SidebarProps } from './types/sidebar.interface';
 import { FavoritesDialog } from './favorites-dialog';
 
 // styles
-import { sideBarUseStyles } from './styles/sidebar.style';
+import classes from "../styles/search-dialog.module.scss";
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
     const [isFavDialogOpen, setIsFavDialogOpen] = useState(false);
     const { toggle, closeDrawer } = props;
-    const classes: ClassNameMap = sideBarUseStyles();
 
     const openFavDialog = (): void => {
         setIsFavDialogOpen(true);

@@ -1,13 +1,10 @@
-// material
-import { ClassNameMap } from '@mui/material/styles';
-
 // third party
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { useDispatch } from 'react-redux';
 
 // styles
-import { audioPlayerUseStyles } from './styles/audio-player.style';
+import classes from '../styles/react-audio-player.module.scss';
 
 // types
 import { AudioPlayerProps } from './types';
@@ -17,10 +14,8 @@ import { showSoundWave, hideSoundWave } from '../reducers/toggle-soundwave-slice
  
 export const ReactAudioPlayer = (props: AudioPlayerProps): JSX.Element => {
     const { src } = props;
-    const classes: ClassNameMap = audioPlayerUseStyles();
     const dispatch = useDispatch();
 
-    
     return(
         <div className={classes.audioPlayerContainer}>
             <AudioPlayer

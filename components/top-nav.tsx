@@ -13,6 +13,9 @@ import { useDispatch } from "react-redux";
 import { openDrawer } from "../reducers/toggle-drawer-slice";
 import { openSearch } from "../reducers/toggle-search-slice";
 
+// styles
+import classes from './../styles/top-nav.module.scss'
+
 export const TopNav = (): JSX.Element => {
     const dispatch = useDispatch();
 
@@ -29,17 +32,17 @@ export const TopNav = (): JSX.Element => {
             <Toolbar>
                 <Grid container alignItems="center">
                     <Grid item xs={2} >
-                        <IconButton onClick={showDrawer} style={{color: "white"}}>
+                        <IconButton onClick={showDrawer} className={classes.menu}>
                             <MenuIcon />
                         </IconButton>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="h6" style={{color: "white"}}>
+                        <Typography variant="h6" className={classes.musicLibrary}>
                             Music Library
                         </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <IconButton onClick={openSearchDialog} style={{color: "white", float: "right"}}>
+                        <IconButton onClick={openSearchDialog} className={classes.search}>
                             <SearchIcon />
                         </IconButton>                               
                     </Grid>

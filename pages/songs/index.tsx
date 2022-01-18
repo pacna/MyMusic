@@ -10,16 +10,18 @@ import { SongResponse } from "../../components/types/api";
 import { SongData, SongsProps } from "../../components/types";
 
 // third party
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from 'axios';
 
 // others
 import { Song } from '../../components/song';
 import { setSongData } from '../../reducers/song-data-slice';
 
+// styles
+import classes from '../../styles/songs.module.scss';
+
 export default function Songs (props: SongsProps): JSX.Element {
     const { songs } = props;
-    const toggleSoundWave = useSelector((state: RootStateOrAny) => state.toggleSoundWave.value);
     const dispatch = useDispatch();
 
     const playRandomSong = (songs: Array<SongResponse>): void => {
@@ -40,13 +42,13 @@ export default function Songs (props: SongsProps): JSX.Element {
                             <Song
                                 id={song._id}  
                                 song={song}
-                                soundWave={toggleSoundWave}
+                                key={song._id} // to handle warning error "list should have a unique 'key' prop."
                             />              
                         )
                     })
                 }
             </List>
-            <Fab onClick={() => playRandomSong(songs)} color="secondary" style={{position:"fixed", right: "1.5vw", bottom: "8vw"}}>
+            <Fab onClick={() => playRandomSong(songs)} color="secondary" className={classes.fab}>
                 <Shuffle />
             </Fab>
         </div>

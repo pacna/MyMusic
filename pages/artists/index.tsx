@@ -37,8 +37,12 @@ export default function Artists (props: ArtistsProps): JSX.Element {
         return artist ? artist : "Unknown artist";
     }
 
-    const displayNumberOfAlbums = (albums: Album[]): string => {
+    const displayNumberOfAlbums = (albums: Array<Album>): string => {
         return albums.length > 1 ? `${albums.length} albums` : "1 album";
+    }
+
+    const displayNumberOfSongs = (songs: Array<SongResponse>): string => {
+        return songs.length > 1 ? `${songs} songs` : "1 song"
     }
 
     return(
@@ -67,15 +71,13 @@ export default function Artists (props: ArtistsProps): JSX.Element {
                                                 {
                                                     album.songs.map((song: SongResponse, index: number) => {
                                                         return(
-                                                            <List style={{width: "100%"}} key={index}>
+                                                            <List key={index}>
                                                                 <ListItem 
                                                                     button
                                                                     onClick={() => playMusic(song.path)}>
                                                                     <ListItemText 
                                                                         primary={song.title}
-                                                                        secondary={album.songs.length > 1 
-                                                                                    ? `${album.songs} songs`
-                                                                                    : "1 song"}
+                                                                        secondary={displayNumberOfSongs(album.songs)}
                                                                         />
                                                                 </ListItem>
                                                                 <Divider/>

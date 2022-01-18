@@ -76,7 +76,7 @@ export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
                             songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song: SongResponse, index: number)  => {
                                 return(
                                     <div key={index}>
-                                        <ListItem button  style={{paddingLeft: "0px"}} onClick={() => playMusic(song.path, song._id)}>
+                                        <ListItem button onClick={() => playMusic(song.path, song._id)}>
                                             <ListItemText primary={song.title} />
                                         </ListItem>
                                         <Divider />

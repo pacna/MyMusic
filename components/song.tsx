@@ -8,13 +8,16 @@ import { FavoriteBorder, Favorite } from '@mui/icons-material';
 // types
 import { SongProps } from './types/song.interface';
 
+// styles
+import classes from "../styles/song.module.scss";
+
 // third party
 import axios, { AxiosResponse } from 'axios';
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { setSongData } from "../reducers/song-data-slice";
 
 export const Song = (props: SongProps): JSX.Element => {
-    const { song, id, soundWave} = props;
+    const { song, id } = props;
     const songData = useSelector((state: RootStateOrAny) => state.songData.value);
     const dispatch = useDispatch();
     const [isFav, setIsFav ] = useState(song.favorite);
@@ -43,17 +46,28 @@ export const Song = (props: SongProps): JSX.Element => {
         })
     }
 
+    const displaySoundWave = (id: string): JSX.Element | void => {
+        if (songData.id === id) {
+            return (
+                <img src='/sound_wave.gif' alt="sound_waive" className={classes.soundWave}/>
+            );
+        }
+    }
+
+    const displayArtistName = (artistName: string): string => {
+        return artistName ? artistName : "Unknown artist";
+    }
+
     return(
         <div>
             <ListItem button onClick={() => playMusic(song.path, song._id)}>
                 <ListItemText primary={song.title} 
                 secondary={
-                    <Typography style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
-                        {song.artist ? song.artist : "Unknown artist"}
-                        <span style={{display:"flex", alignItems:"center", justifyContent: "space-between"}}>
+                    <Typography className={classes.centerSpacing}>
+                        {displayArtistName(song.artist)}
+                        <span className={classes.centerSpacing}>
                             {
-                                songData.id === id && soundWave ? <img src='/sound_wave.gif' alt="sound_waive" style={{height:"35px", width: "35px"}}/> 
-                                : ""
+                                displaySoundWave(id)
                             }
                             <IconButton onClick={(evt: MouseEvent) => changeFavorites(evt, song._id)}>
                                 {

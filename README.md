@@ -53,7 +53,7 @@ $ npm run start
 
 To run in production mode
 
-## Docker command for production
+## Docker command for production (Optional)
 
 ```bash
 $ docker-compose up --build

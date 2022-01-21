@@ -6,6 +6,8 @@ A web music player app
 
 1. [nodejs](https://nodejs.org/en/)
 2. [Api.Music](https://github.com/pacna/Api.Music)
+3. [docker](https://docs.docker.com/install/) (optional)
+4. [docker-compose](https://docs.docker.com/compose/install/) (optional)
 
 ## Setup Env
 
@@ -50,3 +52,9 @@ $ npm run start
 ```
 
 To run in production mode
+
+## Docker command for production
+
+```bash
+$ docker-compose up --build
+```

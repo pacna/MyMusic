@@ -1,3 +1,6 @@
+// react
+import { useEffect, useState } from 'react';
+
 // material
 import { 
     ListItemText, 
@@ -12,18 +15,18 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 
 // types
-import { Album, SongResponse, ArtistResponse, SongData, ArtistsProps } from '../../components/types';
+import { Album, SongResponse, ArtistResponse, SongData } from '../../components/types';
 
 // third party
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 // others
 import { setSongData } from '../../reducers/song-data-slice';
 
-export default function Artists (props: ArtistsProps): JSX.Element {
+export default function Artists(): JSX.Element {
+    const [artists, setArtists] = useState([] as Array<ArtistResponse>);
     const dispatch = useDispatch();
-    const { artists } = props;
 
     const playMusic = (path: string): void => {
         setSongPath(path, "", true)
@@ -44,6 +47,17 @@ export default function Artists (props: ArtistsProps): JSX.Element {
     const displayNumberOfSongs = (songs: Array<SongResponse>): string => {
         return songs.length > 1 ? `${songs} songs` : "1 song"
     }
+
+    const getArtists = (): void => {
+        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/artists`)
+        .then((response: AxiosResponse) => response.data)
+        .catch((error: Error) => console.error(error))
+        .then((result: Array<ArtistResponse>) => setArtists(result));
+    }
+
+    useEffect(() => {
+        getArtists();
+    }, [])
 
     return(
         <div>
@@ -96,14 +110,4 @@ export default function Artists (props: ArtistsProps): JSX.Element {
             }
         </div>
 	)
-}
-
-// This function gets called at build time on server-side.
-export async function getStaticProps(): Promise<{ props: { artists }}> {
-  const artists = await (await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/artists`)).data;
-  return {
-    props: {
-      artists
-    }
-  }
 }

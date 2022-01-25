@@ -16,6 +16,7 @@ import axios, { AxiosResponse } from 'axios';
 // others
 import { Song } from '../../components/song';
 import { setSongData } from '../../reducers/song-data-slice';
+import { LoadingContent } from '../../components/loading-content';
 
 // styles
 import classes from '../../styles/songs.module.scss';
@@ -39,13 +40,17 @@ export default function Songs(): JSX.Element {
         .catch((error: Error) => console.error(error))
         .then((result: Array<SongResponse>) => setSongs(result));
     }
+    
+    const isReady = (): boolean => {
+        return songs?.length > 0
+    }
 
     useEffect(() => {
         getSongs();
     }, [])
 
     return (
-        <div>
+        <LoadingContent isReady={isReady()}>
             <List>
                 {
                     songs?.map((song: SongResponse) => {
@@ -62,6 +67,6 @@ export default function Songs(): JSX.Element {
             <Fab onClick={() => playRandomSong(songs)} color="secondary" className={classes.fab}>
                 <Shuffle />
             </Fab>
-        </div>
+        </LoadingContent>
     )
 }

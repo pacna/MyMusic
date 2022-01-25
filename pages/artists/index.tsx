@@ -23,6 +23,7 @@ import axios, { AxiosResponse } from 'axios';
 
 // others
 import { setSongData } from '../../reducers/song-data-slice';
+import { LoadingContent } from '../../components/loading-content';
 
 export default function Artists(): JSX.Element {
     const [artists, setArtists] = useState([] as Array<ArtistResponse>);
@@ -55,12 +56,16 @@ export default function Artists(): JSX.Element {
         .then((result: Array<ArtistResponse>) => setArtists(result));
     }
 
+    const isReady = (): boolean => {
+        return artists?.length > 0;
+    }
+
     useEffect(() => {
         getArtists();
     }, [])
 
     return(
-        <div>
+        <LoadingContent isReady={isReady()}>
             {
                 artists?.map((artist: ArtistResponse, index: number) => {
                     return(
@@ -108,6 +113,6 @@ export default function Artists(): JSX.Element {
                     )
                 })
             }
-        </div>
+        </LoadingContent>
 	)
 }

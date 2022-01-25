@@ -31,9 +31,7 @@ export const LoadingContent = (props: LoadingContentProps): JSX.Element => {
         )
     }
 
-    return(
-        <div>
-            { loadComponent() }
-        </div>
+    return (
+        loadComponent()
     )
 }

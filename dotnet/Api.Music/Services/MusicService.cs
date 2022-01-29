@@ -21,10 +21,25 @@ namespace Api.Music.Services
             return MusicMapper.Map(musics: musics);
         }
 
-        public async Task<MusicResponse> AddMusic()
+        public async Task<MusicResponse> AddMusic(MusicAddRequest request)
         {
-            MusicDocument music = await this._musicRepo.AddMusic();
+            MusicDocument music = await this._musicRepo.AddMusic(request);
             return MusicMapper.Map(music: music);
+        }
+
+        public async Task UpdateMusic(string id, MusicUpdateRequest request)
+        {
+            await this._musicRepo.UpdateMusic(id: id, request: request);
+        }
+
+        public async Task RemoveMusic(string id)
+        {
+            await this._musicRepo.RemoveMusic(id: id);
+        }
+
+        public async Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request)
+        {
+            await this._musicRepo.UpdateFavorite(id: id, request: request);
         }
     }
 }

@@ -4,15 +4,16 @@ using Api.Music.Repositories.Documents;
 
 namespace Api.Music.Repositories
 {
-    public class MongoDBClient : IMongoDBClient
+    internal class MongoDataStore
     {
         private MongoClient _client;
 
-        public MongoDBClient()
+        internal MongoDataStore(string collectionName)
         {
             this._client = new MongoClient("mongodb://localhost:27017");
+
         }
-        public void Setup()
+        internal void Setup()
         {
             try
             {

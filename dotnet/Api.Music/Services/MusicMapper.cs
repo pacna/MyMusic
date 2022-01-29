@@ -15,9 +15,12 @@ namespace Api.Music.Services
         {
             return new MusicResponse
             {
+                Artist = music.Artist,
                 Id = music.Id,
+                IsFavorite = music.IsFavorite,
+                Length = music.Length,
                 Path = music.Path,
-                Title = music.Title
+                Title = music.Title,
             };
         }
     }

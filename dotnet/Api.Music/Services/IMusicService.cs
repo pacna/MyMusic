@@ -8,6 +8,7 @@ namespace Api.Music.Services
     {
         Task<List<MusicResponse>> SearchMusic();
         Task<MusicResponse> AddMusic(MusicAddRequest request);
+        Task<MusicResponse> GetMusic(string id);
         Task UpdateMusic(string id, MusicUpdateRequest request);
         Task RemoveMusic(string id);
         Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request);

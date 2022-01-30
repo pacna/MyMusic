@@ -27,6 +27,12 @@ namespace Api.Music.Services
             return MusicMapper.Map(music: music);
         }
 
+        public async Task<MusicResponse> GetMusic(string id)
+        {
+            MusicDocument music = await this._musicRepo.GetMusic(id: id);
+            return MusicMapper.Map(music: music);
+        }
+
         public async Task UpdateMusic(string id, MusicUpdateRequest request)
         {
             await this._musicRepo.UpdateMusic(id: id, request: request);

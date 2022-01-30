@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Music.Controllers.Models;
 using Api.Music.Repositories.Documents;
+using Api.Music.Repositories.Settings;
 
 namespace Api.Music.Repositories
 {
@@ -37,6 +38,18 @@ namespace Api.Music.Repositories
             return doc;
         }
 
+        public async Task<MusicDocument> GetMusic(string id)
+        {
+            musicInMemory.TryGetValue(id, out MusicDocument doc);
+
+            if (doc == null)
+            {
+                return null;
+            }
+
+            return doc;
+        }
+
         public async Task UpdateMusic(string id, MusicUpdateRequest request)
         {
             musicInMemory.TryGetValue(id, out MusicDocument musicBeforeUpdate);
@@ -59,7 +72,10 @@ namespace Api.Music.Repositories
 
         public async Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request)
         {
-            musicInMemory[id].IsFavorite = request.IsFavorite;
+            if (request.IsFavorite != null)
+            {
+                musicInMemory[id].IsFavorite = request.IsFavorite.Value;
+            }
         }
     }
 }

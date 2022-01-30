@@ -9,6 +9,7 @@ namespace Api.Music.Repositories
     {
         Task<List<MusicDocument>> SearchMusic();
         Task<MusicDocument> AddMusic(MusicAddRequest request);
+        Task<MusicDocument> GetMusic(string id);
         Task UpdateMusic(string id, MusicUpdateRequest request);
         Task RemoveMusic(string id);
         Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request);

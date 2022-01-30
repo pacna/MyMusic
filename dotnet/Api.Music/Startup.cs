@@ -1,22 +1,38 @@
 using Api.Music.Repositories;
+using Api.Music.Repositories.Settings;
 using Api.Music.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace Api.Music
 {
     public class Startup
     {
+
+        private IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            this.Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IMusicRepository, MusicInMemory>();
+            services.AddSingleton<IMusicRepository, MusicRepository>();
             services.AddSingleton<IMusicService, MusicService>();
+
+            services.Configure<MongoDBSetting>(this.Configuration.GetSection("MongoDBSetting"));
+            services.AddSingleton<IMongoDBSetting>(serviceProvider =>
+                serviceProvider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo

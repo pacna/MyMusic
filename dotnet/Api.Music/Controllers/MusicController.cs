@@ -30,6 +30,13 @@ namespace Api.Music.Controllers
             return this.Ok(await this._service.AddMusic(request: request));
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
+        public async Task<IActionResult> GetMusic([FromRoute] string id)
+        {
+            return this.Ok(await this._service.GetMusic(id: id));
+        }
+
         [HttpPut("{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateMusic([FromRoute] string id, [FromBody] MusicUpdateRequest request)

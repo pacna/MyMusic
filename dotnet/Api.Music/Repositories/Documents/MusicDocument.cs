@@ -1,13 +1,15 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Api.Music.Repositories.Documents
 {
-    public class MusicDocument
+    public class MusicDocument : BaseDocument
     {
         [BsonElement("a")]
         public string Artist { get; set; }
 
         [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         [BsonElement("if")]

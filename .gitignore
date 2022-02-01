@@ -40,8 +40,8 @@ lerna-debug.log*
 /src/controllers/__snapshots__
 
 # dotnet
-dotnet/Api.Music/bin
-dotnet/Api.Music/obj
+dotnet/Api.Music/src/bin
+dotnet/Api.Music/src/obj
 dotnet/Api.Music/server
 dotnet/Api.Music/Tests/Api.Music.Tests/obj
 dotnet/Api.Music/Tests/Api.Music.Tests/bin

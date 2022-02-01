@@ -1,7 +1,7 @@
 namespace Api.Music.Controllers.Models
 {
-    public class MusicUpdateFavoriteRequest
+    public class MusicUpdateFavoriteRequest : BaseUpdateRequest
     {
-        public bool? IsFavorite { get; init; }
+        public bool IsFavorite { get; init; }
     }
 }

@@ -27,6 +27,11 @@ namespace Api.Music.Repositories
             return await this._collection.Find<TDocument>(filter).ToListAsync();
         }
 
+        public async Task<List<TDocument>> FindAsync(FilterDefinition<TDocument> filter, SortDefinition<TDocument> sort)
+        {
+            return await this._collection.Find<TDocument>(filter).Sort(sort).ToListAsync();
+        }
+
         public async Task<TDocument> FindAsync(string id, FilterDefinition<TDocument> filter)
         {
             return await this._collection.Find<TDocument>(filter).FirstOrDefaultAsync();

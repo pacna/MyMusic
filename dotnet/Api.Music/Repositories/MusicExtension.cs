@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,11 @@ namespace Api.Music.Repositories
         public static List<TDocument> ToList<TDocument>(this Dictionary<string, TDocument> dict)
         {
             return dict.Values.ToList();
+        }
+
+        public static bool IsNullOrEmpty(this IList list)
+        {
+            return list == null || list.Count == 0;
         }
     }
 }

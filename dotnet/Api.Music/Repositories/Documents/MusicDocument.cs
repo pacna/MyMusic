@@ -1,3 +1,4 @@
+using Api.Music.Repositories.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -7,6 +8,9 @@ namespace Api.Music.Repositories.Documents
     {
         [BsonElement("a")]
         public string Artist { get; set; }
+
+        [BsonElement("aai")]
+        public AlphabetType ArtistAlphabetIndex { get; set; }
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

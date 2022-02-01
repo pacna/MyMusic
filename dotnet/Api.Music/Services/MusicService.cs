@@ -15,16 +15,16 @@ namespace Api.Music.Services
             this._musicRepo = musicRepo;
         }
 
-        public async Task<List<MusicResponse>> SearchMusic()
+        public async Task<List<MusicResponse>> SearchMusic(MusicSearchRequest request)
         {
-            List<MusicDocument> musics = await this._musicRepo.SearchMusic();
+            List<MusicDocument> musics = await this._musicRepo.SearchMusic(request);
             return MusicMapper.Map(musics: musics);
         }
 
         public async Task<MusicResponse> AddMusic(MusicAddRequest request)
         {
-            MusicDocument music = await this._musicRepo.AddMusic(request);
-            return MusicMapper.Map(music: music);
+            MusicDocument doc = MusicMongoMapper.Map(request: request);
+            return MusicMapper.Map(await this._musicRepo.AddMusic(doc));
         }
 
         public async Task<MusicResponse> GetMusic(string id)

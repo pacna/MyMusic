@@ -6,7 +6,7 @@ namespace Api.Music.Services
 {
     public interface IMusicService
     {
-        Task<List<MusicResponse>> SearchMusic();
+        Task<List<MusicResponse>> SearchMusic(MusicSearchRequest request);
         Task<MusicResponse> AddMusic(MusicAddRequest request);
         Task<MusicResponse> GetMusic(string id);
         Task UpdateMusic(string id, MusicUpdateRequest request);

@@ -7,8 +7,8 @@ namespace Api.Music.Repositories
 {
     public interface IMusicRepository
     {
-        Task<List<MusicDocument>> SearchMusic();
-        Task<MusicDocument> AddMusic(MusicAddRequest request);
+        Task<List<MusicDocument>> SearchMusic(MusicSearchRequest request);
+        Task<MusicDocument> AddMusic(MusicDocument doc);
         Task<MusicDocument> GetMusic(string id);
         Task UpdateMusic(string id, MusicUpdateRequest request);
         Task RemoveMusic(string id);

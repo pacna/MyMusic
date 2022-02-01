@@ -16,25 +16,14 @@ namespace Api.Music.Repositories
             musicInMemory = new Dictionary<string, MusicDocument>();
         }
 
-        public async Task<List<MusicDocument>> SearchMusic()
+        public async Task<List<MusicDocument>> SearchMusic(MusicSearchRequest request)
         {
             return musicInMemory.ToList();
         }
 
-        public async Task<MusicDocument> AddMusic(MusicAddRequest request)
+        public async Task<MusicDocument> AddMusic(MusicDocument doc)
         {
-            string musicId = Guid.NewGuid().ToString();
-
-            MusicDocument doc = new MusicDocument
-            {
-                Artist = request.Artist,
-                Id = musicId,
-                IsFavorite = request.IsFavorite,
-                Length = request.Length,
-                Title = request.Title
-            };
-
-            musicInMemory.TryAdd(musicId, doc);
+            musicInMemory.TryAdd(doc.Id, doc);
             return doc;
         }
 
@@ -72,10 +61,7 @@ namespace Api.Music.Repositories
 
         public async Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request)
         {
-            if (request.IsFavorite != null)
-            {
-                musicInMemory[id].IsFavorite = request.IsFavorite.Value;
-            }
+            musicInMemory[id].IsFavorite = request.IsFavorite;
         }
     }
 }

@@ -18,9 +18,9 @@ namespace Api.Music.Controllers
 
         [HttpGet]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(List<MusicResponse>))]
-        public async Task<IActionResult> SearchMusic()
+        public async Task<IActionResult> SearchMusic([FromQuery] MusicSearchRequest request)
         {
-            return this.Ok(await this._service.SearchMusic());
+            return this.Ok(await this._service.SearchMusic(request: request));
         }
 
         [HttpPost]

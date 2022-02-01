@@ -16,6 +16,7 @@ namespace Api.Music.Services
             return new MusicResponse
             {
                 Artist = music.Artist,
+                ArtistAlphabetCategory = music.ArtistAlphabetIndex,
                 Id = music.Id,
                 IsFavorite = music.IsFavorite,
                 Length = music.Length,

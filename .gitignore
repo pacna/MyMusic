@@ -42,3 +42,6 @@ lerna-debug.log*
 # dotnet
 dotnet/Api.Music/bin
 dotnet/Api.Music/obj
+dotnet/Api.Music/server
+dotnet/Api.Music/Tests/Api.Music.Tests/obj
+dotnet/Api.Music/Tests/Api.Music.Tests/bin

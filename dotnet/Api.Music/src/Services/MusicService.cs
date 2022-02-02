@@ -15,37 +15,37 @@ namespace Api.Music.Services
             this._musicRepo = musicRepo;
         }
 
-        public async Task<List<MusicResponse>> SearchMusic(MusicSearchRequest request)
+        public async Task<List<MusicResponse>> SearchMusicAsync(MusicSearchRequest request)
         {
-            List<MusicDocument> musics = await this._musicRepo.SearchMusic(request);
+            List<MusicDocument> musics = await this._musicRepo.SearchMusicAsync(request);
             return MusicMapper.Map(musics: musics);
         }
 
-        public async Task<MusicResponse> AddMusic(MusicAddRequest request)
+        public async Task<MusicResponse> AddMusicAsync(MusicAddRequest request)
         {
             MusicDocument doc = MusicMongoMapper.Map(request: request);
-            return MusicMapper.Map(await this._musicRepo.AddMusic(doc));
+            return MusicMapper.Map(await this._musicRepo.AddMusicAsync(doc));
         }
 
-        public async Task<MusicResponse> GetMusic(string id)
+        public async Task<MusicResponse> GetMusicAsync(string id)
         {
-            MusicDocument music = await this._musicRepo.GetMusic(id: id);
+            MusicDocument music = await this._musicRepo.GetMusicAsync(id: id);
             return MusicMapper.Map(music: music);
         }
 
-        public async Task UpdateMusic(string id, MusicUpdateRequest request)
+        public async Task UpdateMusicAsync(string id, MusicUpdateRequest request)
         {
-            await this._musicRepo.UpdateMusic(id: id, request: request);
+            await this._musicRepo.UpdateMusicAsync(id: id, request: request);
         }
 
-        public async Task RemoveMusic(string id)
+        public async Task RemoveMusicAsync(string id)
         {
-            await this._musicRepo.RemoveMusic(id: id);
+            await this._musicRepo.RemoveMusicAsync(id: id);
         }
 
-        public async Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request)
+        public async Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request)
         {
-            await this._musicRepo.UpdateFavorite(id: id, request: request);
+            await this._musicRepo.UpdateFavoriteAsync(id: id, request: request);
         }
     }
 }

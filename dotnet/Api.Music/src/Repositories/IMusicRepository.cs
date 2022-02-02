@@ -7,11 +7,11 @@ namespace Api.Music.Repositories
 {
     public interface IMusicRepository
     {
-        Task<List<MusicDocument>> SearchMusic(MusicSearchRequest request);
-        Task<MusicDocument> AddMusic(MusicDocument doc);
-        Task<MusicDocument> GetMusic(string id);
-        Task UpdateMusic(string id, MusicUpdateRequest request);
-        Task RemoveMusic(string id);
-        Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request);
+        Task<List<MusicDocument>> SearchMusicAsync(MusicSearchRequest request);
+        Task<MusicDocument> AddMusicAsync(MusicDocument doc);
+        Task<MusicDocument> GetMusicAsync(string id);
+        Task UpdateMusicAsync(string id, MusicUpdateRequest request);
+        Task RemoveMusicAsync(string id);
+        Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request);
     }
 }

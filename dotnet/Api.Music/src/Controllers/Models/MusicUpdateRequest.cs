@@ -1,6 +1,6 @@
 namespace Api.Music.Controllers.Models
 {
-    public class MusicUpdateRequest : BaseUpdateRequest
+    public class MusicUpdateRequest
     {
         public string Artist { get; init; }
         public int Length { get; init; }

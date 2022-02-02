@@ -19,45 +19,45 @@ namespace Api.Music.Repositories
         {
         }
 
-        public async Task<List<MusicDocument>> SearchMusic(MusicSearchRequest request)
+        public Task<List<MusicDocument>> SearchMusicAsync(MusicSearchRequest request)
         {
             FilterDefinition<MusicDocument> filter = CreateFilterDefinitionForSearch(request: request);
 
             if (!string.IsNullOrEmpty(request.SortBy))
             {
                 SortDefinition<MusicDocument> sort = CreateAscendingSortDefinitionForSearch(sortBy: request.SortBy);
-                return await base.FindAsync(filter, sort);
+                return base.FindAsync(filter, sort);
             }
 
-            return await base.FindAsync(filter);
+            return base.FindAsync(filter);
         }
 
-        public async Task<MusicDocument> AddMusic(MusicDocument doc)
+        public Task<MusicDocument> AddMusicAsync(MusicDocument doc)
         {
-            return await base.InsertOneAsync(doc);
+            return base.InsertOneAsync(doc);
         }
 
-        public async Task<MusicDocument> GetMusic(string id)
+        public Task<MusicDocument> GetMusicAsync(string id)
         {
             FilterDefinition<MusicDocument> filter = CreateFilterDefinitionToFindById(id: id);
-            return await base.FindAsync(id: id, filter: filter);
+            return base.FindAsync(id: id, filter: filter);
         }
 
-        public async Task UpdateMusic(string id, MusicUpdateRequest request)
+        public Task UpdateMusicAsync(string id, MusicUpdateRequest request)
         {
             FilterDefinition<MusicDocument> filter = CreateFilterDefinitionToFindById(id: id);
             UpdateDefinition<MusicDocument> update = BuildUpdateDefinition(request: request);
 
-            await base.UpdateAsync(filter: filter, update: update);
+            return base.UpdateAsync(filter: filter, update: update);
         }
 
-        public async Task RemoveMusic(string id)
+        public Task RemoveMusicAsync(string id)
         {
             FilterDefinition<MusicDocument> filter = CreateFilterDefinitionToFindById(id: id);
-            await base.RemoveOneAsync(filter);
+            return base.RemoveOneAsync(filter);
         }
 
-        public async Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request)
+        public Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request)
         {
             FilterDefinition<MusicDocument> filter = CreateFilterDefinitionToFindById(id: id);
             List<UpdateDefinition<MusicDocument>> updates = new List<UpdateDefinition<MusicDocument>>();
@@ -65,7 +65,7 @@ namespace Api.Music.Repositories
             updates.Add(updateBuilder.Set(m => m.IsFavorite, request.IsFavorite));
             updates.Add(updateBuilder.Set(m => m.UpdatedDate, DateTime.UtcNow));
 
-            await base.UpdateAsync(filter: filter, update: updateBuilder.Combine(updates));
+            return base.UpdateAsync(filter: filter, update: updateBuilder.Combine(updates));
         }
 
         private UpdateDefinition<MusicDocument> BuildUpdateDefinition(MusicUpdateRequest request)

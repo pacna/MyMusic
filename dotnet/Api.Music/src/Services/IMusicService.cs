@@ -6,11 +6,11 @@ namespace Api.Music.Services
 {
     public interface IMusicService
     {
-        Task<List<MusicResponse>> SearchMusic(MusicSearchRequest request);
-        Task<MusicResponse> AddMusic(MusicAddRequest request);
-        Task<MusicResponse> GetMusic(string id);
-        Task UpdateMusic(string id, MusicUpdateRequest request);
-        Task RemoveMusic(string id);
-        Task UpdateFavorite(string id, MusicUpdateFavoriteRequest request);
+        Task<List<MusicResponse>> SearchMusicAsync(MusicSearchRequest request);
+        Task<MusicResponse> AddMusicAsync(MusicAddRequest request);
+        Task<MusicResponse> GetMusicAsync(string id);
+        Task UpdateMusicAsync(string id, MusicUpdateRequest request);
+        Task RemoveMusicAsync(string id);
+        Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request);
     }
 }

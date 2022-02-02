@@ -22,24 +22,24 @@ namespace Api.Music.Repositories
             }
         }
 
-        public async Task<List<TDocument>> FindAsync(FilterDefinition<TDocument> filter)
+        public Task<List<TDocument>> FindAsync(FilterDefinition<TDocument> filter)
         {
-            return await this._collection.Find<TDocument>(filter).ToListAsync();
+            return this._collection.Find<TDocument>(filter).ToListAsync();
         }
 
-        public async Task<List<TDocument>> FindAsync(FilterDefinition<TDocument> filter, SortDefinition<TDocument> sort)
+        public Task<List<TDocument>> FindAsync(FilterDefinition<TDocument> filter, SortDefinition<TDocument> sort)
         {
-            return await this._collection.Find<TDocument>(filter).Sort(sort).ToListAsync();
+            return this._collection.Find<TDocument>(filter).Sort(sort).ToListAsync();
         }
 
-        public async Task<TDocument> FindAsync(string id, FilterDefinition<TDocument> filter)
+        public Task<TDocument> FindAsync(string id, FilterDefinition<TDocument> filter)
         {
-            return await this._collection.Find<TDocument>(filter).FirstOrDefaultAsync();
+            return this._collection.Find<TDocument>(filter).FirstOrDefaultAsync();
         }
 
-        public async Task UpdateAsync(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update)
+        public Task UpdateAsync(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update)
         {
-            await this._collection.UpdateOneAsync(filter, update);
+            return this._collection.UpdateOneAsync(filter, update);
         }
 
         public async Task<TDocument> InsertOneAsync(TDocument doc)
@@ -48,9 +48,9 @@ namespace Api.Music.Repositories
             return doc;
         }
 
-        public async Task RemoveOneAsync(FilterDefinition<TDocument> filter)
+        public Task RemoveOneAsync(FilterDefinition<TDocument> filter)
         {
-            await this._collection.DeleteOneAsync(filter);
+            return this._collection.DeleteOneAsync(filter);
         }
 
     }

@@ -18,46 +18,46 @@ namespace Api.Music.Controllers
 
         [HttpGet]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(List<MusicResponse>))]
-        public async Task<IActionResult> SearchMusic([FromQuery] MusicSearchRequest request)
+        public async Task<IActionResult> SearchMusicAsync([FromQuery] MusicSearchRequest request)
         {
-            return this.Ok(await this._service.SearchMusic(request: request));
+            return this.Ok(await this._service.SearchMusicAsync(request: request));
         }
 
         [HttpPost]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
-        public async Task<IActionResult> AddMusic([FromBody] MusicAddRequest request)
+        public async Task<IActionResult> AddMusicAsync([FromBody] MusicAddRequest request)
         {
-            return this.Ok(await this._service.AddMusic(request: request));
+            return this.Ok(await this._service.AddMusicAsync(request: request));
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
-        public async Task<IActionResult> GetMusic([FromRoute] string id)
+        public async Task<IActionResult> GetMusicAsync([FromRoute] string id)
         {
-            return this.Ok(await this._service.GetMusic(id: id));
+            return this.Ok(await this._service.GetMusicAsync(id: id));
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateMusic([FromRoute] string id, [FromBody] MusicUpdateRequest request)
+        public async Task<IActionResult> UpdateMusicAsync([FromRoute] string id, [FromBody] MusicUpdateRequest request)
         {
-            await this._service.UpdateMusic(id: id, request: request);
+            await this._service.UpdateMusicAsync(id: id, request: request);
             return this.NoContent();
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> RemoveMusic([FromRoute] string id)
+        public async Task<IActionResult> RemoveMusicAsync([FromRoute] string id)
         {
-            await this._service.RemoveMusic(id: id);
+            await this._service.RemoveMusicAsync(id: id);
             return this.NoContent();
         }
 
         [HttpPut("favorites/{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateFavorite([FromRoute] string id, [FromBody] MusicUpdateFavoriteRequest request)
+        public async Task<IActionResult> UpdateFavoriteAsync([FromRoute] string id, [FromBody] MusicUpdateFavoriteRequest request)
         {
-            await this._service.UpdateFavorite(id: id, request: request);
+            await this._service.UpdateFavoriteAsync(id: id, request: request);
             return this.NoContent();
         }
     }

@@ -6,9 +6,9 @@ namespace Api.Music.Controllers.Models
     {
         public bool IsFavorite { get; init; }
 
-        public UpdateFavoriteMusicRequest ToDataLayer()
+        public UpdateMusicRequest ToDataLayer()
         {
-            return new UpdateFavoriteMusicRequest
+            return new UpdateMusicRequest
             {
                 IsFavorite = this.IsFavorite
             };

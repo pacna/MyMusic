@@ -51,10 +51,10 @@ namespace Api.Music.Repositories
             return base.RemoveOneAsync(filter);
         }
 
-        public Task UpdateFavoriteAsync(string id, UpdateFavoriteMusicRequest request)
+        public Task UpdateFavoriteAsync(string id, UpdateMusicRequest request)
         {
             FilterDefinition<MusicDocument> filter = MusicQueryBuilder.BuildEntityIdQuery(id: id);
-            UpdateDefinition<MusicDocument> update = MusicQueryBuilder.BuildUpdateFavoriteQuery(query: request);
+            UpdateDefinition<MusicDocument> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
 
             return base.UpdateAsync(filter: filter, update: update);
         }

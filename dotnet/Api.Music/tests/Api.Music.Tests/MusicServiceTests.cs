@@ -209,7 +209,7 @@ namespace Api.Music.Tests
             };
 
             this._repo
-                .Setup(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateFavoriteMusicRequest>()))
+                .Setup(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateMusicRequest>()))
                 .Callback(() => doc1.IsFavorite = favoriteRequest.IsFavorite)
                 .Returns(Task.CompletedTask);
 
@@ -218,7 +218,7 @@ namespace Api.Music.Tests
 
             // ASSERT
             Assert.Equal(doc1.IsFavorite, favoriteRequest.IsFavorite);
-            this._repo.Verify(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateFavoriteMusicRequest>()), Times.Once);
+            this._repo.Verify(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateMusicRequest>()), Times.Once);
         }
 
         private void AssertEqual(MusicResponse expected, IEnumerable<MusicDocument> actual)

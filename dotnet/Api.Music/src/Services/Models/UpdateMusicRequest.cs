@@ -8,5 +8,6 @@ namespace Api.Music.Services.Models
         public int Length { get; init; }
         public string Path { get; init; }
         public string Title { get; init; }
+        public bool? IsFavorite { get; init; }
     }
 }

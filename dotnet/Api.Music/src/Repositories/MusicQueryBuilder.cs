@@ -54,6 +54,11 @@ namespace Api.Music.Repositories
                 updates.Add(updateBuilder.Set(m => m.Title, query.Title));
             }
 
+            if (query.IsFavorite.HasValue)
+            {
+                updates.Add(updateBuilder.Set(m => m.IsFavorite, query.IsFavorite));
+            }
+
             if (updates.Any())
             {
                 updates.Add(updateBuilder.Set(m => m.UpdatedDate, DateTime.UtcNow));
@@ -64,17 +69,31 @@ namespace Api.Music.Repositories
 
         public static SortDefinition<MusicDocument> BuildSortQuery(string sortBy)
         {
-            return sortBuilder.Ascending(sortBy);
-        }
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                FieldDefinition<MusicDocument> field = null;
+                SortInfo sortInfo = new SortInfo(sortBy: sortBy);
 
-        public static UpdateDefinition<MusicDocument> BuildUpdateFavoriteQuery(IMusicUpdateFavoriteQuery query)
-        {
-            List<UpdateDefinition<MusicDocument>> updates = new List<UpdateDefinition<MusicDocument>>();
+                string propertyName = sortInfo.PropertyName.ToLowerInvariant();
 
-            updates.Add(updateBuilder.Set(m => m.IsFavorite, query.IsFavorite));
-            updates.Add(updateBuilder.Set(m => m.UpdatedDate, DateTime.UtcNow));
+                if (propertyName == nameof(MusicDocument.Artist).ToLowerInvariant())
+                {
+                    field = nameof(MusicDocument.Artist);
+                }
+                else if (propertyName == nameof(MusicDocument.Title).ToLowerInvariant())
+                {
+                    field = nameof(MusicDocument.Title);
+                }
 
-            return updateBuilder.Combine(updates);
+                if (field != null)
+                {
+                    return sortInfo.Direction == SortKeyType.Ascending ? sortBuilder.Ascending(field) : sortBuilder.Descending(field);
+                }
+
+                return null;
+            }
+
+            return null;
         }
 
         public static FilterDefinition<MusicDocument> BuildEntityIdQuery(string id)

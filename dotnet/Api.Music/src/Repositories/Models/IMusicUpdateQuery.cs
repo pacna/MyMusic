@@ -6,5 +6,6 @@ namespace Api.Music.Repositories.Models
         int Length { get; init; }
         string Path { get; init; }
         string Title { get; init; }
+        bool? IsFavorite { get; init; }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Api.Music.Repositories.Models;
+using Api.Music.Services.Models;
 
 namespace Api.Music.Controllers.Models
 {
@@ -10,6 +11,16 @@ namespace Api.Music.Controllers.Models
         public List<AlphabetType> ArtistAlphabetCategories { get; init; }
 
         public string SortBy { get; init; }
+
+        public SearchMusicRequest ToDataLayer()
+        {
+            return new SearchMusicRequest
+            {
+                IsFavorite = this.IsFavorite,
+                ArtistAlphabetIndices = this.ArtistAlphabetCategories,
+                SortBy = this.SortBy
+            };
+        }
 
     }
 }

@@ -27,7 +27,7 @@ namespace Api.Music
         {
             services.AddControllers();
             services.AddSingleton<IMusicRepository, MusicRepository>();
-            services.AddSingleton<IMusicService, MusicService>();
+            this.AddServices(services: services);
 
             services.Configure<MongoDBSetting>(this.Configuration.GetSection("MongoDBSetting"));
             services.AddSingleton<IMongoDBSetting>(serviceProvider =>
@@ -52,6 +52,7 @@ namespace Api.Music
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<HttpExceptionMiddleware>();
             app.UseRouting();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
@@ -65,6 +66,12 @@ namespace Api.Music
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void AddServices(IServiceCollection services)
+        {
+            services.AddSingleton<IMusicService, MusicService>();
+            services.AddSingleton<IValidationService, ValidationService>();
         }
     }
 }

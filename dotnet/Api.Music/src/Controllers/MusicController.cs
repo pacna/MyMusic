@@ -25,6 +25,7 @@ namespace Api.Music.Controllers
 
         [HttpPost]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
+        [ProducesResponseType(statusCode: StatusCodes.Status412PreconditionFailed)]
         public async Task<IActionResult> AddMusicAsync([FromBody] MusicAddRequest request)
         {
             return this.Ok(await this._service.AddMusicAsync(request: request));

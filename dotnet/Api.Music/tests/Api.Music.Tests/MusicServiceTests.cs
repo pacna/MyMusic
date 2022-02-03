@@ -7,6 +7,7 @@ using Api.Music.Repositories;
 using Api.Music.Repositories.Documents;
 using Api.Music.Repositories.Models;
 using Api.Music.Services;
+using Api.Music.Services.Models;
 using Moq;
 using Xunit;
 
@@ -15,11 +16,14 @@ namespace Api.Music.Tests
     public class MusicServiceTests
     {
         private readonly IMusicService _service;
+        private readonly Mock<IValidationService> _validationService;
         private readonly Mock<IMusicRepository> _repo;
+
         public MusicServiceTests()
         {
             this._repo = new Mock<IMusicRepository>();
-            this._service = new MusicService(this._repo.Object);
+            this._validationService = new Mock<IValidationService>();
+            this._service = new MusicService(this._repo.Object, this._validationService.Object);
         }
 
         [Fact]
@@ -44,7 +48,7 @@ namespace Api.Music.Tests
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Vanessa Carlton",
                 ArtistAlphabetIndex = AlphabetType.V,
-                IsFavorite = false,
+                IsFavorite = true,
                 Length = 240, // 4 mins
                 Title = "A Thousand Miles",
                 Path = "/music/1000Miles.mp3",
@@ -58,12 +62,17 @@ namespace Api.Music.Tests
                 doc2
             };
 
+            MusicSearchRequest request = new MusicSearchRequest
+            {
+                IsFavorite = null
+            };
+
             this._repo
-                .Setup(m => m.SearchMusicAsync(It.IsAny<MusicSearchRequest>()))
+                .Setup(m => m.SearchMusicAsync(It.IsAny<SearchMusicRequest>()))
                 .ReturnsAsync(expectedResponse);
 
             // ACT
-            List<MusicResponse> response = await this._service.SearchMusicAsync(It.IsAny<MusicSearchRequest>());
+            List<MusicResponse> response = await this._service.SearchMusicAsync(request: request);
 
             // ASSERT
             Assert.NotNull(response);
@@ -71,7 +80,7 @@ namespace Api.Music.Tests
                 x => AssertEqual(x, expectedResponse),
                 x => AssertEqual(x, expectedResponse)
             );
-            this._repo.Verify(m => m.SearchMusicAsync(It.IsAny<MusicSearchRequest>()), Times.Once);
+            this._repo.Verify(m => m.SearchMusicAsync(It.IsAny<SearchMusicRequest>()), Times.Once);
         }
 
         [Fact]
@@ -165,16 +174,20 @@ namespace Api.Music.Tests
         {
             // ARRANGE
             string id = Guid.NewGuid().ToString();
+            MusicUpdateRequest request = new MusicUpdateRequest
+            {
+                Artist = "foobar"
+            };
 
             this._repo
-                .Setup(m => m.UpdateMusicAsync(id, It.IsAny<MusicUpdateRequest>()))
+                .Setup(m => m.UpdateMusicAsync(id, It.IsAny<UpdateMusicRequest>()))
                 .Returns(Task.CompletedTask);
 
             // ACT
-            await this._service.UpdateMusicAsync(id, It.IsAny<MusicUpdateRequest>());
+            await this._service.UpdateMusicAsync(id, request);
 
             // ASSERT
-            this._repo.Verify(m => m.UpdateMusicAsync(id, It.IsAny<MusicUpdateRequest>()), Times.Once);
+            this._repo.Verify(m => m.UpdateMusicAsync(id, It.IsAny<UpdateMusicRequest>()), Times.Once);
         }
 
         [Fact]
@@ -196,7 +209,7 @@ namespace Api.Music.Tests
             };
 
             this._repo
-                .Setup(m => m.UpdateFavoriteAsync(id, favoriteRequest))
+                .Setup(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateFavoriteMusicRequest>()))
                 .Callback(() => doc1.IsFavorite = favoriteRequest.IsFavorite)
                 .Returns(Task.CompletedTask);
 
@@ -205,7 +218,7 @@ namespace Api.Music.Tests
 
             // ASSERT
             Assert.Equal(doc1.IsFavorite, favoriteRequest.IsFavorite);
-            this._repo.Verify(m => m.UpdateFavoriteAsync(id, favoriteRequest), Times.Once);
+            this._repo.Verify(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateFavoriteMusicRequest>()), Times.Once);
         }
 
         private void AssertEqual(MusicResponse expected, IEnumerable<MusicDocument> actual)

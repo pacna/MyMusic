@@ -4,8 +4,8 @@ bin
 # obj
 obj
 
-# server
-server
+# out
+out
 
 # tests
 tests/Api.Music.Tests/obj

@@ -5,8 +5,9 @@ The backend for the [React Music Player](https://github.com/pacna/react-music-pl
 ## Prerequisites
 
 1. [dotnet core](https://dotnet.microsoft.com/en-us/download)
-2. [docker](https://docs.docker.com/install/) (optional)
-3. [docker-compose](https://docs.docker.com/compose/install/) (optional)
+2. [mongoDB](https://www.mongodb.com/try/download/community)
+3. [docker](https://docs.docker.com/install/) (optional)
+4. [docker-compose](https://docs.docker.com/compose/install/) (optional)
 
 ## How to run locally
 
@@ -35,10 +36,10 @@ $ dotnet test
 
 ```bash
 # publish cmd
-$ dotnet publish ./src -c Release -o server
+$ dotnet publish ./src -c Release -o out
 
-# cd server folder
-$ cd server
+# cd out folder
+$ cd out
 
 # run the binary
 $ ./Api.Music
@@ -49,3 +50,5 @@ $ ./Api.Music
 ```bash
 $ docker-compose up --build
 ```
+
+**note**: You will need to switch the `ConnectionString` [here](./src/appsettings.json) to be `mongodb://musicdb:27017` before running it in docker

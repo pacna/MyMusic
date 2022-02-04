@@ -7,11 +7,11 @@ WORKDIR /app
 COPY . /app
 RUN dotnet test ./tests
 
-RUN dotnet publish ./src -c Release -o server
+RUN dotnet publish ./src -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 WORKDIR /app
-COPY --from=build-env /app/server .
+COPY --from=build-env /app/out .
 ENTRYPOINT ["./Api.Music"]

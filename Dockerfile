@@ -1,12 +1,17 @@
-# Grab the latest version of node from registry
-FROM node:latest
-
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 
 RUN mkdir /app
 WORKDIR /app
 
-# Copying the current directory (api.music has package.json) to the /app folder
+# Copying the current directory to the /app folder
 COPY . /app
-RUN npm install
+RUN dotnet test ./tests
 
-CMD ["npm", "run", "start"]
+RUN dotnet publish ./src -c Release -o server
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
+
+WORKDIR /app
+COPY --from=build-env /app/server .
+ENTRYPOINT ["./Api.Music"]

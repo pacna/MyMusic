@@ -34,15 +34,18 @@ $ dotnet test
 ## How to run in production
 
 ```bash
-# cd src folder
-$ cd src
-
 # publish cmd
-$ dotnet publish -c Release -o server
+$ dotnet publish ./src -c Release -o server
 
 # cd server folder
 $ cd server
 
 # run the binary
 $ ./Api.Music
+```
+
+## How to run in docker (Optional)
+
+```bash
+$ docker-compose up --build
 ```

@@ -30,8 +30,7 @@ services:
           links: 
             - musicdb
           command: bash -c "
-            mongoimport --host musicdb --db music --collection songs --file '/seeder/sample-songs.json' --jsonArray --drop &
-            mongoimport --host musicdb --db music --collection artists --file '/seeder/sample-artists.json' --jsonArray --drop"
+            mongoimport --host musicdb --db music --collection music --file '/seeder/sample-music.json' --jsonArray --drop"
           networks:
                 music-app:
                     aliases: 

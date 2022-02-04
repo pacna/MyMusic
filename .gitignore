@@ -1,47 +1,12 @@
-# compiled output
-/dist
-/node_modules
+# bin
+bin
 
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+# obj
+obj
 
-# OS
-.DS_Store
+# server
+server
 
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# .env
-/.env
-
-# snapshots
-/src/controllers/__snapshots__
-
-# dotnet
-dotnet/Api.Music/src/bin
-dotnet/Api.Music/src/obj
-dotnet/Api.Music/src/server
-dotnet/Api.Music/tests/Api.Music.Tests/obj
-dotnet/Api.Music/tests/Api.Music.Tests/bin
+# tests
+tests/Api.Music.Tests/obj
+tests/Api.Music.Tests/bin

@@ -1,36 +1,48 @@
 # Api Music
 
-The backend for the React Music Player and future music players
+The backend for the [React Music Player](https://github.com/pacna/react-music-player)
 
 ## Prerequisites
 
-* [docker](https://docs.docker.com/install/)
-* [docker-compose](https://docs.docker.com/compose/install/)
+1. [dotnet core](https://dotnet.microsoft.com/en-us/download)
+2. [docker](https://docs.docker.com/install/) (optional)
+3. [docker-compose](https://docs.docker.com/compose/install/) (optional)
 
-## Environment variable
-
-```
-DATABASE= connectionstring
-```
-
-## Running the app in docker
-
-```
-$ docker-compose up --build
-```
-
-## Running the app locally
-
-```
-npm start
-```
-
-## Test
+## How to run locally
 
 ```bash
-# unit tests
-$ npm run test
+# cd src folder
+$ cd src
 
-# e2e tests
-$ npm run test:e2e
+# run cmd
+$ dotnet run
+
+# run cmd (watch mode)
+$ dotnet watch run
+```
+
+## How to run tests
+
+```bash
+# cd tests folder
+$ cd tests
+
+# test cmd
+$ dotnet test
+```
+
+## How to run in production
+
+```bash
+# cd src folder
+$ cd src
+
+# publish cmd
+$ dotnet publish -c Release -o server
+
+# cd server folder
+$ cd server
+
+# run the binary
+$ ./Api.Music
 ```

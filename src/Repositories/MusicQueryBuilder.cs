@@ -89,8 +89,6 @@ namespace Api.Music.Repositories
                 {
                     return sortInfo.Direction == SortKeyType.Ascending ? sortBuilder.Ascending(field) : sortBuilder.Descending(field);
                 }
-
-                return null;
             }
 
             return null;

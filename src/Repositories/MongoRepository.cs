@@ -32,7 +32,7 @@ namespace Api.Music.Repositories
             return this._collection.Find<TDocument>(filter).Sort(sort).ToListAsync();
         }
 
-        public Task<TDocument> FindAsync(string id, FilterDefinition<TDocument> filter)
+        public Task<TDocument> FindByAsync(FilterDefinition<TDocument> filter)
         {
             return this._collection.Find<TDocument>(filter).FirstOrDefaultAsync();
         }

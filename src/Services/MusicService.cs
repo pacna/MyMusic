@@ -37,19 +37,19 @@ namespace Api.Music.Services
             return MusicMapper.Map(music: music);
         }
 
-        public async Task UpdateMusicAsync(string id, MusicUpdateRequest request)
+        public Task UpdateMusicAsync(string id, MusicUpdateRequest request)
         {
-            await this._musicRepo.UpdateMusicAsync(id: id, request: request.ToDataLayer());
+            return this._musicRepo.UpdateMusicAsync(id: id, request: request.ToDataLayer());
         }
 
-        public async Task RemoveMusicAsync(string id)
+        public Task RemoveMusicAsync(string id)
         {
-            await this._musicRepo.RemoveMusicAsync(id: id);
+            return this._musicRepo.RemoveMusicAsync(id: id);
         }
 
-        public async Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request)
+        public Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request)
         {
-            await this._musicRepo.UpdateFavoriteAsync(id: id, request: request.ToDataLayer());
+            return this._musicRepo.UpdateFavoriteAsync(id: id, request: request.ToDataLayer());
         }
     }
 }

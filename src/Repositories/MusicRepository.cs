@@ -34,7 +34,7 @@ namespace Api.Music.Repositories
         public Task<MusicDocument> GetMusicAsync(string id)
         {
             FilterDefinition<MusicDocument> filter = MusicQueryBuilder.BuildEntityIdQuery(id: id);
-            return base.FindAsync(id: id, filter: filter);
+            return base.FindByAsync(filter: filter);
         }
 
         public Task UpdateMusicAsync(string id, UpdateMusicRequest request)

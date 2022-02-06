@@ -1,36 +1,54 @@
 # Api Music
 
-The backend for the React Music Player and future music players
+The backend for the [React Music Player](https://github.com/pacna/react-music-player)
 
 ## Prerequisites
 
-* [docker](https://docs.docker.com/install/)
-* [docker-compose](https://docs.docker.com/compose/install/)
+1. [dotnet core](https://dotnet.microsoft.com/en-us/download)
+2. [mongoDB](https://www.mongodb.com/try/download/community)
+3. [docker](https://docs.docker.com/install/) (optional)
+4. [docker-compose](https://docs.docker.com/compose/install/) (optional)
 
-## Environment variable
+## How to run locally
 
+```bash
+# cd src folder
+$ cd src
+
+# run cmd
+$ dotnet run
+
+# run cmd (watch mode)
+$ dotnet watch run
 ```
-DATABASE= connectionstring
+
+## How to run tests
+
+```bash
+# cd tests folder
+$ cd tests
+
+# test cmd
+$ dotnet test
 ```
 
-## Running the app in docker
+## How to run in production
 
+```bash
+# publish cmd
+$ dotnet publish ./src -c Release -o out
+
+# cd out folder
+$ cd out
+
+# run the binary
+$ ./Api.Music
 ```
+
+## How to run in docker (Optional)
+
+```bash
 $ docker-compose up --build
 ```
 
-## Running the app locally
-
-```
-npm start
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-```
+**note**: You will need to switch the `ConnectionString` [here](./src/appsettings.json) to be `mongodb://musicdb:27017` before running it in docker

@@ -39,7 +39,7 @@ namespace Api.Music
                 {
                     Version = "v1",
                     Title = "Api.Music",
-                    Description = "The backend for the React Music Player and future music players"
+                    Description = "The backend for the React Music Player"
                 });
             });
         }

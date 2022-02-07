@@ -34,7 +34,7 @@ namespace Api.Music
                 response.StatusCode = statusCode;
                 response.ContentType = "application/json; charset=utf-8";
 
-                await context.Response.WriteAsync(JsonSerializer.Serialize(new
+                await response.WriteAsync(JsonSerializer.Serialize(new
                 {
                     Message = ex.Message,
                     StatusCode = statusCode

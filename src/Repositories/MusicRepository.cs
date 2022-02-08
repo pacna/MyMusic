@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Music.Repositories.Documents;
-using Api.Music.Repositories.Settings;
 using Api.Music.Services.Models;
+using Api.Music.Settings;
 using MongoDB.Driver;
 
 namespace Api.Music.Repositories

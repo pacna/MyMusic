@@ -1,8 +1,8 @@
 using System;
 using MongoDB.Driver;
-using Api.Music.Repositories.Settings;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Api.Music.Settings;
 
 namespace Api.Music.Repositories
 {

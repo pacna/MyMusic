@@ -1,6 +1,6 @@
+using System;
 using Api.Music.Repositories;
-using Api.Music.Repositories.Settings;
-using Api.Music.Services;
+using Api.Music.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,10 +15,12 @@ namespace Api.Music
     {
 
         private IConfiguration Configuration { get; }
+        private ICORSPolicySettings _corsPolicySettings { get; set; }
 
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
+            this.GetInitCORSPolicy(configuration: configuration);
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -27,11 +29,13 @@ namespace Api.Music
         {
             services.AddControllers();
             services.AddSingleton<IMusicRepository, MusicRepository>();
-            this.AddServices(services: services);
+            services.AddServices();
+            services.AddCors(corsPolicySettings: this._corsPolicySettings);
 
             services.Configure<MongoDBSetting>(this.Configuration.GetSection("MongoDBSetting"));
-            services.AddSingleton<IMongoDBSetting>(serviceProvider =>
-                serviceProvider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
+            services.AddSingleton<IMongoDBSetting>(provider =>
+                provider.GetRequiredService<IOptions<MongoDBSetting>>().Value
+            );
 
             services.AddSwaggerGen(options =>
             {
@@ -55,6 +59,7 @@ namespace Api.Music
             app.UseMiddleware<HttpExceptionMiddleware>();
             app.UseRouting();
             app.UseSwagger();
+            app.UseCors(this._corsPolicySettings.PolicyName);
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api.Music");
@@ -68,10 +73,16 @@ namespace Api.Music
             });
         }
 
-        private void AddServices(IServiceCollection services)
+        private void GetInitCORSPolicy(IConfiguration configuration)
         {
-            services.AddSingleton<IMusicService, MusicService>();
-            services.AddSingleton<IValidationService, ValidationService>();
+            try
+            {
+                this._corsPolicySettings = configuration.GetSection("CORSPolicy").Get<CORSPolicySettings>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unable to set CORS policy --", ex.ToString());
+            }
         }
     }
 }

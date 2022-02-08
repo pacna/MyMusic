@@ -1,4 +1,4 @@
-namespace Api.Music.Repositories.Settings
+namespace Api.Music.Settings
 {
     public class MongoDBSetting : IMongoDBSetting
     {

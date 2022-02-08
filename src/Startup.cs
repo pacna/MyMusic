@@ -15,7 +15,7 @@ namespace Api.Music
     {
 
         private IConfiguration Configuration { get; }
-        private ICORSPolicySettings _corsPolicySettings { get; set; }
+        private ICORSPolicySettings CORSPolicySettings { get; set; }
 
         public Startup(IConfiguration configuration)
         {
@@ -30,7 +30,7 @@ namespace Api.Music
             services.AddControllers();
             services.AddSingleton<IMusicRepository, MusicRepository>();
             services.AddServices();
-            services.AddCors(corsPolicySettings: this._corsPolicySettings);
+            services.AddCors(corsPolicySettings: this.CORSPolicySettings);
 
             services.Configure<MongoDBSetting>(this.Configuration.GetSection("MongoDBSetting"));
             services.AddSingleton<IMongoDBSetting>(provider =>
@@ -59,7 +59,7 @@ namespace Api.Music
             app.UseMiddleware<HttpExceptionMiddleware>();
             app.UseRouting();
             app.UseSwagger();
-            app.UseCors(this._corsPolicySettings.PolicyName);
+            app.UseCors(this.CORSPolicySettings.PolicyName);
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api.Music");
@@ -77,7 +77,7 @@ namespace Api.Music
         {
             try
             {
-                this._corsPolicySettings = configuration.GetSection("CORSPolicy").Get<CORSPolicySettings>();
+                this.CORSPolicySettings = configuration.GetSection("CORSPolicy").Get<CORSPolicySettings>();
             }
             catch (Exception ex)
             {

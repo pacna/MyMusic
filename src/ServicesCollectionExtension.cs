@@ -2,6 +2,7 @@ using System.Net.Http;
 using Api.Music.Services;
 using Api.Music.Settings;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 
 namespace Api.Music
 {
@@ -21,6 +22,7 @@ namespace Api.Music
                     builder =>
                     {
                         builder.WithOrigins(corsPolicySettings.AllowedOrigins);
+                        builder.WithHeaders(HeaderNames.ContentType, "application/json");
                         builder.WithMethods
                         (
                             HttpMethod.Get.Method,

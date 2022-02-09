@@ -54,7 +54,7 @@ namespace Api.Music.Controllers
             return this.NoContent();
         }
 
-        [HttpPut("favorites/{id}")]
+        [HttpPut("favorite/{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateFavoriteAsync([FromRoute] string id, [FromBody] MusicUpdateFavoriteRequest request)
         {

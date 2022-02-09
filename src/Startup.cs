@@ -1,19 +1,15 @@
 using System;
-using Api.Music.Repositories;
 using Api.Music.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 
 namespace Api.Music
 {
     public class Startup
     {
-
         private IConfiguration Configuration { get; }
         private ICORSPolicySettings CORSPolicySettings { get; set; }
 
@@ -28,24 +24,11 @@ namespace Api.Music
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IMusicRepository, MusicRepository>();
             services.AddServices();
+            services.AddRepositories();
+            services.AddSwagger();
             services.AddCors(corsPolicySettings: this.CORSPolicySettings);
-
-            services.Configure<MongoDBSetting>(this.Configuration.GetSection("MongoDBSetting"));
-            services.AddSingleton<IMongoDBSetting>(provider =>
-                provider.GetRequiredService<IOptions<MongoDBSetting>>().Value
-            );
-
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "Api.Music",
-                    Description = "The backend for the React Music Player"
-                });
-            });
+            services.AddSettings(configuration: this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

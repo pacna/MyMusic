@@ -15,6 +15,7 @@ namespace Api.Music.Services
         {
             return new MusicResponse
             {
+                Album = music.Album,
                 Artist = music.Artist,
                 ArtistAlphabetCategory = music.ArtistAlphabetIndex,
                 Id = music.Id,

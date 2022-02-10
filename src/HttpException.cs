@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Api.Music
 {
-    internal class HttpException : Exception
+    public class HttpException : Exception
     {
         public HttpStatusCode StatusCode { get; }
 

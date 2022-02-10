@@ -4,6 +4,7 @@ namespace Api.Music.Controllers.Models
 {
     public class MusicResponse
     {
+        public string Album { get; init; }
         public string Artist { get; init; }
         public AlphabetType ArtistAlphabetCategory { get; init; }
         public string Id { get; init; }

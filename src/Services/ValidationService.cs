@@ -9,6 +9,11 @@ namespace Api.Music.Services
         public void ThrowIfInvalid(MusicAddRequest request)
         {
 
+            if (string.IsNullOrEmpty(request.Album))
+            {
+                throw new HttpException(statusCode: HttpStatusCode.PreconditionFailed, msg: $"{nameof(request.Album)} is required");
+            }
+
             if (string.IsNullOrWhiteSpace(request.Artist))
             {
                 throw new HttpException(statusCode: HttpStatusCode.PreconditionFailed, msg: $"{nameof(request.Artist)} is required");

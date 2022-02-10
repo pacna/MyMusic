@@ -10,20 +10,20 @@ using Microsoft.OpenApi.Models;
 
 namespace Api.Music
 {
-    public static class ServicesCollectionExtension
+    internal static class ServicesCollectionExtension
     {
-        public static void AddServices(this IServiceCollection services)
+        internal static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IMusicService, MusicService>();
             services.AddSingleton<IValidationService, ValidationService>();
         }
 
-        public static void AddRepositories(this IServiceCollection services)
+        internal static void AddRepositories(this IServiceCollection services)
         {
             services.AddSingleton<IMusicRepository, MusicRepository>();
         }
 
-        public static void AddSettings(this IServiceCollection services, IConfiguration configuration)
+        internal static void AddSettings(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"));
             services.AddSingleton<IMongoDBSetting>(provider =>
@@ -31,7 +31,7 @@ namespace Api.Music
             );
         }
 
-        public static void AddSwagger(this IServiceCollection services)
+        internal static void AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {
@@ -44,7 +44,7 @@ namespace Api.Music
             });
         }
 
-        public static void AddCors(this IServiceCollection services, ICORSPolicySettings corsPolicySettings)
+        internal static void AddCors(this IServiceCollection services, ICORSPolicySettings corsPolicySettings)
         {
             services.AddCors(options =>
             {
@@ -61,7 +61,7 @@ namespace Api.Music
                         (
                             HttpMethod.Get.Method,
                             HttpMethod.Post.Method,
-                            HttpMethod.Put.Method,
+                            HttpMethod.Patch.Method,
                             HttpMethod.Delete.Method
                         );
                     });

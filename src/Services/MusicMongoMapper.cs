@@ -11,6 +11,7 @@ namespace Api.Music.Services
         {
             return new MusicDocument
             {
+                Album = request.Album,
                 Artist = request.Artist,
                 ArtistAlphabetIndex = CalculateAlphabetIndex(artistFirstChar: request.Artist[0]),
                 IsFavorite = request.IsFavorite,

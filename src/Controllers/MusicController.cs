@@ -38,7 +38,7 @@ namespace Api.Music.Controllers
             return this.Ok(await this._service.GetMusicAsync(id: id));
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateMusicAsync([FromRoute] string id, [FromBody] MusicUpdateRequest request)
         {
@@ -54,7 +54,7 @@ namespace Api.Music.Controllers
             return this.NoContent();
         }
 
-        [HttpPut("favorite/{id}")]
+        [HttpPatch("favorite/{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateFavoriteAsync([FromRoute] string id, [FromBody] MusicUpdateFavoriteRequest request)
         {

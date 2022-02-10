@@ -4,6 +4,7 @@ namespace Api.Music.Controllers.Models
 {
     public class MusicUpdateRequest
     {
+        public string Album { get; init; }
         public string Artist { get; init; }
         public int Length { get; init; }
         public string Path { get; init; }
@@ -13,6 +14,7 @@ namespace Api.Music.Controllers.Models
         {
             return new UpdateMusicRequest
             {
+                Album = this.Album,
                 Artist = this.Artist,
                 Length = this.Length,
                 Path = this.Path,

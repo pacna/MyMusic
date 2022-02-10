@@ -6,6 +6,9 @@ namespace Api.Music.Repositories.Documents
 {
     public class MusicDocument : BaseDocument
     {
+        [BsonElement("al")]
+        public string Album { get; set; }
+
         [BsonElement("a")]
         public string Artist { get; set; }
 

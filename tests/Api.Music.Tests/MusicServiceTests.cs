@@ -34,6 +34,7 @@ namespace Api.Music.Tests
             {
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Linkin Park",
+                Album = "Meteora",
                 ArtistAlphabetIndex = AlphabetType.L,
                 IsFavorite = true,
                 Length = 185, // 3 mins and 5 secs
@@ -47,6 +48,7 @@ namespace Api.Music.Tests
             {
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Vanessa Carlton",
+                Album = "Legally Blonde",
                 ArtistAlphabetIndex = AlphabetType.V,
                 IsFavorite = true,
                 Length = 240, // 4 mins
@@ -89,6 +91,7 @@ namespace Api.Music.Tests
             // ARRANGE
             MusicAddRequest request = new MusicAddRequest
             {
+                Album = "Meteora",
                 Artist = "Linkin Park",
                 IsFavorite = true,
                 Length = 185, // 3 mins and 5 secs
@@ -100,6 +103,7 @@ namespace Api.Music.Tests
             {
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Linkin Park",
+                Album = "Meteora",
                 ArtistAlphabetIndex = AlphabetType.L,
                 IsFavorite = true,
                 Length = 185, // 3 mins and 5 secs
@@ -147,6 +151,7 @@ namespace Api.Music.Tests
             {
                 Id = id,
                 Artist = "Linkin Park",
+                Album = "Meteora",
                 ArtistAlphabetIndex = AlphabetType.L,
                 IsFavorite = true,
                 Length = 185, // 3 mins and 5 secs

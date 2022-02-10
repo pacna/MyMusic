@@ -34,6 +34,11 @@ namespace Api.Music.Repositories
         {
             List<UpdateDefinition<MusicDocument>> updates = new List<UpdateDefinition<MusicDocument>>();
 
+            if (!string.IsNullOrEmpty(query.Album))
+            {
+                updates.Add(updateBuilder.Set(m => m.Album, query.Album));
+            }
+
             if (!string.IsNullOrEmpty(query.Artist))
             {
                 updates.Add(updateBuilder.Set(m => m.Artist, query.Artist));

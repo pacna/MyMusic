@@ -28,9 +28,9 @@ import { setSongData } from '../reducers/song-data-slice';
 
 export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
     const { open, closeSearchDialog } = props;
-    const [ isSearchDialogOpen, setSearchDialogOpen ] = useState(open);
-    const [ input, setInput ] = useState('');
-    const [ songs, setSongs ] = useState([] as Array<SongResponse>);
+    const [ isSearchDialogOpen, setSearchDialogOpen ] = useState<boolean>(open);
+    const [ input, setInput ] = useState<string>('');
+    const [ songs, setSongs ] = useState<Array<SongResponse>>([] as Array<SongResponse>);
     const dispatch = useDispatch(); 
 
     const handleClose = (): void => {

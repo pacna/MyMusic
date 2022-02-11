@@ -6,7 +6,7 @@ import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/ma
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
 // types
-import { SongProps } from './types/song.interface';
+import { SongDetailConfig } from './types/song-detail-config';
 
 // styles
 import classes from "../styles/song.module.scss";
@@ -16,11 +16,11 @@ import axios, { AxiosResponse } from 'axios';
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { setSongData } from "../reducers/song-data-slice";
 
-export const Song = (props: SongProps): JSX.Element => {
+export const SongDetail = (props: SongDetailConfig): JSX.Element => {
     const { song, id } = props;
     const songData = useSelector((state: RootStateOrAny) => state.songData.value);
     const dispatch = useDispatch();
-    const [isFav, setIsFav ] = useState(song.favorite);
+    const [isFav, setIsFav ] = useState<boolean>(song.isFavorite);
 
     const playMusic = (path: string, id: string): void => {
         setSongPath(path, id, true)
@@ -36,8 +36,8 @@ export const Song = (props: SongProps): JSX.Element => {
     }
 
     const updateFavorite = (id: string): void => {
-        axios.put(`${process.env.NEXT_PUBLIC_REACT_APP_API}/songs/favorite/update/${id}`, {
-            favorite: !isFav
+        axios.patch(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music/favorite/${id}`, {
+            isFavorite: !isFav
         })
         .then((response: AxiosResponse) => response.data)
         .catch(error => console.error(error))
@@ -54,27 +54,23 @@ export const Song = (props: SongProps): JSX.Element => {
         }
     }
 
-    const displayArtistName = (artistName: string): string => {
-        return artistName ? artistName : "Unknown artist";
-    }
-
     return(
         <div>
-            <ListItem button onClick={() => playMusic(song.path, song._id)}>
+            <ListItem button onClick={() => playMusic(song.path, song.id)}>
                 <ListItemText primary={song.title} 
                 secondary={
                     <Typography className={classes.centerSpacing}>
-                        {displayArtistName(song.artist)}
+                        { song.artist }
                         <span className={classes.centerSpacing}>
                             {
                                 displaySoundWave(id)
                             }
-                            <IconButton onClick={(evt: MouseEvent) => changeFavorites(evt, song._id)}>
+                            <IconButton onClick={(evt: MouseEvent) => changeFavorites(evt, song.id)}>
                                 {
                                     (isFav ) ? <Favorite /> : <FavoriteBorder />
                                 }
                             </IconButton>
-                            {song.length}
+                            {song.totalDuration}
                         </span>
                     </Typography>
                 }/>

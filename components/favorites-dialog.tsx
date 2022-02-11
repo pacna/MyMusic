@@ -27,7 +27,7 @@ import { setSongData } from '../reducers/song-data-slice';
 
 export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
     const { open, closeFavDialog } = props;
-    const [ isFavDialogOpen, setIsFavDialogOpen ] = useState(open);
+    const [ isFavDialogOpen, setIsFavDialogOpen ] = useState<boolean>(open);
     const [favorites, setFavorites] = useState([]);
     const dispatch = useDispatch();
 

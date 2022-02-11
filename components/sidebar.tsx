@@ -23,7 +23,7 @@ import { FavoritesDialog } from './favorites-dialog';
 import classes from "../styles/search-dialog.module.scss";
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
-    const [isFavDialogOpen, setIsFavDialogOpen] = useState(false);
+    const [isFavDialogOpen, setIsFavDialogOpen] = useState<boolean>(false);
     const { toggle, closeDrawer } = props;
 
     const openFavDialog = (): void => {

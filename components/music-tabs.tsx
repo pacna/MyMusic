@@ -11,7 +11,7 @@ import { NextRouter, useRouter } from "next/router";
 import { TABS } from "./types";
 
 export const MusicTabs = (): JSX.Element => {
-    const [tab, setTab] = useState(TABS.SONGS)
+    const [tab, setTab] = useState<TABS>(TABS.SONGS)
     const router: NextRouter = useRouter();
 
     const changeTab = (evt: SyntheticEvent<Element, Event>, tabIndex: number): void => {

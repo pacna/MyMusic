@@ -4,5 +4,5 @@ export * from "./audio-player.interface";
 export * from "./favorites-dialog.interface";
 export * from "./search-dialog.interface";
 export * from "./sidebar.interface";
-export * from "./song.interface";
+export * from "./song-detail-config";
 export * from "./loading-content.interface";

@@ -8,4 +8,5 @@ export interface MusicResponse {
   length: number;
   path: string;
   title: string;
+  album: string;
 }

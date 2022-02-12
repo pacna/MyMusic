@@ -16,8 +16,7 @@ import {
 } from '@mui/material';
 
 // types
-import { SongResponse } from './types/api/song-response.interface';
-import { SearchDialogProps } from './types';
+import { MusicResponse, SearchDialogProps } from './types';
 
 // third party
 import { useDispatch } from 'react-redux';
@@ -30,7 +29,7 @@ export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
     const { open, closeSearchDialog } = props;
     const [ isSearchDialogOpen, setSearchDialogOpen ] = useState<boolean>(open);
     const [ input, setInput ] = useState<string>('');
-    const [ songs, setSongs ] = useState<Array<SongResponse>>([] as Array<SongResponse>);
+    const [ songs, setSongs ] = useState<MusicResponse[]>([] as MusicResponse[]);
     const dispatch = useDispatch(); 
 
     const handleClose = (): void => {
@@ -51,10 +50,10 @@ export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
     }
 
     const getSongs = (): void => {
-        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/songs`)
+        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music`)
             .then((response: AxiosResponse) => response.data)
             .catch((error: Error) => console.error(error))
-            .then((result: Array<SongResponse>) => setSongs(result));
+            .then((result: MusicResponse[]) => setSongs(result));
     }
 
     useEffect(() => {
@@ -73,10 +72,10 @@ export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
                 <TextField label="Songs" fullWidth margin="dense" onChange={handleInput}/>
                     <List>
                         {
-                            songs?.filter((song: SongResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song: SongResponse, index: number)  => {
+                            songs?.filter((song: MusicResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song: MusicResponse, index: number)  => {
                                 return(
                                     <div key={index}>
-                                        <ListItem button onClick={() => playMusic(song.path, song._id)}>
+                                        <ListItem button onClick={() => playMusic(song.path, song.id)}>
                                             <ListItemText primary={song.title} />
                                         </ListItem>
                                         <Divider />

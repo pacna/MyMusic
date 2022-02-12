@@ -14,7 +14,7 @@ import {
 import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 
 // types
-import { SidebarProps } from './types/sidebar.interface';
+import { SidebarConfig } from './types/configs/sidebar-config';
 
 // components
 import { FavoritesDialog } from './favorites-dialog';
@@ -22,7 +22,7 @@ import { FavoritesDialog } from './favorites-dialog';
 // styles
 import classes from "../styles/search-dialog.module.scss";
 
-export const Sidebar = (props: SidebarProps): JSX.Element => {
+export const Sidebar = (props: SidebarConfig): JSX.Element => {
     const [isFavDialogOpen, setIsFavDialogOpen] = useState<boolean>(false);
     const { toggle, closeDrawer } = props;
 

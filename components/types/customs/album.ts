@@ -1,5 +1,5 @@
 // types
-import { MusicResponse } from "./../api/music-response";
+import { MusicResponse } from "../api/music-response";
 
 export interface Album {
   title: string;

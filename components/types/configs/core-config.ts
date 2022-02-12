@@ -1,6 +1,6 @@
 // react
 import { ReactElement } from "react";
 
-export interface CoreProps {
+export interface CoreConfig {
   children: ReactElement[] | ReactElement;
 }

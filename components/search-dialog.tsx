@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 
 // types
-import { MusicResponse, SearchDialogProps } from './types';
+import { MusicResponse, SearchDialogConfig } from './types';
 
 // third party
 import { useDispatch } from 'react-redux';
@@ -25,7 +25,7 @@ import axios, { AxiosResponse } from 'axios';
 // others
 import { setSongData } from '../reducers/song-data-slice';
 
-export const SearchDialog = (props: SearchDialogProps): JSX.Element => {
+export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
     const { open, closeSearchDialog } = props;
     const [ isSearchDialogOpen, setSearchDialogOpen ] = useState<boolean>(open);
     const [ input, setInput ] = useState<string>('');

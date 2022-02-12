@@ -1,5 +1,5 @@
 // types
-import { Song } from "./custom/song";
+import { Song } from "../customs/song";
 
 export interface SongDetailConfig {
   id: string;

@@ -6,7 +6,7 @@ import { Typography, ListItem, ListItemText, Divider, IconButton } from '@mui/ma
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
 // types
-import { SongDetailConfig } from './types/song-detail-config';
+import { SongDetailConfig } from './types/configs/song-detail-config';
 
 // styles
 import classes from "../styles/song.module.scss";

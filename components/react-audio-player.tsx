@@ -7,12 +7,12 @@ import { useDispatch } from 'react-redux';
 import classes from '../styles/react-audio-player.module.scss';
 
 // types
-import { AudioPlayerProps } from './types';
+import { AudioPlayerConfig } from './types/configs/audio-player-config';
 
 // others
 import { showSoundWave, hideSoundWave } from '../reducers/toggle-soundwave-slice';
  
-export const ReactAudioPlayer = (props: AudioPlayerProps): JSX.Element => {
+export const ReactAudioPlayer = (props: AudioPlayerConfig): JSX.Element => {
     const { src } = props;
     const dispatch = useDispatch();
 

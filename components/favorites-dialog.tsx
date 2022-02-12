@@ -16,7 +16,7 @@ import {
 
 // types
 import { MusicResponse } from './types/api';
-import { FavoritesDialogProps } from './types';
+import { FavoritesDialogConfig } from './types/configs/favorites-dialog-config';
 
 // third party
 import { useDispatch } from 'react-redux';
@@ -25,7 +25,7 @@ import axios, { AxiosResponse } from 'axios';
 // others
 import { setSongData } from '../reducers/song-data-slice';
 
-export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
+export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
     const { open, closeFavDialog } = props;
     const [ isFavDialogOpen, setIsFavDialogOpen ] = useState<boolean>(open);
     const [favorites, setFavorites] = useState<MusicResponse[]>([]);

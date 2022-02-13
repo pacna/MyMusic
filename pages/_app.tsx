@@ -1,6 +1,6 @@
 // next
 import type { AppProps } from 'next/app'
-import '../styles/globals.css'
+import '../styles/globals.scss'
 
 // third party
 import { Provider } from 'react-redux'

@@ -1,5 +1,8 @@
+@import "./colors.scss";
+
 .fab {
   position: fixed !important;
   right: 1.5vw;
   bottom: 8vw;
+  background-color: $primaryRed;
 }

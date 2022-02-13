@@ -1,4 +1,4 @@
-export interface SearchDialogProps {
+export interface SearchDialogConfig {
   open: boolean;
   closeSearchDialog: () => void;
 }

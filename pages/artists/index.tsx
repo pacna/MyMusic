@@ -15,7 +15,7 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 
 // types
-import { Album, SongResponse, ArtistResponse, SongData } from '../../components/types';
+import { SongData, MusicResponse, Artist, Album, AlbumSong } from '../../components/types';
 
 // third party
 import { useDispatch } from 'react-redux';
@@ -25,8 +25,8 @@ import axios, { AxiosResponse } from 'axios';
 import { setSongData } from '../../reducers/song-data-slice';
 import { LoadingContent } from '../../components/loading-content';
 
-export default function Artists(): JSX.Element {
-    const [artists, setArtists] = useState([] as Array<ArtistResponse>);
+export default function ArtistsPage(): JSX.Element {
+    const [artists, setArtists] = useState<Artist[]>([] as Artist[]);
     const dispatch = useDispatch();
 
     const playMusic = (path: string): void => {
@@ -37,23 +37,65 @@ export default function Artists(): JSX.Element {
         dispatch(setSongData({ path: path, id: id, visible: visible } as SongData))
     }
 
-    const displayArtist = (artist: string): string => {
-        return artist ? artist : "Unknown artist";
-    }
-
-    const displayNumberOfAlbums = (albums: Array<Album>): string => {
+    const displayNumberOfAlbums = (albums: Album[]): string => {
         return albums.length > 1 ? `${albums.length} albums` : "1 album";
     }
 
-    const displayNumberOfSongs = (songs: Array<SongResponse>): string => {
+    const displayNumberOfSongs = (songs: AlbumSong[]): string => {
         return songs.length > 1 ? `${songs} songs` : "1 song"
     }
 
-    const getArtists = (): void => {
-        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/artists`)
+    const searchMusic = (): void => {
+        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music?sortBy=artist:asc`)
         .then((response: AxiosResponse) => response.data)
         .catch((error: Error) => console.error(error))
-        .then((result: Array<ArtistResponse>) => setArtists(result));
+        .then((result: MusicResponse[]) => createViewModelForArtists(result));
+    }
+
+    const createViewModelForArtists = (response: MusicResponse[]): void => {
+        const artistsVM: Artist[] = response.reduce((artists: Artist[], music: MusicResponse) => {
+            const findArtistNameIndex: number = artists.findIndex((x: Artist) => x.name.toLowerCase() === music.artist);
+            if(hasValidIndex(findArtistNameIndex)) {
+                const locatedArtist: Artist = artists[findArtistNameIndex];
+                const findAlbumNameIndex: number = locatedArtist.albums.findIndex((x: Album) => x.title.toLowerCase() === music.album);
+                if (hasValidIndex(findAlbumNameIndex)) {
+                    locatedArtist.albums[findAlbumNameIndex].songs.push(convertToAlbumSong(music.title, music.path))
+                } else {
+                    locatedArtist?.albums.push(convertToAlbum(music.album, music.title, music.path))
+                }
+            } else {
+                artists.push(convertToArtist(music));
+            }
+
+            return artists;
+        }, [] as Artist[]);
+
+        setArtists(artistsVM);
+    }
+
+    const hasValidIndex = (index: number): boolean => {
+        return index !== -1;
+    }
+
+    const convertToAlbumSong = (title: string, path: string): AlbumSong => {
+        return {
+            title: title,
+            path: path
+        } as AlbumSong
+    }
+
+    const convertToAlbum = (albumName: string, title: string, path: string): Album => {
+        return {
+            title: albumName,
+            songs: [convertToAlbumSong(title, path)]
+        }
+    }
+
+    const convertToArtist = (music: MusicResponse): Artist => {
+        return {
+            name: music.artist,
+            albums: [convertToAlbum(music.album, music.title, music.path)]
+        }
     }
 
     const isReady = (): boolean => {
@@ -61,19 +103,19 @@ export default function Artists(): JSX.Element {
     }
 
     useEffect(() => {
-        getArtists();
+        searchMusic();
     }, [])
 
     return(
         <LoadingContent isReady={isReady()}>
             {
-                artists?.map((artist: ArtistResponse, index: number) => {
+                artists?.map((artist: Artist, index: number) => {
                     return(
                         <Accordion key={index}>
                             <AccordionSummary
                                 expandIcon={<ExpandMore />}>
                                     <Typography>
-                                        {displayArtist(artist.artist) + " " + displayNumberOfAlbums(artist.albums)}
+                                        {artist.name + " " + displayNumberOfAlbums(artist.albums)}
                                     </Typography>
                             </AccordionSummary>
                             {
@@ -83,12 +125,12 @@ export default function Artists(): JSX.Element {
                                             <AccordionSummary
                                                 expandIcon={<ExpandMore />}>
                                                     <Typography>
-                                                        {album.title ? album.title : "Unknown album"}
+                                                        {album.title + " " + displayNumberOfSongs(album.songs)}
                                                     </Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 {
-                                                    album.songs.map((song: SongResponse, index: number) => {
+                                                    album.songs.map((song: AlbumSong, index: number) => {
                                                         return(
                                                             <List key={index}>
                                                                 <ListItem 
@@ -96,7 +138,6 @@ export default function Artists(): JSX.Element {
                                                                     onClick={() => playMusic(song.path)}>
                                                                     <ListItemText 
                                                                         primary={song.title}
-                                                                        secondary={displayNumberOfSongs(album.songs)}
                                                                         />
                                                                 </ListItem>
                                                                 <Divider/>

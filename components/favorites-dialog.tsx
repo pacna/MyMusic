@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 
 // types
-import { FavoriteResponse, SongResponse } from './types/api';
-import { FavoritesDialogProps } from './types';
+import { MusicResponse } from './types/api';
+import { FavoritesDialogConfig } from './types/configs/favorites-dialog-config';
 
 // third party
 import { useDispatch } from 'react-redux';
@@ -25,10 +25,10 @@ import axios, { AxiosResponse } from 'axios';
 // others
 import { setSongData } from '../reducers/song-data-slice';
 
-export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
+export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
     const { open, closeFavDialog } = props;
-    const [ isFavDialogOpen, setIsFavDialogOpen ] = useState(open);
-    const [favorites, setFavorites] = useState([]);
+    const [ isFavDialogOpen, setIsFavDialogOpen ] = useState<boolean>(open);
+    const [favorites, setFavorites] = useState<MusicResponse[]>([]);
     const dispatch = useDispatch();
 
     const handleClose = (): void => {
@@ -40,24 +40,20 @@ export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
         dispatch(setSongData({path: path, id: id, visible: visible}));
     }
 
-    const playMusic = (title: string, songs: SongResponse[]): void => {
-        songs.forEach((song: SongResponse) => {
-            if(song.title === title){
-                setSongPath(song.path, song._id, true);
-                return;
-            }
-        })
+    const playMusic = (id: string, music: MusicResponse[]): void => {
+        const song: MusicResponse = music.find((x: MusicResponse) => x.id === id);
+        setSongPath(song.path, song.id, true);
     }
 
-    const getFavorites = (): void =>  {
-        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/songs/favorites`)
+    const searchMusic = (): void =>  {
+        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music?isFavorite=true`)
         .then((response: AxiosResponse) => response.data)
         .catch((error: Error) => console.error(error))
-        .then((result: Array<FavoriteResponse>) => setFavorites(result));
+        .then((result: MusicResponse[]) => setFavorites(result));
     }
 
     useEffect(() => {
-        getFavorites();
+        searchMusic();
     }, [])
 
     return(
@@ -71,10 +67,10 @@ export const FavoritesDialog = (props: FavoritesDialogProps): JSX.Element => {
             <DialogContent>
                     <List>
                         {
-                            favorites?.map((favorite: FavoriteResponse)=> {
+                            favorites?.map((favorite: MusicResponse)=> {
                                 return(
-                                    <div key={favorite._id}>
-                                        <ListItem button onClick={()=> playMusic(favorite.title, favorites)}>
+                                    <div key={favorite.id}>
+                                        <ListItem button onClick={()=> playMusic(favorite.id, favorites)}>
                                             <ListItemText primary={favorite.title}/>
                                         </ListItem>
                                         <Divider />

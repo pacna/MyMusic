@@ -4,8 +4,12 @@ import React, { Fragment, ReactElement } from 'react'
 // third party
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
+// styles
+import classes from './../styles/header-content.module.scss';
+
 // others
 import { SearchDialog } from './search-dialog';
+import { ModalManagement } from './modal-management';
 import { closeSearch } from '../reducers/toggle-search-slice';
 
 export const HeaderContent = (props: { children: ReactElement[] }): JSX.Element => {
@@ -18,14 +22,12 @@ export const HeaderContent = (props: { children: ReactElement[] }): JSX.Element 
     }
 
     return(
-        <div>
-            {
-                toggleSearch &&             
-                <SearchDialog
-                open={toggleSearch} 
-                closeSearchDialog={closeSearchDialog}
-                />
-            }
+        <div className={classes.topNav}>
+            <ModalManagement
+                isOpen={toggleSearch}
+                renderComponent={
+                <SearchDialog open={toggleSearch} closeSearchDialog={closeSearchDialog}/>}
+            />
             <Fragment> { children } </Fragment>
         </div>
     )

@@ -4,6 +4,9 @@ import React, { Fragment, ReactElement } from "react";
 // third party
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
+// styles
+import classes from './../styles/main-content.module.scss';
+
 // others
 import { closeDrawer } from "../reducers/toggle-drawer-slice";
 import { Sidebar } from "./sidebar";
@@ -20,7 +23,7 @@ export const MainContent = (props: { children: ReactElement}): JSX.Element => {
     }
 
     return (
-        <div>
+        <div className={classes.mainContent}>
             <Sidebar
                     toggle={toggleDrawer}
                     closeDrawer={hideDrawer}

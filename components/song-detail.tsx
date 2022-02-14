@@ -7,14 +7,17 @@ import { FavoriteBorder, Favorite } from '@mui/icons-material';
 
 // types
 import { SongDetailConfig } from './types/configs/song-detail-config';
+import { UpdateMusicFavoriteRequest } from "./types";
 
 // styles
 import classes from "../styles/song.module.scss";
 
+// others
+import { setSongData } from "../reducers/song-data-slice";
+
 // third party
 import axios, { AxiosResponse } from 'axios';
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { setSongData } from "../reducers/song-data-slice";
 
 export const SongDetail = (props: SongDetailConfig): JSX.Element => {
     const { song, id } = props;
@@ -28,17 +31,20 @@ export const SongDetail = (props: SongDetailConfig): JSX.Element => {
 
     const changeFavorites = (evt: MouseEvent, id: string): void  => {
         evt.stopPropagation();
-        updateFavorite(id);
+
+        const request: UpdateMusicFavoriteRequest = {
+            isFavorite: !isFav
+        };
+
+        updateFavorite(id, request);
     }
 
     const setSongPath = (path: string, id: string, visible: boolean): void => {
         dispatch(setSongData({path: path, id: id, visible: visible}))
     }
 
-    const updateFavorite = (id: string): void => {
-        axios.patch(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music/favorite/${id}`, {
-            isFavorite: !isFav
-        })
+    const updateFavorite = (id: string, request: UpdateMusicFavoriteRequest): void => {
+        axios.patch(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music/favorite/${id}`, request)
         .then((response: AxiosResponse) => response.data)
         .catch(error => console.error(error))
         .then(() => {

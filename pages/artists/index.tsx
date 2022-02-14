@@ -53,7 +53,7 @@ export default function ArtistsPage(): JSX.Element {
     }
 
     const createViewModelForArtists = (response: MusicResponse[]): void => {
-        const artistsVM: Artist[] = response.reduce((artists: Artist[], music: MusicResponse) => {
+        const artistsVM: Artist[] = response?.reduce((artists: Artist[], music: MusicResponse) => {
             const findArtistNameIndex: number = artists.findIndex((x: Artist) => x.name.toLowerCase() === music.artist);
             if(hasValidIndex(findArtistNameIndex)) {
                 const locatedArtist: Artist = artists[findArtistNameIndex];

@@ -1,8 +1,12 @@
 @import "./colors.scss";
 
-.fab {
+.fabContainer {
   position: fixed !important;
   right: 1.5vw;
   bottom: 8vw;
-  background-color: $primaryRed;
+
+  .fabRandom {
+    background-color: $primaryRed;
+    color: $plainWhite;
+  }
 }

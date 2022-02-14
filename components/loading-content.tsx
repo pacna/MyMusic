@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 
 // material
-import { CircularProgress, Fade } from "@mui/material"
+import { CircularProgress, Fade, Container } from "@mui/material"
 
 // styles
 import coreClasses from './../styles/core.module.scss';
@@ -17,16 +17,16 @@ export const LoadingContent = (props: LoadingContentConfig): JSX.Element => {
         if (isReady) {
             return (
                 <Fade in={true}>
-                    <div>
+                    <Container>
                         <Fragment> { children }</Fragment>
-                    </div>
+                    </Container>
                 </Fade>
             )
         }
 
         return (
             <div className={coreClasses.centerScreen}>
-                <CircularProgress size={60} />
+                <CircularProgress size={80} />
             </div>
         )
     }

@@ -41,7 +41,10 @@ export default function SongsPage(): JSX.Element {
         setToggleMusicManagement(true);
     }
 
-    const closeMusicManagementDialog = (): void => {
+    const closeMusicManagementDialog = (hasSubmitted: boolean): void => {
+        if (hasSubmitted) {
+            searchMusic();
+        }
         setToggleMusicManagement(false);
     }
 

@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 
 // material
-import { CircularProgress, Fade, Container } from "@mui/material"
+import { CircularProgress, Fade } from "@mui/material"
 
 // styles
 import coreClasses from './../styles/core.module.scss';
@@ -17,9 +17,9 @@ export const LoadingContent = (props: LoadingContentConfig): JSX.Element => {
         if (isReady) {
             return (
                 <Fade in={true}>
-                    <Container>
+                    <div>
                         <Fragment> { children }</Fragment>
-                    </Container>
+                    </div>
                 </Fade>
             )
         }

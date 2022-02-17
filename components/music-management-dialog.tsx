@@ -216,7 +216,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         variant="outlined"
                         onChange={handleDurationInMinsChange}
                         InputProps={{
-                            inputProps: { min: 0 }
+                            inputProps: { min: 0, max: 59 }
                         }}
                         value={musicManagementGroup.durationInMins}
                     />
@@ -229,7 +229,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         variant="outlined"
                         onChange={handleDurationInSecsChange}
                         InputProps={{
-                            inputProps: { min: 0 }
+                            inputProps: { min: 0, max: 59 }
                         }}
                         value={musicManagementGroup.durationInSecs}
                     />

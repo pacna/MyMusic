@@ -19,13 +19,17 @@ import coreClasses from './../styles/core.module.scss';
 import classes from './../styles/music-management.module.scss';
 
 // types
-import { AddMusicRequest, MusicManagementDialogConfig, MusicManagementGroup, MusicResponse, UpdateMusicRequest } from './types';
+import { MusicManagementDialogConfig, MusicManagementGroup } from './types';
+import { AddMusicRequest, UpdateMusicRequest, MusicResponse } from '../services/types/api';
 
 // third party
 import { AxiosResponse } from 'axios';
 
 // services
 import { MusicApiService } from '../services/music-api.service';
+
+// functions
+import { isEmpty } from './helpers/functions';
 
 export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.Element => {
     const { toggle, musicId, closeMusicManagementDialog } = props;
@@ -127,10 +131,6 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                 !isEmpty(path) 
     }
 
-    const isEmpty = (value: string): boolean => {
-        return value.length === 0;
-    }
-
     const calculateLength = (durationInMins: number, durationInSecs: number): number => {
         return (durationInMins * 60) + durationInSecs;
     }
@@ -215,6 +215,9 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         type="number"
                         variant="outlined"
                         onChange={handleDurationInMinsChange}
+                        InputProps={{
+                            inputProps: { min: 0 }
+                        }}
                         value={musicManagementGroup.durationInMins}
                     />
                     <TextField
@@ -225,6 +228,9 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         type="number"
                         variant="outlined"
                         onChange={handleDurationInSecsChange}
+                        InputProps={{
+                            inputProps: { min: 0 }
+                        }}
                         value={musicManagementGroup.durationInSecs}
                     />
                 </div>

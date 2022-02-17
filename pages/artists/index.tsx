@@ -15,7 +15,8 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 
 // types
-import { SongData, MusicResponse, Artist, Album, AlbumSong, SearchMusicRequest } from '../../components/types';
+import { SongData, Artist, Album, AlbumSong } from '../../components/types';
+import { SearchMusicRequest, MusicResponse } from '../../services/types/api';
 
 // third party
 import { useDispatch } from 'react-redux';

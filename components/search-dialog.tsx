@@ -16,7 +16,8 @@ import {
 } from '@mui/material';
 
 // types
-import { MusicResponse, SearchDialogConfig, SearchMusicRequest } from './types';
+import { SearchDialogConfig } from './types';
+import { SearchMusicRequest, MusicResponse } from '../services/types/api';
 
 // third party
 import { useDispatch } from 'react-redux';
@@ -26,6 +27,9 @@ import { setSongData } from '../reducers/song-data-slice';
 
 // services
 import { MusicApiService } from '../services/music-api.service';
+
+// functions
+import { debounce } from './helpers/functions';
 
 export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
     const { open, closeSearchDialog } = props;
@@ -37,14 +41,6 @@ export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
     const handleClose = (): void => {
         closeSearchDialog();
         setSearchDialogOpen(!open);
-    }
-
-    const debounce = (func: Function, timeoutInMs: number = 300): (...args: any[]) => void =>{
-        let timer;
-        return (...args: any[]): void => {
-            clearTimeout(timer);
-            timer = setTimeout(() => { func.apply(this, args); }, timeoutInMs);
-        };
     }
 
     const handleSearchInput = debounce((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => searchMusic({ title: event.target.value} as SearchMusicRequest));

@@ -7,7 +7,7 @@ import { FavoriteBorder, Favorite, MoreHoriz } from '@mui/icons-material';
 
 // types
 import { SongDetailConfig } from './types/configs/song-detail-config';
-import { UpdateMusicFavoriteRequest } from "./types";
+import { UpdateMusicFavoriteRequest } from "../services/types/api";
 
 // styles
 import classes from "../styles/song-detail.module.scss";

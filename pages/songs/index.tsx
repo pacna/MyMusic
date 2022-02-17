@@ -6,21 +6,23 @@ import { Box, Fab, List } from '@mui/material';
 import { Shuffle, Add } from "@mui/icons-material";
 
 // types
-import { MusicResponse, SearchMusicRequest } from "../../components/types/api";
+import { MusicResponse, SearchMusicRequest } from "../../services/types/api";
 import { Song, SongData } from "../../components/types";
 
 // third party
 import { useDispatch } from "react-redux";
 
-// others
+// components
 import { SongDetail } from '../../components/song-detail';
-import { setSongData } from '../../reducers/song-data-slice';
 import { LoadingContent } from '../../components/loading-content';
-
-// styles
-import classes from '../../styles/songs.module.scss';
 import { ModalManagement } from '../../components/modal-management';
 import { MusicManagementDialog } from '../../components/music-management-dialog';
+
+// reducers
+import { setSongData } from '../../reducers/song-data-slice';
+
+// styles
+import classes from '../../styles/songs-page.module.scss';
 
 // services
 import { MusicApiService } from '../../services/music-api.service';

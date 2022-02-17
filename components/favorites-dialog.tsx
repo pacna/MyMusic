@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 // types
-import { MusicResponse, SearchMusicRequest } from './types/api';
+import { MusicResponse, SearchMusicRequest } from '../services/types/api';
 import { FavoritesDialogConfig } from './types/configs/favorites-dialog-config';
 
 // third party

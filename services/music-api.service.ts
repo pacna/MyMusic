@@ -1,11 +1,11 @@
 // types
-import { SearchMusicRequest } from "./../components/types/api/search-music-request";
-import { AddMusicRequest } from "./../components/types/api/add-music-request";
-import { UpdateMusicRequest } from "./../components/types/api/update-music-request";
 import {
   MusicResponse,
   UpdateMusicFavoriteRequest,
-} from "../components/types/api";
+  SearchMusicRequest,
+  AddMusicRequest,
+  UpdateMusicRequest,
+} from "./types/api";
 
 // third party
 import axios, { AxiosResponse } from "axios";

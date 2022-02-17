@@ -30,6 +30,7 @@ export const SongDetail = (props: SongDetailConfig): JSX.Element => {
     const service = new MusicApiService();
 
     const songData = useSelector((state: RootStateOrAny) => state.songData.value);
+    const toggleSoundWave = useSelector((state: RootStateOrAny) => state.toggleSoundWave.value);
     const dispatch = useDispatch();
     const [isFav, setIsFav ] = useState<boolean>(song.isFavorite);
 
@@ -83,7 +84,7 @@ export const SongDetail = (props: SongDetailConfig): JSX.Element => {
     }
 
     const displaySoundWave = (id: string): JSX.Element | void => {
-        if (songData.id === id) {
+        if (songData.id === id && toggleSoundWave) {
             return (
                 <img src='/sound_wave.gif' alt="sound_waive" className={classes.soundWave}/>
             );

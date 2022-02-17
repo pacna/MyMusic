@@ -15,21 +15,24 @@ import {
 } from '@mui/material';
 
 // types
-import { MusicResponse } from './types/api';
+import { MusicResponse, SearchMusicRequest } from './types/api';
 import { FavoritesDialogConfig } from './types/configs/favorites-dialog-config';
 
 // third party
 import { useDispatch } from 'react-redux';
-import axios, { AxiosResponse } from 'axios';
 
 // others
 import { setSongData } from '../reducers/song-data-slice';
+
+// services
+import { MusicApiService } from '../services/music-api.service';
 
 export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
     const { open, closeFavDialog } = props;
     const [ isFavDialogOpen, setIsFavDialogOpen ] = useState<boolean>(open);
     const [favorites, setFavorites] = useState<MusicResponse[]>([]);
     const dispatch = useDispatch();
+    const service = new MusicApiService();
 
     const handleClose = (): void => {
         closeFavDialog();
@@ -45,11 +48,12 @@ export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
         setSongPath(song.path, song.id, true);
     }
 
-    const searchMusic = (): void =>  {
-        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music?isFavorite=true`)
-        .then((response: AxiosResponse) => response.data)
-        .catch((error: Error) => console.error(error))
-        .then((result: MusicResponse[]) => setFavorites(result));
+    const searchMusic = async(): Promise<void> =>  {
+        const request: SearchMusicRequest = {
+            isFavorite: true
+        } as SearchMusicRequest
+
+        setFavorites(await service.searchMusic(request));
     }
 
     useEffect(() => {

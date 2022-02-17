@@ -1,5 +1,5 @@
 // react
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 
 // material
 import { 
@@ -19,8 +19,13 @@ import coreClasses from './../styles/core.module.scss';
 import classes from './../styles/music-management.module.scss';
 
 // types
-import { AddMusicRequest, MusicManagementDialogConfig, MusicManagementGroup } from './types';
-import axios, { AxiosResponse } from 'axios';
+import { AddMusicRequest, MusicManagementDialogConfig, MusicManagementGroup, MusicResponse, UpdateMusicRequest } from './types';
+
+// third party
+import { AxiosResponse } from 'axios';
+
+// services
+import { MusicApiService } from '../services/music-api.service';
 
 export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.Element => {
     const { toggle, musicId, closeMusicManagementDialog } = props;
@@ -35,6 +40,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
         isFavorite: false
     } as MusicManagementGroup);
 
+    const service = new MusicApiService();
 
     const handleClose = (hasSubmitted: boolean = false): void => {
         setMusicManagementDialogOpen(!toggle);
@@ -42,49 +48,73 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
     }
 
     const handleTitleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { title: event.target.value}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { title: event.target.value}));
     }
 
     const handleAlbumChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { album: event.target.value}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { album: event.target.value}));
     }
 
     const handleArtistChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { artist: event.target.value}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { artist: event.target.value}));
     }
 
     const handleDurationInMinsChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { durationInMins: event.target.value}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { durationInMins: event.target.value}));
     }
 
     const handleDurationInSecsChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { durationInSecs: event.target.value}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { durationInSecs: event.target.value}));
     }
 
     const handlePathChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { path: event.target.value}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { path: event.target.value}));
     }
 
     const handleIsFavoriteChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        setMusicManagementGroup(Object.assign(musicManagementGroup, { isFavorite: event.target.checked}));
+        setMusicManagementGroup(Object.assign({}, musicManagementGroup, { isFavorite: event.target.checked}));
     }
 
-    const handleSubmit = (): void => {
-        if (isValid()) {
-            const request: AddMusicRequest = {
+    const createRequest = (): AddMusicRequest | UpdateMusicRequest => {
+        if (musicId) {
+            return {
                 title: musicManagementGroup.title,
                 album: musicManagementGroup.album,
                 artist: musicManagementGroup.artist,
                 length: calculateLength(musicManagementGroup.durationInMins, musicManagementGroup.durationInSecs),
-                path: musicManagementGroup.path,
-                isFavorite: musicManagementGroup.isFavorite
-            };
-            axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music`, request)
-            .then((response: AxiosResponse) => response.data)
-            .catch(error => console.error(error))
-            .then(() => {
-                handleClose(true);
-            })
+                path: musicManagementGroup.path
+            } as UpdateMusicRequest;
+        }
+
+        return {
+            title: musicManagementGroup.title,
+            album: musicManagementGroup.album,
+            artist: musicManagementGroup.artist,
+            length: calculateLength(musicManagementGroup.durationInMins, musicManagementGroup.durationInSecs),
+            path: musicManagementGroup.path,
+            isFavorite: musicManagementGroup.isFavorite
+        } as AddMusicRequest;
+    }
+
+    const handleSubmit = (): void => {
+        if (isValid()) {
+            if (musicId) {
+                const request: UpdateMusicRequest = createRequest();
+                service.updateMusic(musicId, request)
+                .then((response: AxiosResponse) => response.data)
+                .catch(error => console.error(error))
+                .then(() => {
+                    handleClose(true);
+                })
+            } else {
+                const request: AddMusicRequest = createRequest() as AddMusicRequest;
+                service.addMusic(request)
+                .then((response: AxiosResponse) => response.data)
+                .catch(error => console.error(error))
+                .then(() => {
+                    handleClose(true);
+                })
+            }
         }
     }
 
@@ -105,6 +135,42 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
         return (durationInMins * 60) + durationInSecs;
     }
 
+    const displayMusicManagementTitleText = (): string => {
+        return musicId ? 'Edit Music': 'Add Music';
+    }
+
+    const toggleDisplayingFavoriteCheckbox = (): JSX.Element | void => {
+        if (musicId) {
+            return;
+        }
+
+        return(
+            <FormGroup className={coreClasses.mt24}>
+                <FormControlLabel control={<Checkbox required checked={musicManagementGroup.isFavorite} onChange={handleIsFavoriteChange} />} label="Favorite" />
+            </FormGroup>
+        )
+    }
+
+    const getExistingMusic = async (): Promise<void> => {
+        if (musicId) {
+            const result: MusicResponse = await service.getMusic(musicId)
+            setMusicManagementGroup(
+                Object.assign({}, musicManagementGroup, { 
+                    title: result.title,
+                    album: result.album,
+                    artist: result.artist,
+                    durationInMins: Math.floor(result.length / 60),
+                    durationInSecs: result.length % 60,
+                    path: result.path,
+                    isFavorite: result.isFavorite
+                })
+            );
+        }
+    }
+
+    useEffect(() => {
+        getExistingMusic();
+    }, [])
 
     return(
         <Dialog
@@ -112,7 +178,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
             onClose={handleClose}
             fullWidth={true}
         >
-            <DialogTitle>Add Music</DialogTitle>
+            <DialogTitle>{displayMusicManagementTitleText()}</DialogTitle>
             <DialogContent>
                 <TextField
                     margin="normal"
@@ -121,7 +187,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                     fullWidth
                     variant="outlined"
                     onChange={handleTitleChange}
-                    defaultValue={musicManagementGroup.title}
+                    value={musicManagementGroup.title}
                 />
                 <TextField
                     margin="normal"
@@ -130,7 +196,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                     fullWidth
                     variant="outlined"
                     onChange={handleAlbumChange}
-                    defaultValue={musicManagementGroup.album}
+                    value={musicManagementGroup.album}
                 />
                 <TextField
                     margin="normal"
@@ -138,7 +204,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                     fullWidth
                     variant="outlined"
                     onChange={handleArtistChange}
-                    defaultValue={musicManagementGroup.artist}
+                    value={musicManagementGroup.artist}
                 />
                 <div className={classes.durationContainer}> 
                     <TextField
@@ -149,7 +215,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         type="number"
                         variant="outlined"
                         onChange={handleDurationInMinsChange}
-                        defaultValue={musicManagementGroup.durationInMins}
+                        value={musicManagementGroup.durationInMins}
                     />
                     <TextField
                         margin="normal"
@@ -159,7 +225,7 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         type="number"
                         variant="outlined"
                         onChange={handleDurationInSecsChange}
-                        defaultValue={musicManagementGroup.durationInSecs}
+                        value={musicManagementGroup.durationInSecs}
                     />
                 </div>
                 <TextField
@@ -169,12 +235,9 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                     fullWidth
                     variant="outlined"
                     onChange={handlePathChange}
-                    defaultValue={musicManagementGroup.path}
+                    value={musicManagementGroup.path}
                 />
-
-            <FormGroup className={coreClasses.mt24}>
-                <FormControlLabel control={<Checkbox required value={musicManagementGroup.isFavorite} onChange={handleIsFavoriteChange} />} label="Favorite" />
-            </FormGroup>
+                { toggleDisplayingFavoriteCheckbox() }
 
             </DialogContent>
             <DialogActions>

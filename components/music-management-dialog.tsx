@@ -214,10 +214,10 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         fullWidth
                         type="number"
                         variant="outlined"
+                        inputProps={
+                            { min: 0, max: 59 }
+                        }
                         onChange={handleDurationInMinsChange}
-                        InputProps={{
-                            inputProps: { min: 0, max: 59 }
-                        }}
                         value={musicManagementGroup.durationInMins}
                     />
                     <TextField
@@ -228,9 +228,9 @@ export const MusicManagementDialog = (props: MusicManagementDialogConfig): JSX.E
                         type="number"
                         variant="outlined"
                         onChange={handleDurationInSecsChange}
-                        InputProps={{
-                            inputProps: { min: 0, max: 59 }
-                        }}
+                        inputProps={
+                            { min: 0, max: 59 }
+                        }
                         value={musicManagementGroup.durationInSecs}
                     />
                 </div>

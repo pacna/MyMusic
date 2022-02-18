@@ -86,7 +86,7 @@ export const SongDetail = (props: SongDetailConfig): JSX.Element => {
     const displaySoundWave = (id: string): JSX.Element | void => {
         if (songData.id === id && toggleSoundWave) {
             return (
-                <img src='/sound_wave.gif' alt="sound_waive" className={classes.soundWave}/>
+                <img src='/sound_wave.gif' alt="sound wave" className={classes.soundWave}/>
             );
         }
     }

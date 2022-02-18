@@ -10,5 +10,7 @@ namespace Api.Music.Services.Models
         public List<AlphabetType> ArtistAlphabetIndices { get; init; }
 
         public string SortBy { get; init; }
+
+        public string Title { get; init; }
     }
 }

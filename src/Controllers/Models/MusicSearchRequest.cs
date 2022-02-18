@@ -12,13 +12,16 @@ namespace Api.Music.Controllers.Models
 
         public string SortBy { get; init; }
 
+        public string Title { get; init; }
+
         public SearchMusicRequest ToDataLayer()
         {
             return new SearchMusicRequest
             {
                 IsFavorite = this.IsFavorite,
                 ArtistAlphabetIndices = this.ArtistAlphabetCategories,
-                SortBy = this.SortBy
+                SortBy = this.SortBy,
+                Title = this.Title
             };
         }
 

@@ -1,7 +1,7 @@
 using System;
 using Api.Music.Controllers.Models;
 using Api.Music.Repositories.Documents;
-using Api.Music.Repositories.Models;
+using Api.Music.Repositories.Helpers;
 
 namespace Api.Music.Services
 {
@@ -13,7 +13,7 @@ namespace Api.Music.Services
             {
                 Album = request.Album,
                 Artist = request.Artist,
-                ArtistAlphabetIndex = CalculateAlphabetIndex(artistFirstChar: request.Artist[0]),
+                ArtistAlphabetIndex = MusicHelper.CalculateAlphabetIndex(artistFirstChar: request.Artist[0]),
                 IsFavorite = request.IsFavorite,
                 Length = request.Length,
                 Path = request.Path,
@@ -21,13 +21,6 @@ namespace Api.Music.Services
                 CreatedDate = DateTime.UtcNow,
                 UpdatedDate = DateTime.UtcNow
             };
-        }
-
-        private static AlphabetType CalculateAlphabetIndex(char artistFirstChar)
-        {
-            int alphabetIndex = (int)artistFirstChar % 32;
-
-            return (AlphabetType)alphabetIndex - 1;
         }
     }
 }

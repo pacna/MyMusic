@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Api.Music.Repositories.Documents;
+using Api.Music.Repositories.Helpers;
 using Api.Music.Repositories.Models;
 using MongoDB.Driver;
 
@@ -27,6 +28,11 @@ namespace Api.Music.Repositories
                 filters.Add(filterBuilder.In(m => m.ArtistAlphabetIndex, query.ArtistAlphabetIndices));
             }
 
+            if (!string.IsNullOrWhiteSpace(query.Title))
+            {
+                filters.Add(filterBuilder.Where(m => m.Title.ToLowerInvariant().Contains(query.Title.ToLowerInvariant())));
+            }
+
             return filters.Any() ? filterBuilder.And(filters) : filterBuilder.Empty;
         }
 
@@ -42,6 +48,7 @@ namespace Api.Music.Repositories
             if (!string.IsNullOrEmpty(query.Artist))
             {
                 updates.Add(updateBuilder.Set(m => m.Artist, query.Artist));
+                updates.Add(updateBuilder.Set(m => m.ArtistAlphabetIndex, MusicHelper.CalculateAlphabetIndex(artistFirstChar: query.Artist[0])));
             }
 
             if (query.Length > 0)

@@ -26,7 +26,7 @@ export const LoadingContent = (props: LoadingContentConfig): JSX.Element => {
 
         return (
             <div className={coreClasses.centerScreen}>
-                <CircularProgress size={60} />
+                <CircularProgress size={80} />
             </div>
         )
     }

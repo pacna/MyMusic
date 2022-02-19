@@ -19,6 +19,7 @@ export const ReactAudioPlayer = (props: AudioPlayerConfig): JSX.Element => {
     return(
         <div className={classes.audioPlayerContainer}>
             <AudioPlayer
+                showFilledVolume={true}
                 autoPlay
                 src={src}
                 onPlay={

@@ -5,3 +5,5 @@ export * from "./loading-content-config";
 export * from "./search-dialog-config";
 export * from "./sidebar-config";
 export * from "./song-detail-config";
+export * from "./modal-management-config";
+export * from "./music-management-dialog-config";

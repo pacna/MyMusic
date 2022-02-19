@@ -16,20 +16,26 @@ import {
 } from '@mui/material';
 
 // types
-import { MusicResponse, SearchDialogConfig } from './types';
+import { SearchDialogConfig } from './types';
+import { SearchMusicRequest, MusicResponse } from '../services/types/api';
 
 // third party
 import { useDispatch } from 'react-redux';
-import axios, { AxiosResponse } from 'axios';
 
 // others
 import { setSongData } from '../reducers/song-data-slice';
 
+// services
+import { MusicApiService } from '../services/music-api.service';
+
+// functions
+import { debounce } from './helpers/functions';
+
 export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
     const { open, closeSearchDialog } = props;
     const [ isSearchDialogOpen, setSearchDialogOpen ] = useState<boolean>(open);
-    const [ input, setInput ] = useState<string>('');
     const [ songs, setSongs ] = useState<MusicResponse[]>([] as MusicResponse[]);
+    const service = new MusicApiService()
     const dispatch = useDispatch(); 
 
     const handleClose = (): void => {
@@ -37,9 +43,7 @@ export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
         setSearchDialogOpen(!open);
     }
 
-    const handleInput = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        setInput((event.target).value);
-    }
+    const handleSearchInput = debounce((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => searchMusic({ title: event.target.value} as SearchMusicRequest));
 
     const setSongPath = (path: string, id: string, visible: boolean): void => {
         dispatch(setSongData({ path: path, id: id, visible: visible}));
@@ -49,15 +53,12 @@ export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
         setSongPath(path, id, true)
     }
 
-    const getSongs = (): void => {
-        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music`)
-            .then((response: AxiosResponse) => response.data)
-            .catch((error: Error) => console.error(error))
-            .then((result: MusicResponse[]) => setSongs(result));
+    const searchMusic = async(request: SearchMusicRequest = {} as SearchMusicRequest): Promise<void> => {
+        setSongs(await service.searchMusic(request));
     }
 
     useEffect(() => {
-        getSongs();
+        searchMusic();
     }, []);
 
     return(
@@ -69,10 +70,10 @@ export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
         >
             <DialogTitle>Search</DialogTitle>
             <DialogContent>
-                <TextField label="Songs" fullWidth margin="dense" onChange={handleInput}/>
+                <TextField label="Songs" fullWidth margin="dense" onChange={handleSearchInput}/>
                     <List>
                         {
-                            songs?.filter((song: MusicResponse) => song.title.toLowerCase().indexOf(input!.toLowerCase()) !== -1).map((song: MusicResponse, index: number)  => {
+                            songs?.map((song: MusicResponse, index: number)  => {
                                 return(
                                     <div key={index}>
                                         <ListItem button onClick={() => playMusic(song.path, song.id)}>

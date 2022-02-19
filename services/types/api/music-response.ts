@@ -1,4 +1,4 @@
-import { Alphabets } from "./alphabets.enum";
+import { Alphabets } from "../alphabets.enum";
 
 export interface MusicResponse {
   artist: string;

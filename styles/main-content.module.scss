@@ -1,0 +1,10 @@
+$topNavHeight: 112px;
+
+.mainContent {
+  overflow: auto;
+  position: absolute;
+  top: $topNavHeight;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

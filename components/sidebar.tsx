@@ -17,7 +17,8 @@ import { LibraryMusic, FavoriteBorder } from '@mui/icons-material';
 import { SidebarConfig } from './types/configs/sidebar-config';
 
 // components
-import { FavoritesDialog } from './favorites-dialog';
+import { FavoritesDialog} from './favorites-dialog';
+import { ModalManagement } from './modal-management';
 
 // styles
 import classes from "../styles/search-dialog.module.scss";
@@ -73,13 +74,10 @@ export const Sidebar = (props: SidebarConfig): JSX.Element => {
                         }/>
                     </ListItem>
                 </List>
-                {
-                    isFavDialogOpen && 
-                    <FavoritesDialog  
-                        open={isFavDialogOpen} 
-                        closeFavDialog={closeFavDialog}
-                    />
-                }
+                <ModalManagement
+                    isOpen={isFavDialogOpen}
+                    renderComponent={<FavoritesDialog open={isFavDialogOpen} closeFavDialog={closeFavDialog}/>}
+                />
             </Box>
         </Drawer>
     )

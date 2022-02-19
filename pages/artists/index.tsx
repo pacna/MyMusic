@@ -15,19 +15,23 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 
 // types
-import { SongData, MusicResponse, Artist, Album, AlbumSong } from '../../components/types';
+import { SongData, Artist, Album, AlbumSong } from '../../components/types';
+import { SearchMusicRequest, MusicResponse } from '../../services/types/api';
 
 // third party
 import { useDispatch } from 'react-redux';
-import axios, { AxiosResponse } from 'axios';
 
 // others
 import { setSongData } from '../../reducers/song-data-slice';
 import { LoadingContent } from '../../components/loading-content';
 
+// services
+import { MusicApiService } from '../../services/music-api.service';
+
 export default function ArtistsPage(): JSX.Element {
     const [artists, setArtists] = useState<Artist[]>([] as Artist[]);
     const dispatch = useDispatch();
+    const service = new MusicApiService();
 
     const playMusic = (path: string): void => {
         setSongPath(path, "", true)
@@ -45,15 +49,16 @@ export default function ArtistsPage(): JSX.Element {
         return songs.length > 1 ? `${songs} songs` : "1 song"
     }
 
-    const searchMusic = (): void => {
-        axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API}/music?sortBy=artist:asc`)
-        .then((response: AxiosResponse) => response.data)
-        .catch((error: Error) => console.error(error))
-        .then((result: MusicResponse[]) => createViewModelForArtists(result));
+    const searchMusic = async(): Promise<void> => {
+        const request: SearchMusicRequest = {
+            sortBy: 'artist:asc'
+        } as SearchMusicRequest;
+
+        createViewModelForArtists(await service.searchMusic(request))
     }
 
     const createViewModelForArtists = (response: MusicResponse[]): void => {
-        const artistsVM: Artist[] = response.reduce((artists: Artist[], music: MusicResponse) => {
+        const artistsVM: Artist[] = response?.reduce((artists: Artist[], music: MusicResponse) => {
             const findArtistNameIndex: number = artists.findIndex((x: Artist) => x.name.toLowerCase() === music.artist);
             if(hasValidIndex(findArtistNameIndex)) {
                 const locatedArtist: Artist = artists[findArtistNameIndex];

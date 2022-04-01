@@ -14,7 +14,7 @@ import classes from "../styles/song-detail.module.scss";
 import coreClasses from "../styles/core.module.scss";
 
 // others
-import { setSongData } from "../reducers/song-data-slice";
+import { setSongData } from "../redux/reducers/song-data-slice";
 
 // third party
 import { AxiosResponse } from 'axios';

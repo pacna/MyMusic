@@ -23,7 +23,7 @@ import { SearchMusicRequest, MusicResponse } from '../services/types/api';
 import { useDispatch } from 'react-redux';
 
 // others
-import { setSongData } from '../reducers/song-data-slice';
+import { setSongData } from '../redux/reducers/song-data-slice';
 
 // services
 import { MusicApiService } from '../services/music-api.service';

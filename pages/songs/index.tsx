@@ -19,7 +19,7 @@ import { ModalManagement } from '../../components/modal-management';
 import { MusicManagementDialog } from '../../components/music-management-dialog';
 
 // reducers
-import { setSongData } from '../../reducers/song-data-slice';
+import { setSongData } from '../../redux/reducers/song-data-slice';
 
 // styles
 import classes from '../../styles/songs-page.module.scss';

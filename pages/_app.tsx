@@ -6,7 +6,7 @@ import '../styles/globals.scss'
 import { Provider } from 'react-redux'
 
 // others
-import store from './../stores/store';
+import store from '../redux/store';
 import { TopNav } from '../components/top-nav';
 import { MusicTabs } from '../components/music-tabs';
 import { MainContent } from '../components/main-content';

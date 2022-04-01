@@ -10,8 +10,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import { useDispatch } from "react-redux";
 
 // others
-import { openDrawer } from "../reducers/toggle-drawer-slice";
-import { openSearch } from "../reducers/toggle-search-slice";
+import { openDrawer } from "../redux/reducers/toggle-drawer-slice";
+import { openSearch } from "../redux/reducers/toggle-search-slice";
 
 // styles
 import classes from './../styles/top-nav.module.scss'

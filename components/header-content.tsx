@@ -10,7 +10,7 @@ import classes from './../styles/header-content.module.scss';
 // others
 import { SearchDialog } from './search-dialog';
 import { ModalManagement } from './modal-management';
-import { closeSearch } from '../reducers/toggle-search-slice';
+import { closeSearch } from '../redux/reducers/toggle-search-slice';
 
 export const HeaderContent = (props: { children: ReactElement[] }): JSX.Element => {
     const toggleSearch = useSelector((state: RootStateOrAny) => state.toggleSearch.value); 

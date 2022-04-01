@@ -8,7 +8,7 @@ import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import classes from './../styles/main-content.module.scss';
 
 // others
-import { closeDrawer } from "../reducers/toggle-drawer-slice";
+import { closeDrawer } from "../redux/reducers/toggle-drawer-slice";
 import { Sidebar } from "./sidebar";
 import { ReactAudioPlayer } from "./react-audio-player"
 

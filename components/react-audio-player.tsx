@@ -10,7 +10,7 @@ import classes from '../styles/react-audio-player.module.scss';
 import { AudioPlayerConfig } from './types/configs/audio-player-config';
 
 // others
-import { showSoundWave, hideSoundWave } from '../reducers/toggle-soundwave-slice';
+import { showSoundWave, hideSoundWave } from '../redux/reducers/toggle-soundwave-slice';
  
 export const ReactAudioPlayer = (props: AudioPlayerConfig): JSX.Element => {
     const { src } = props;

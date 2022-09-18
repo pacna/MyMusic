@@ -1,37 +1,37 @@
-version: '2'
+version: "2"
 # create a network to allow the containers to communicate with each other
 networks:
   music-app:
     driver: bridge
 services:
-    api.music:
-        build: .
-        ports:
-          # expose container port 5000 to local port 5000
-            - 5000:5000
-        networks:
-              music-app:
-                  aliases: 
-                    - gateway
-    musicdb:
-        image: mongo
-        volumes:
-            # mount the local path to the container path
-            - /data/mongodb/db:/data/db
-        ports:
-            - 27017:27017
-        networks:
-              music-app:
-                  aliases: 
-                    - gateway
-    mongoseeder:
-          build: ./seeder
-          # to reference the other container (in this case mongodb)
-          links: 
-            - musicdb
-          command: bash -c "
-            mongoimport --host musicdb --db music --collection music --file '/seeder/sample-music.json' --jsonArray --drop"
-          networks:
-                music-app:
-                    aliases: 
-                      - gateway
+  edge.litmusic:
+    build: .
+    ports:
+      # expose container port 5000 to local port 5000
+      - 5000:5000
+    networks:
+      music-app:
+        aliases:
+          - gateway
+  musicdb:
+    image: mongo
+    volumes:
+      # mount the local path to the container path
+      - /data/mongodb/db:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      music-app:
+        aliases:
+          - gateway
+  mongoseeder:
+    build: ./seeder
+    # to reference the other container (in this case mongodb)
+    links:
+      - musicdb
+    command: bash -c "
+      mongoimport --host musicdb --db music --collection music --file '/seeder/sample-music.json' --jsonArray --drop"
+    networks:
+      music-app:
+        aliases:
+          - gateway

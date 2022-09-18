@@ -1,4 +1,4 @@
-# Api Music
+# Edge Lit Music
 
 The backend for the [React Music Player](https://github.com/pacna/react-music-player)
 
@@ -42,7 +42,7 @@ $ dotnet publish ./src -c Release -o out
 $ cd out
 
 # run the binary
-$ ./Api.Music
+$ ./Edge.LitMusic
 ```
 
 ## How to run in docker (Optional)

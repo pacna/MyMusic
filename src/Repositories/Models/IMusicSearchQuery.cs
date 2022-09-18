@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Api.Music.Repositories.Models
+namespace Edge.LitMusic.Repositories.Models
 {
     public interface IMusicSearchQuery
     {

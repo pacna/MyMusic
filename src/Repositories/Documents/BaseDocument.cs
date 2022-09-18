@@ -1,7 +1,7 @@
 using System;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Api.Music.Repositories.Documents
+namespace Edge.LitMusic.Repositories.Documents
 {
     public class BaseDocument
     {

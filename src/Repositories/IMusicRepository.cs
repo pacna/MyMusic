@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Music.Repositories.Documents;
-using Api.Music.Services.Models;
+using Edge.LitMusic.Repositories.Documents;
+using Edge.LitMusic.Services.Models;
 
-namespace Api.Music.Repositories
+namespace Edge.LitMusic.Repositories
 {
     public interface IMusicRepository
     {

@@ -1,6 +1,6 @@
-using Api.Music.Services.Models;
+using Edge.LitMusic.Services.Models;
 
-namespace Api.Music.Controllers.Models
+namespace Edge.LitMusic.Controllers.Models
 {
     public class MusicUpdateRequest
     {

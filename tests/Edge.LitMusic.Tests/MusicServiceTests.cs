@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Api.Music.Controllers.Models;
-using Api.Music.Repositories;
-using Api.Music.Repositories.Documents;
-using Api.Music.Repositories.Models;
-using Api.Music.Services;
-using Api.Music.Services.Models;
+using Edge.LitMusic.Controllers.Models;
+using Edge.LitMusic.Repositories;
+using Edge.LitMusic.Repositories.Documents;
+using Edge.LitMusic.Repositories.Models;
+using Edge.LitMusic.Services;
+using Edge.LitMusic.Services.Models;
 using Moq;
 using Xunit;
 
-namespace Api.Music.Tests
+namespace Edge.LitMusic.Tests
 {
     public class MusicServiceTests
     {

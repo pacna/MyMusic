@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Music.Controllers.Models;
-using Api.Music.Services;
+using Edge.LitMusic.Controllers.Models;
+using Edge.LitMusic.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Music.Controllers
+namespace Edge.LitMusic.Controllers
 {
     [Route("music")]
     public class MusicController : ControllerBase
@@ -38,7 +38,7 @@ namespace Api.Music.Controllers
             return this.Ok(await this._service.GetMusicAsync(id: id));
         }
 
-        [HttpPatch("{id}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateMusicAsync([FromRoute] string id, [FromBody] MusicUpdateRequest request)
         {
@@ -54,7 +54,7 @@ namespace Api.Music.Controllers
             return this.NoContent();
         }
 
-        [HttpPatch("favorite/{id}")]
+        [HttpPut("favorite/{id}")]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateFavoriteAsync([FromRoute] string id, [FromBody] MusicUpdateFavoriteRequest request)
         {

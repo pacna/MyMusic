@@ -1,8 +1,8 @@
-using Api.Music.Repositories.Models;
+using Edge.LitMusic.Repositories.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Api.Music.Repositories.Documents
+namespace Edge.LitMusic.Repositories.Documents
 {
     public class MusicDocument : BaseDocument
     {

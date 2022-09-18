@@ -1,14 +1,14 @@
 using System.Net.Http;
-using Api.Music.Repositories;
-using Api.Music.Services;
-using Api.Music.Settings;
+using Edge.LitMusic.Repositories;
+using Edge.LitMusic.Services;
+using Edge.LitMusic.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
-namespace Api.Music
+namespace Edge.LitMusic
 {
     internal static class ServicesCollectionExtension
     {
@@ -38,7 +38,7 @@ namespace Api.Music
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Api.Music",
+                    Title = "Edge.LitMusic",
                     Description = "The backend for the React Music Player"
                 });
             });

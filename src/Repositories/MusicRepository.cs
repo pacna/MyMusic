@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Music.Repositories.Documents;
-using Api.Music.Services.Models;
-using Api.Music.Settings;
+using Edge.LitMusic.Repositories.Documents;
+using Edge.LitMusic.Services.Models;
+using Edge.LitMusic.Settings;
 using MongoDB.Driver;
 
-namespace Api.Music.Repositories
+namespace Edge.LitMusic.Repositories
 {
     public class MusicRepository : MongoRepository<MusicDocument>, IMusicRepository
     {

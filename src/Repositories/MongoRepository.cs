@@ -2,9 +2,9 @@ using System;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Api.Music.Settings;
+using Edge.LitMusic.Settings;
 
-namespace Api.Music.Repositories
+namespace Edge.LitMusic.Repositories
 {
     public class MongoRepository<TDocument>
     {

@@ -1,4 +1,4 @@
-namespace Api.Music.Settings
+namespace Edge.LitMusic.Settings
 {
     public class MongoDBSetting : IMongoDBSetting
     {

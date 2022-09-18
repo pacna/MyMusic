@@ -8,5 +8,5 @@ obj
 out
 
 # tests
-tests/Api.Music.Tests/obj
-tests/Api.Music.Tests/bin
+tests/Edge.LitMusic.Tests/obj
+tests/Edge.LitMusic.Tests/bin

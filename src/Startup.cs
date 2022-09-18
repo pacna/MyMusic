@@ -1,12 +1,12 @@
 using System;
-using Api.Music.Settings;
+using Edge.LitMusic.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Api.Music
+namespace Edge.LitMusic
 {
     public class Startup
     {
@@ -45,7 +45,7 @@ namespace Api.Music
             app.UseCors(this.CORSPolicySettings.PolicyName);
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api.Music");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Edge.LitMusic");
                 // THIS IS IMPORTANT TO SET SWAGGER In root (/) dir
                 options.RoutePrefix = string.Empty;
             });

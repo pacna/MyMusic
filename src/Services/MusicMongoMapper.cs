@@ -1,9 +1,9 @@
 using System;
-using Api.Music.Controllers.Models;
-using Api.Music.Repositories.Documents;
-using Api.Music.Repositories.Helpers;
+using Edge.LitMusic.Controllers.Models;
+using Edge.LitMusic.Repositories.Documents;
+using Edge.LitMusic.Repositories.Helpers;
 
-namespace Api.Music.Services
+namespace Edge.LitMusic.Services
 {
     internal static class MusicMongoMapper
     {

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Api.Music.Repositories.Documents;
-using Api.Music.Repositories.Helpers;
-using Api.Music.Repositories.Models;
+using Edge.LitMusic.Repositories.Documents;
+using Edge.LitMusic.Repositories.Helpers;
+using Edge.LitMusic.Repositories.Models;
 using MongoDB.Driver;
 
-namespace Api.Music.Repositories
+namespace Edge.LitMusic.Repositories
 {
     public static class MusicQueryBuilder
     {

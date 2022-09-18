@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Api.Music": {
+    "Edge.LitMusic": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": false,

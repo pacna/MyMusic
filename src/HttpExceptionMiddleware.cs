@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Api.Music
+namespace Edge.LitMusic
 {
     internal class HttpExceptionMiddleware
     {

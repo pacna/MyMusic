@@ -1,6 +1,6 @@
-using Api.Music.Controllers.Models;
+using Edge.LitMusic.Controllers.Models;
 
-namespace Api.Music.Services
+namespace Edge.LitMusic.Services
 {
     public interface IValidationService
     {

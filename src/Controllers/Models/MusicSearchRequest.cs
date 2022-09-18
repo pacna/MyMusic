@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Api.Music.Repositories.Models;
-using Api.Music.Services.Models;
+using Edge.LitMusic.Repositories.Models;
+using Edge.LitMusic.Services.Models;
 
-namespace Api.Music.Controllers.Models
+namespace Edge.LitMusic.Controllers.Models
 {
     public class MusicSearchRequest
     {

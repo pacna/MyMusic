@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Api.Music
+namespace Edge.LitMusic
 {
     public class Program
     {

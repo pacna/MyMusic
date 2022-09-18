@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Api.Music.Repositories.Models;
+using Edge.LitMusic.Repositories.Models;
 
-namespace Api.Music.Services.Models
+namespace Edge.LitMusic.Services.Models
 {
     public class SearchMusicRequest : IMusicSearchQuery
     {

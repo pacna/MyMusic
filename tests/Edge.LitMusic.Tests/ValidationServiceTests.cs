@@ -1,8 +1,8 @@
-using Api.Music.Controllers.Models;
-using Api.Music.Services;
+using Edge.LitMusic.Controllers.Models;
+using Edge.LitMusic.Services;
 using Xunit;
 
-namespace Api.Music.Tests
+namespace Edge.LitMusic.Tests
 {
     public class ValidationServiceTests
     {

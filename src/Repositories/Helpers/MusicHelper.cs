@@ -1,6 +1,6 @@
-using Api.Music.Repositories.Models;
+using Edge.LitMusic.Repositories.Models;
 
-namespace Api.Music.Repositories.Helpers
+namespace Edge.LitMusic.Repositories.Helpers
 {
     internal static class MusicHelper
     {

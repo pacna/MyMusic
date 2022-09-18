@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Api.Music.Repositories
+namespace Edge.LitMusic.Repositories
 {
     public static class CollectionExtension
     {

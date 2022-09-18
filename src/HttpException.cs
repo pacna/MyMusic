@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace Api.Music
+namespace Edge.LitMusic
 {
     public class HttpException : Exception
     {

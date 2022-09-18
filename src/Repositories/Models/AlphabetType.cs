@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Api.Music.Repositories.Models
+namespace Edge.LitMusic.Repositories.Models
 {
     public enum AlphabetType
     {

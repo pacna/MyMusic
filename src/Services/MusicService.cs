@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Music.Controllers.Models;
-using Api.Music.Repositories;
-using Api.Music.Repositories.Documents;
+using Edge.LitMusic.Controllers.Models;
+using Edge.LitMusic.Repositories;
+using Edge.LitMusic.Repositories.Documents;
 
-namespace Api.Music.Services
+namespace Edge.LitMusic.Services
 {
     public class MusicService : IMusicService
     {

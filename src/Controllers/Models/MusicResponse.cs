@@ -1,6 +1,6 @@
-using Api.Music.Repositories.Models;
+using Edge.LitMusic.Repositories.Models;
 
-namespace Api.Music.Controllers.Models
+namespace Edge.LitMusic.Controllers.Models
 {
     public class MusicResponse
     {

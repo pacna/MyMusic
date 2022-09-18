@@ -1,4 +1,4 @@
-namespace Api.Music.Repositories.Models
+namespace Edge.LitMusic.Repositories.Models
 {
     public static class SortKeyType
     {

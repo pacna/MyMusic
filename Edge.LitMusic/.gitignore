@@ -1,0 +1,12 @@
+# bin
+bin
+
+# obj
+obj
+
+# out
+out
+
+# tests
+tests/Edge.LitMusic.Tests/obj
+tests/Edge.LitMusic.Tests/bin

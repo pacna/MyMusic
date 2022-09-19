@@ -34,11 +34,18 @@ namespace Edge.LitMusic
                 response.StatusCode = statusCode;
                 response.ContentType = "application/json; charset=utf-8";
 
-                await response.WriteAsync(JsonSerializer.Serialize(new
-                {
-                    Message = ex.Message,
-                    StatusCode = statusCode
-                }));
+                await response.WriteAsync(JsonSerializer.Serialize
+                (
+                    new
+                    {
+                        Message = ex.Message,
+                        StatusCode = statusCode
+                    },
+                    new JsonSerializerOptions()
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    }
+                ));
             }
         }
 

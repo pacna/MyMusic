@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Edge.LitMusic.csproj" />
+    <ProjectReference Include="..\..\src\Edge.LitMusic\Edge.LitMusic.csproj" />
   </ItemGroup>
 
 </Project>

@@ -39,7 +39,7 @@ namespace Edge.LitMusic
                 {
                     Version = "v1",
                     Title = "Edge.LitMusic",
-                    Description = "The backend for the React Music Player"
+                    Description = "The edge service for Lit Music"
                 });
             });
         }

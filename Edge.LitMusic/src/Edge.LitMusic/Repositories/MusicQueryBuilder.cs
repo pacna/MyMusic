@@ -16,7 +16,7 @@ namespace Edge.LitMusic.Repositories
 
         public static FilterDefinition<MusicDocument> BuildSearchQuery(IMusicSearchQuery query)
         {
-            List<FilterDefinition<MusicDocument>> filters = new List<FilterDefinition<MusicDocument>>();
+            List<FilterDefinition<MusicDocument>> filters = new();
 
             if (query.IsFavorite.HasValue)
             {
@@ -38,7 +38,7 @@ namespace Edge.LitMusic.Repositories
 
         public static UpdateDefinition<MusicDocument> BuildUpdateQuery(IMusicUpdateQuery query)
         {
-            List<UpdateDefinition<MusicDocument>> updates = new List<UpdateDefinition<MusicDocument>>();
+            List<UpdateDefinition<MusicDocument>> updates = new();
 
             if (!string.IsNullOrEmpty(query.Album))
             {
@@ -84,7 +84,7 @@ namespace Edge.LitMusic.Repositories
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
                 FieldDefinition<MusicDocument> field = null;
-                SortInfo sortInfo = new SortInfo(sortBy: sortBy);
+                SortInfo sortInfo = new(sortBy: sortBy);
 
                 string propertyName = sortInfo.PropertyName.ToLowerInvariant();
 

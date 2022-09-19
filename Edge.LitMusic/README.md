@@ -1,6 +1,6 @@
 # Edge Lit Music
 
-The backend for the [React Music Player](https://github.com/pacna/react-music-player)
+The edge service for Lit Music
 
 ## Prerequisites
 

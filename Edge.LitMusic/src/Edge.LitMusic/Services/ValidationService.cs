@@ -8,7 +8,7 @@ namespace Edge.LitMusic.Services
         public void ThrowIfInvalid(MusicAddRequest request)
         {
 
-            if (string.IsNullOrEmpty(request.Album))
+            if (string.IsNullOrWhiteSpace(request.Album))
             {
                 throw new HttpException(statusCode: HttpStatusCode.PreconditionFailed, msg: $"{nameof(request.Album)} is required");
             }

@@ -1,5 +1,5 @@
 {
-  "name": "react-music-player",
+  "name": "Web.LitMusic",
   "private": true,
   "scripts": {
     "dev": "next dev",

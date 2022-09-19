@@ -1,6 +1,6 @@
-# React Music Player
+# Web.LitMusic
 
-A web music player app
+Web.LitMusic is the front end for Lit Music
 
 ## Prerequisites
 

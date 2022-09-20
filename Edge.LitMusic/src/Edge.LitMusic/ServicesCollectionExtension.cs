@@ -61,7 +61,7 @@ namespace Edge.LitMusic
                         (
                             HttpMethod.Get.Method,
                             HttpMethod.Post.Method,
-                            HttpMethod.Patch.Method,
+                            HttpMethod.Put.Method,
                             HttpMethod.Delete.Method
                         );
                     });

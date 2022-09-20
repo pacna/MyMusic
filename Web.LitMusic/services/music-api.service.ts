@@ -48,14 +48,14 @@ export class MusicApiService {
     id: string,
     request: UpdateMusicFavoriteRequest
   ): Promise<AxiosResponse> {
-    return axios.patch(`${this.musicUrlSegment}/favorite/${id}`, request);
+    return axios.put(`${this.musicUrlSegment}/favorite/${id}`, request);
   }
 
   public updateMusic(
     id: string,
     request: UpdateMusicRequest
   ): Promise<AxiosResponse> {
-    return axios.patch(`${this.musicUrlSegment}/${id}`, request);
+    return axios.put(`${this.musicUrlSegment}/${id}`, request);
   }
 
   public removeMusic(id: string): Promise<AxiosResponse> {

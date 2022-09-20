@@ -1,0 +1,51 @@
+# Edge.LitMusic
+Edge.LitMusic/src/Edge.LitMusic/bin
+Edge.LitMusic/src/Edge.LitMusic/obj
+Edge.LitMusic/out
+Edge.LitMusic/tests/Edge.LitMusic.Tests/obj
+Edge.LitMusic/tests/Edge.LitMusic.Tests/bin
+
+
+# Web.LitMusic
+
+# dependencies
+Web.LitMusic/node_modules
+Web.LitMusic/.pnp
+Web.LitMusic/.pnp.js
+
+# testing
+Web.LitMusic/coverage
+
+# next.js
+Web.LitMusic/.next/
+Web.LitMusic/out/
+
+# production
+Web.LitMusic/build
+
+# misc
+Web.LitMusic/.DS_Store
+Web.LitMusic/*.pem
+
+# debug
+Web.LitMusic/npm-debug.log*
+Web.LitMusic/yarn-debug.log*
+Web.LitMusic/yarn-error.log*
+
+# local env files
+Web.LitMusic/.env.local
+Web.LitMusic/.env.development.local
+Web.LitMusic/.env.test.local
+Web.LitMusic/.env.production.local
+
+# vercel
+Web.LitMusic/.vercel
+
+# typescript
+Web.LitMusic/*.tsbuildinfo
+
+#music folder
+Web.LitMusic/public/music
+
+#.env
+Web.LitMusic/.env

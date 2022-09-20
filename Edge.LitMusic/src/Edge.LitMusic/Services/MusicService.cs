@@ -37,9 +37,9 @@ namespace Edge.LitMusic.Services
             return MusicMapper.Map(music: music);
         }
 
-        public Task UpdateMusicAsync(string id, MusicUpdateRequest request)
+        public async Task<MusicResponse> UpdateMusicAsync(string id, MusicUpdateRequest request)
         {
-            return this._musicRepo.UpdateMusicAsync(id: id, request: request.ToDataLayer());
+            return MusicMapper.Map(await this._musicRepo.UpdateMusicAsync(id: id, request: request.ToDataLayer()));
         }
 
         public Task RemoveMusicAsync(string id)
@@ -47,9 +47,9 @@ namespace Edge.LitMusic.Services
             return this._musicRepo.RemoveMusicAsync(id: id);
         }
 
-        public Task UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request)
+        public async Task<MusicResponse> UpdateFavoriteAsync(string id, MusicUpdateFavoriteRequest request)
         {
-            return this._musicRepo.UpdateFavoriteAsync(id: id, request: request.ToDataLayer());
+            return MusicMapper.Map(await this._musicRepo.UpdateFavoriteAsync(id: id, request: request.ToDataLayer()));
         }
     }
 }

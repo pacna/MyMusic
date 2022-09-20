@@ -30,7 +30,7 @@ namespace Edge.LitMusic.Tests
         public async Task CanSearchAllMusic()
         {
             // ARRANGE
-            MusicDocument doc1 = new MusicDocument
+            MusicDocument doc1 = new()
             {
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Linkin Park",
@@ -44,7 +44,7 @@ namespace Edge.LitMusic.Tests
                 UpdatedDate = DateTime.UtcNow
             };
 
-            MusicDocument doc2 = new MusicDocument
+            MusicDocument doc2 = new()
             {
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Vanessa Carlton",
@@ -58,13 +58,13 @@ namespace Edge.LitMusic.Tests
                 UpdatedDate = DateTime.UtcNow
             };
 
-            List<MusicDocument> expectedResponse = new List<MusicDocument>
+            List<MusicDocument> expectedResponse = new()
             {
                 doc1,
                 doc2
             };
 
-            MusicSearchRequest request = new MusicSearchRequest
+            MusicSearchRequest request = new()
             {
                 IsFavorite = null
             };
@@ -89,7 +89,7 @@ namespace Edge.LitMusic.Tests
         public async Task CanAddMusic()
         {
             // ARRANGE
-            MusicAddRequest request = new MusicAddRequest
+            MusicAddRequest request = new()
             {
                 Album = "Meteora",
                 Artist = "Linkin Park",
@@ -99,7 +99,7 @@ namespace Edge.LitMusic.Tests
                 Path = "www.google.com/numb.mp3",
             };
 
-            MusicDocument doc1 = new MusicDocument
+            MusicDocument doc1 = new()
             {
                 Id = Guid.NewGuid().ToString(),
                 Artist = "Linkin Park",
@@ -114,7 +114,7 @@ namespace Edge.LitMusic.Tests
             };
 
             this._repo
-                .Setup(m => m.AddMusicAsync(It.IsAny<MusicDocument>()))
+                .Setup(m => m.AddMusicAsync(It.Is<MusicDocument>(doc => doc.Artist == request.Artist)))
                 .ReturnsAsync(doc1);
 
             // ACT
@@ -123,7 +123,7 @@ namespace Edge.LitMusic.Tests
             // ASSERT
             Assert.NotNull(response);
             AssertEqual(expected: response, actual: doc1);
-            this._repo.Verify(m => m.AddMusicAsync(It.IsAny<MusicDocument>()), Times.Once);
+            this._repo.Verify(m => m.AddMusicAsync(It.Is<MusicDocument>(doc => doc.Artist == request.Artist)), Times.Once);
         }
 
         [Fact]
@@ -147,7 +147,7 @@ namespace Edge.LitMusic.Tests
         {
             // ARRANGE
             string id = Guid.NewGuid().ToString();
-            MusicDocument doc = new MusicDocument
+            MusicDocument doc = new()
             {
                 Id = id,
                 Artist = "Linkin Park",
@@ -186,7 +186,7 @@ namespace Edge.LitMusic.Tests
 
             this._repo
                 .Setup(m => m.UpdateMusicAsync(id, It.IsAny<UpdateMusicRequest>()))
-                .Returns(Task.CompletedTask);
+                .ReturnsAsync(new MusicDocument());
 
             // ACT
             await this._service.UpdateMusicAsync(id, request);
@@ -200,12 +200,12 @@ namespace Edge.LitMusic.Tests
         {
             // ARRANGE
             string id = Guid.NewGuid().ToString();
-            MusicUpdateFavoriteRequest favoriteRequest = new MusicUpdateFavoriteRequest
+            MusicUpdateFavoriteRequest favoriteRequest = new()
             {
                 IsFavorite = true
             };
 
-            MusicDocument doc1 = new MusicDocument
+            MusicDocument doc1 = new()
             {
                 Id = id,
                 Artist = "Linkin Park",
@@ -214,16 +214,16 @@ namespace Edge.LitMusic.Tests
             };
 
             this._repo
-                .Setup(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateMusicRequest>()))
+                .Setup(m => m.UpdateFavoriteAsync(id, It.Is<UpdateMusicRequest>(r => r.IsFavorite == favoriteRequest.IsFavorite)))
                 .Callback(() => doc1.IsFavorite = favoriteRequest.IsFavorite)
-                .Returns(Task.CompletedTask);
+                .ReturnsAsync(doc1);
 
             // ACT
             await this._service.UpdateFavoriteAsync(id, favoriteRequest);
 
             // ASSERT
             Assert.Equal(doc1.IsFavorite, favoriteRequest.IsFavorite);
-            this._repo.Verify(m => m.UpdateFavoriteAsync(id, It.IsAny<UpdateMusicRequest>()), Times.Once);
+            this._repo.Verify(m => m.UpdateFavoriteAsync(id, It.Is<UpdateMusicRequest>(r => r.IsFavorite == favoriteRequest.IsFavorite)), Times.Once);
         }
 
         private void AssertEqual(MusicResponse expected, IEnumerable<MusicDocument> actual)

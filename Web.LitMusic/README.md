@@ -4,10 +4,7 @@ Web.LitMusic is the front end for Lit Music
 
 ## Prerequisites
 
-1. [nodejs](https://nodejs.org/en/)
-2. [Api.Music](https://github.com/pacna/Api.Music)
-3. [docker](https://docs.docker.com/install/) (optional)
-4. [docker-compose](https://docs.docker.com/compose/install/) (optional)
+1. [Nodejs](https://nodejs.org/en/)
 
 ## Setup Env
 
@@ -26,35 +23,29 @@ $ npm ci
 
 ## Available Scripts for development
 
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in the browser.
+
 ```bash
 $ npm run dev
 ```
 
-Runs the app in the development mode.
-Open http://localhost:3000 to view it in the browser.
+Clear out any stuck node processes.
 
 ```bash
 $ npm run clean
 ```
 
-Clear out any stuck node processes.
-
 ## Available Scripts for production
+
+Generates an optimized version of the application for production.
 
 ```bash
 $ npm run build
 ```
 
-Generates an optimized version of the application for production.
+To run in production mode
 
 ```bash
 $ npm run start
-```
-
-To run in production mode
-
-## Docker command for production (Optional)
-
-```bash
-$ docker-compose up --build
 ```

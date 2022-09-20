@@ -42,11 +42,11 @@ namespace Edge.LitMusic.Controllers
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
+        [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateMusicAsync([FromRoute] string id, [FromBody] MusicUpdateRequest request)
         {
-            await this._service.UpdateMusicAsync(id: id, request: request);
-            return this.NoContent();
+            return this.OkIfFound(await this._service.UpdateMusicAsync(id: id, request: request));
         }
 
         [HttpDelete("{id}")]
@@ -57,12 +57,12 @@ namespace Edge.LitMusic.Controllers
             return this.NoContent();
         }
 
-        [HttpPut("favorite/{id}")]
-        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [HttpPut("{id}/favorite")]
+        [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
+        [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateFavoriteAsync([FromRoute] string id, [FromBody] MusicUpdateFavoriteRequest request)
         {
-            await this._service.UpdateFavoriteAsync(id: id, request: request);
-            return this.NoContent();
+            return this.OkIfFound(await this._service.UpdateFavoriteAsync(id: id, request: request));
         }
     }
 }

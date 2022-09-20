@@ -35,8 +35,11 @@ $ dotnet test
 ## How to run in production
 
 ```bash
+# cd src/Edge.LitMusic directory
+$ cd src/Edge.LitMusic
+
 # publish cmd
-$ dotnet publish ./src -c Release -o out
+$ dotnet publish -c Release -o out
 
 # cd out folder
 $ cd out

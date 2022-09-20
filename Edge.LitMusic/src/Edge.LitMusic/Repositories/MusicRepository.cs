@@ -37,12 +37,12 @@ namespace Edge.LitMusic.Repositories
             return base.FindByAsync(filter: filter);
         }
 
-        public Task UpdateMusicAsync(string id, UpdateMusicRequest request)
+        public Task<MusicDocument> UpdateMusicAsync(string id, UpdateMusicRequest request)
         {
             FilterDefinition<MusicDocument> filter = MusicQueryBuilder.BuildEntityIdQuery(id: id);
             UpdateDefinition<MusicDocument> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
 
-            return base.UpdateAsync(filter: filter, update: update);
+            return base.FindOneAndUpdateAsync(filter: filter, update: update);
         }
 
         public Task RemoveMusicAsync(string id)
@@ -51,12 +51,12 @@ namespace Edge.LitMusic.Repositories
             return base.RemoveOneAsync(filter);
         }
 
-        public Task UpdateFavoriteAsync(string id, UpdateMusicRequest request)
+        public Task<MusicDocument> UpdateFavoriteAsync(string id, UpdateMusicRequest request)
         {
             FilterDefinition<MusicDocument> filter = MusicQueryBuilder.BuildEntityIdQuery(id: id);
             UpdateDefinition<MusicDocument> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
 
-            return base.UpdateAsync(filter: filter, update: update);
+            return base.FindOneAndUpdateAsync(filter: filter, update: update);
         }
     }
 }

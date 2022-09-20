@@ -48,7 +48,7 @@ export class MusicApiService {
     id: string,
     request: UpdateMusicFavoriteRequest
   ): Promise<AxiosResponse> {
-    return axios.put(`${this.musicUrlSegment}/favorite/${id}`, request);
+    return axios.put(`${this.musicUrlSegment}/${id}/favorite`, request);
   }
 
   public updateMusic(

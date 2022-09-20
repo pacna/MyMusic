@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Edge.LitMusic.Settings;
+using System.Threading;
 
 namespace Edge.LitMusic.Repositories
 {
@@ -40,6 +41,11 @@ namespace Edge.LitMusic.Repositories
         public Task UpdateAsync(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update)
         {
             return this._collection.UpdateOneAsync(filter, update);
+        }
+
+        public Task<TDocument> FindOneAndUpdateAsync(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update, CancellationToken cancellationToken = default)
+        {
+            return this._collection.FindOneAndUpdateAsync(filter, update, new FindOneAndUpdateOptions<TDocument, TDocument> { ReturnDocument = ReturnDocument.After }, cancellationToken);
         }
 
         public async Task<TDocument> InsertOneAsync(TDocument doc)

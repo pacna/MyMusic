@@ -13,17 +13,19 @@ namespace Edge.LitMusic.Services
 
         internal static MusicResponse Map(MusicDocument music)
         {
-            return new MusicResponse
-            {
-                Album = music.Album,
-                Artist = music.Artist,
-                ArtistAlphabetCategory = music.ArtistAlphabetIndex,
-                Id = music.Id,
-                IsFavorite = music.IsFavorite,
-                Length = music.Length,
-                Path = music.Path,
-                Title = music.Title,
-            };
+            return music == null
+                ? null
+                : new MusicResponse
+                {
+                    Album = music.Album,
+                    Artist = music.Artist,
+                    ArtistAlphabetCategory = music.ArtistAlphabetIndex,
+                    Id = music.Id,
+                    IsFavorite = music.IsFavorite,
+                    Length = music.Length,
+                    Path = music.Path,
+                    Title = music.Title,
+                };
         }
     }
 }

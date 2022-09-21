@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 RUN mkdir /edge
 WORKDIR /edge
 
-# Copying the current directory to the /app folder
+# Copying the current directory to the /edge directory
 COPY . /edge
 RUN dotnet test
 
@@ -14,6 +14,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 
 WORKDIR /edge
 COPY --from=build-env /edge/out .
-ENTRYPOINT ["./Edge.LitMusic"]
-
-EXPOSE 5000
+ENTRYPOINT ["./Edge.LitMusic", "inmemory=true"]

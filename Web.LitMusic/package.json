@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "pkill -f node",
-    "//preinstall": "run this to fix version mismatch on @types/react",
+    "//preinstall": "COMMENT ONLY -- run 'preinstall' cmd to fix version mismatch on @types/react",
     "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {

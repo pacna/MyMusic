@@ -7,8 +7,8 @@ namespace Edge.LitMusic.Repositories.Models
             this.Parse(sortBy: sortBy);
         }
 
-        public string PropertyName { get; set; }
-        public string Direction { get; set; }
+        public string PropertyName { get; private set; }
+        public string Direction { get; private set; }
 
         private void Parse(string sortBy)
         {

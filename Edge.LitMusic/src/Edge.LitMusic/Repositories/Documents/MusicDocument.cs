@@ -1,6 +1,7 @@
 using Edge.LitMusic.Repositories.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Edge.LitMusic.Repositories.Documents
 {
@@ -15,8 +16,7 @@ namespace Edge.LitMusic.Repositories.Documents
         [BsonElement("aai")]
         public AlphabetType ArtistAlphabetIndex { get; set; }
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }
 
         [BsonElement("if")]

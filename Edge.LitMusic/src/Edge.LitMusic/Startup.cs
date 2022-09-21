@@ -12,11 +12,14 @@ namespace Edge.LitMusic
     {
         private IConfiguration Configuration { get; }
         private ICORSPolicySettings CORSPolicySettings { get; set; }
+        private bool UseInMemory { get; set; }
 
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
-            this.GetInitCORSPolicy(configuration: configuration);
+            this.GetInitSettings(configuration: this.Configuration);
+
+            Console.WriteLine("Edge.LitMusic Started");
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -25,10 +28,14 @@ namespace Edge.LitMusic
         {
             services.AddControllers();
             services.AddServices();
-            services.AddRepositories();
+            services.AddRepositories(useInMemory: this.UseInMemory);
             services.AddSwagger();
             services.AddCors(corsPolicySettings: this.CORSPolicySettings);
             services.AddSettings(configuration: this.Configuration);
+
+#if DEBUG
+            Console.WriteLine(this.UseInMemory ? "Setting up InMemory datastore" : "");
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,15 +63,16 @@ namespace Edge.LitMusic
             });
         }
 
-        private void GetInitCORSPolicy(IConfiguration configuration)
+        private void GetInitSettings(IConfiguration configuration)
         {
             try
             {
                 this.CORSPolicySettings = configuration.GetSection("CORSPolicy").Get<CORSPolicySettings>();
+                this.UseInMemory = configuration.GetValue<bool>("inmemory");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Unable to set CORS policy --", ex.ToString());
+                Console.WriteLine("Unable to set setting --", ex.ToString());
             }
         }
     }

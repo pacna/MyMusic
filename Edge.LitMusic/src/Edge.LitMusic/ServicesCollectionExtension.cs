@@ -18,9 +18,16 @@ namespace Edge.LitMusic
             services.AddSingleton<IValidationService, ValidationService>();
         }
 
-        internal static void AddRepositories(this IServiceCollection services)
+        internal static void AddRepositories(this IServiceCollection services, bool useInMemory)
         {
-            services.AddSingleton<IMusicRepository, MusicRepository>();
+            if (useInMemory)
+            {
+                services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
+            }
+            else
+            {
+                services.AddSingleton<IMusicRepository, MusicRepository>();
+            }
         }
 
         internal static void AddSettings(this IServiceCollection services, IConfiguration configuration)

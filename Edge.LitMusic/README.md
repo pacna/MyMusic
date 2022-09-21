@@ -12,21 +12,27 @@ The edge service for Lit Music
 ## How to run locally
 
 ```bash
-# cd src folder
-$ cd src
+# cd src/Edge.LitMusic directory
+$ cd src/Edge.LitMusic
 
 # run cmd
 $ dotnet run
 
+# run cmd using inmemory
+$ dotnet run inmemory=true
+
 # run cmd (watch mode)
 $ dotnet watch run
+
+# run cmd (watch mode) using inmemory
+$ dotnet watch run inmemory=true
 ```
 
 ## How to run tests
 
 ```bash
-# cd tests folder
-$ cd tests
+# cd tests/Edge.LitMusic.Tests directory
+$ cd tests/Edge.LitMusic.Tests
 
 # test cmd
 $ dotnet test
@@ -41,7 +47,7 @@ $ cd src/Edge.LitMusic
 # publish cmd
 $ dotnet publish -c Release -o out
 
-# cd out folder
+# cd out directory
 $ cd out
 
 # run the binary
@@ -54,4 +60,4 @@ $ ./Edge.LitMusic
 $ docker-compose up --build
 ```
 
-**note**: You will need to switch the `ConnectionString` [here](./src/appsettings.json) to be `mongodb://musicdb:27017` before running it in docker
+**note**: Docker runs using the in-memory implementation.

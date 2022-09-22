@@ -1,7 +1,5 @@
 # Edge Lit Music
 
-<img alt="Dotnet test passing" src="https://github.com/pacna/lit-music/workflows/Dotnet%20test/badge.svg" />
-
 The edge service for Lit Music
 
 ## Prerequisites

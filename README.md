@@ -1,5 +1,7 @@
 # Lit Music
 
+<img alt="Dotnet test passing" src="https://github.com/pacna/lit-music/workflows/Dotnet%20test/badge.svg" />
+
 A music player that is lit.
 
 ## How to setup backend

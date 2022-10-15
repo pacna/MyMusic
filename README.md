@@ -4,6 +4,8 @@
 
 A music player that is lit.
 
+![lit-music](./docs/lit-music.png)
+
 ## How to setup backend
 
 Follow the [README](./Edge.LitMusic/README.md) in `Edge.LitMusic` directory.

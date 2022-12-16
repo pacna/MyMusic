@@ -8,71 +8,69 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
-namespace Edge.LitMusic
+namespace Edge.LitMusic;
+internal static class ServicesCollectionExtension
 {
-    internal static class ServicesCollectionExtension
+    internal static void AddServices(this IServiceCollection services)
     {
-        internal static void AddServices(this IServiceCollection services)
-        {
-            services.AddSingleton<IMusicService, MusicService>();
-            services.AddSingleton<IValidationService, ValidationService>();
-        }
+        services.AddSingleton<IMusicService, MusicService>();
+        services.AddSingleton<IValidationService, ValidationService>();
+    }
 
-        internal static void AddRepositories(this IServiceCollection services, bool useInMemory)
+    internal static void AddRepositories(this IServiceCollection services, bool useInMemory)
+    {
+        if (useInMemory)
         {
-            if (useInMemory)
-            {
-                services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
-            }
-            else
-            {
-                services.AddSingleton<IMusicRepository, MusicRepository>();
-            }
+            services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
         }
-
-        internal static void AddSettings(this IServiceCollection services, IConfiguration configuration)
+        else
         {
-            services.Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"));
-            services.AddSingleton<IMongoDBSetting>(provider =>
-                provider.GetRequiredService<IOptions<MongoDBSetting>>().Value
-            );
+            services.AddSingleton<IMusicRepository, MusicRepository>();
         }
+    }
 
-        internal static void AddSwagger(this IServiceCollection services)
+    internal static void AddSettings(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"));
+        services.AddSingleton<IMongoDBSetting>(provider =>
+            provider.GetRequiredService<IOptions<MongoDBSetting>>().Value
+        );
+    }
+
+    internal static void AddSwagger(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(options =>
         {
-            services.AddSwaggerGen(options =>
+            options.SwaggerDoc("v1", new OpenApiInfo
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
+                Version = "v1",
+                Title = "Edge.LitMusic",
+                Description = "The edge service for Lit Music"
+            });
+        });
+    }
+
+    internal static void AddCors(this IServiceCollection services, ICORSPolicySettings corsPolicySettings)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy(name: corsPolicySettings.PolicyName,
+                builder =>
                 {
-                    Version = "v1",
-                    Title = "Edge.LitMusic",
-                    Description = "The edge service for Lit Music"
+                    builder.WithOrigins(corsPolicySettings.AllowedOrigins);
+                    // https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api
+                    // If you set headers to anything other than "*", 
+                    // you should include at least "accept", "content-type", and "origin", 
+                    // plus any custom headers that you want to support
+                    builder.WithHeaders(HeaderNames.Accept, HeaderNames.ContentType, HeaderNames.Origin);
+                    builder.WithMethods
+                    (
+                        HttpMethod.Get.Method,
+                        HttpMethod.Post.Method,
+                        HttpMethod.Put.Method,
+                        HttpMethod.Delete.Method
+                    );
                 });
-            });
-        }
-
-        internal static void AddCors(this IServiceCollection services, ICORSPolicySettings corsPolicySettings)
-        {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: corsPolicySettings.PolicyName,
-                    builder =>
-                    {
-                        builder.WithOrigins(corsPolicySettings.AllowedOrigins);
-                        // https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api
-                        // If you set headers to anything other than "*", 
-                        // you should include at least "accept", "content-type", and "origin", 
-                        // plus any custom headers that you want to support
-                        builder.WithHeaders(HeaderNames.Accept, HeaderNames.ContentType, HeaderNames.Origin);
-                        builder.WithMethods
-                        (
-                            HttpMethod.Get.Method,
-                            HttpMethod.Post.Method,
-                            HttpMethod.Put.Method,
-                            HttpMethod.Delete.Method
-                        );
-                    });
-            });
-        }
+        });
     }
 }

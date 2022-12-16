@@ -3,15 +3,13 @@ using System.Threading.Tasks;
 using Edge.LitMusic.Repositories.Documents;
 using Edge.LitMusic.Services.Models;
 
-namespace Edge.LitMusic.Repositories
+namespace Edge.LitMusic.Repositories;
+public interface IMusicRepository
 {
-    public interface IMusicRepository
-    {
-        Task<List<MusicDocument>> SearchMusicAsync(SearchMusicRequest request);
-        Task<MusicDocument> AddMusicAsync(MusicDocument doc);
-        Task<MusicDocument> GetMusicAsync(string id);
-        Task<MusicDocument> UpdateMusicAsync(string id, UpdateMusicRequest request);
-        Task RemoveMusicAsync(string id);
-        Task<MusicDocument> UpdateFavoriteAsync(string id, UpdateMusicRequest request);
-    }
+    Task<List<MusicDocument>> SearchMusicAsync(SearchMusicRequest request);
+    Task<MusicDocument> AddMusicAsync(MusicDocument doc);
+    Task<MusicDocument> GetMusicAsync(string id);
+    Task<MusicDocument> UpdateMusicAsync(string id, UpdateMusicRequest request);
+    Task RemoveMusicAsync(string id);
+    Task<MusicDocument> UpdateFavoriteAsync(string id, UpdateMusicRequest request);
 }

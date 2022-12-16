@@ -1,8 +1,6 @@
-namespace Edge.LitMusic.Repositories.Models
+namespace Edge.LitMusic.Repositories.Models;
+public static class SortKeyType
 {
-    public static class SortKeyType
-    {
-        public const string Ascending = "asc";
-        public const string Descending = "desc";
-    }
+    public const string Ascending = "asc";
+    public const string Descending = "desc";
 }

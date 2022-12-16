@@ -3,55 +3,53 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Edge.LitMusic
+namespace Edge.LitMusic;
+internal class HttpExceptionMiddleware
 {
-    internal class HttpExceptionMiddleware
+    private readonly RequestDelegate _next;
+
+    public HttpExceptionMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        this._next = next;
+    }
 
-        public HttpExceptionMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        try
         {
-            this._next = next;
+            await this._next.Invoke(context);
         }
-
-        public async Task Invoke(HttpContext context)
+        catch (HttpException ex)
         {
-            try
+            HttpResponse response = context.Response;
+
+            int statusCode = (int)ex.StatusCode;
+
+            if (IsServerSideError(statusCode: statusCode))
             {
-                await this._next.Invoke(context);
+                Console.WriteLine("Server exception");
             }
-            catch (HttpException ex)
-            {
-                HttpResponse response = context.Response;
 
-                int statusCode = (int)ex.StatusCode;
+            response.StatusCode = statusCode;
+            response.ContentType = "application/json; charset=utf-8";
 
-                if (IsServerSideError(statusCode: statusCode))
+            await response.WriteAsync(JsonSerializer.Serialize
+            (
+                new
                 {
-                    Console.WriteLine("Server exception");
+                    Message = ex.Message,
+                    StatusCode = statusCode
+                },
+                new JsonSerializerOptions()
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 }
-
-                response.StatusCode = statusCode;
-                response.ContentType = "application/json; charset=utf-8";
-
-                await response.WriteAsync(JsonSerializer.Serialize
-                (
-                    new
-                    {
-                        Message = ex.Message,
-                        StatusCode = statusCode
-                    },
-                    new JsonSerializerOptions()
-                    {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                    }
-                ));
-            }
+            ));
         }
+    }
 
-        private bool IsServerSideError(int statusCode)
-        {
-            return statusCode >= 500 && statusCode <= 599;
-        }
+    private bool IsServerSideError(int statusCode)
+    {
+        return statusCode >= 500 && statusCode <= 599;
     }
 }

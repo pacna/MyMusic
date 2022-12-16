@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Edge.LitMusic/src/Edge.LitMusic/bin/Debug/net6.0/Edge.LitMusic.dll",
+            "program": "${workspaceFolder}/Edge.LitMusic/src/Edge.LitMusic/bin/Debug/net7.0/Edge.LitMusic.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Edge.LitMusic/src/Edge.LitMusic",
             "stopAtEntry": false,

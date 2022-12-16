@@ -1,9 +1,7 @@
 using Edge.LitMusic.Controllers.Models;
 
-namespace Edge.LitMusic.Services
+namespace Edge.LitMusic.Services;
+public interface IValidationService
 {
-    public interface IValidationService
-    {
-        void ThrowIfInvalid(MusicAddRequest request);
-    }
+    void ThrowIfInvalid(MusicAddRequest request);
 }

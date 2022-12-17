@@ -1,4 +1,4 @@
 export interface FavoritesDialogConfig {
-  open: boolean;
-  closeFavDialog: () => void;
+    open: boolean;
+    closeFavDialog: () => void;
 }

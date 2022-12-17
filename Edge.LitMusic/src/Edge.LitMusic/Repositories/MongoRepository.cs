@@ -1,14 +1,12 @@
-using System;
 using MongoDB.Driver;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Edge.LitMusic.Settings;
 using System.Threading;
 
 namespace Edge.LitMusic.Repositories;
-public class MongoRepository<TDocument>
+internal class MongoRepository<TDocument>
 {
     private readonly IMongoCollection<TDocument> _collection;
+
     public MongoRepository(IMongoDBSetting setting, string collectionName)
     {
         try

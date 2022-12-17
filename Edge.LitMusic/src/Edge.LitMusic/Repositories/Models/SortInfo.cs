@@ -1,5 +1,5 @@
 namespace Edge.LitMusic.Repositories.Models;
-public class SortInfo
+internal class SortInfo
 {
     public SortInfo(string sortBy)
     {

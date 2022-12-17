@@ -1,5 +1,5 @@
 namespace Edge.LitMusic.Settings;
-public class MongoDBSetting : IMongoDBSetting
+internal class MongoDBSetting : IMongoDBSetting
 {
     public string ConnectionString { get; set; }
 

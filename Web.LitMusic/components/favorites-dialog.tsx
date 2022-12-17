@@ -1,35 +1,33 @@
-// react
-import { useEffect, useState } from 'react'
+// React
+import { useEffect, useState } from "react";
 
-// material
+// Material
 import {
-    Dialog, 
-    DialogActions, 
-    DialogContent, 
-    DialogTitle, 
-    Button, 
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Button,
     List,
     ListItem,
     ListItemText,
-    Divider
-} from '@mui/material';
+    Divider,
+} from "@mui/material";
 
-// types
-import { MusicResponse, SearchMusicRequest } from '../services/types/api';
-import { FavoritesDialogConfig } from './types/configs/favorites-dialog-config';
+// Types
+import { MusicResponse, SearchMusicRequest } from "../services/types/api";
+import { FavoritesDialogConfig } from "./types/configs/favorites-dialog-config";
 
-// third party
-import { useDispatch } from 'react-redux';
+// Third party
+import { useDispatch } from "react-redux";
 
-// others
-import { setSongData } from '../redux/reducers/song-data-slice';
-
-// services
-import { MusicApiService } from '../services/music-api.service';
+// Others
+import { setSongData } from "../redux/reducers/song-data-slice";
+import { MusicApiService } from "../services/music-api.service";
 
 export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
     const { open, closeFavDialog } = props;
-    const [ isFavDialogOpen, setIsFavDialogOpen ] = useState<boolean>(open);
+    const [isFavDialogOpen, setIsFavDialogOpen] = useState<boolean>(open);
     const [favorites, setFavorites] = useState<MusicResponse[]>([]);
     const dispatch = useDispatch();
     const service = new MusicApiService();
@@ -37,56 +35,63 @@ export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
     const handleClose = (): void => {
         closeFavDialog();
         setIsFavDialogOpen(!isFavDialogOpen);
-    }
+    };
 
     const setSongPath = (path: string, id: string, visible: boolean): void => {
-        dispatch(setSongData({path: path, id: id, visible: visible}));
-    }
+        dispatch(setSongData({ path: path, id: id, visible: visible }));
+    };
 
     const playMusic = (id: string, music: MusicResponse[]): void => {
-        const song: MusicResponse = music.find((x: MusicResponse) => x.id === id);
+        const song: MusicResponse = music.find(
+            (x: MusicResponse) => x.id === id
+        );
         setSongPath(song.path, song.id, true);
-    }
+    };
 
-    const searchMusic = async(): Promise<void> =>  {
+    const searchMusic = async (): Promise<void> => {
         const request: SearchMusicRequest = {
-            isFavorite: true
-        } as SearchMusicRequest
+            isFavorite: true,
+        } as SearchMusicRequest;
 
         setFavorites(await service.searchMusic(request));
-    }
+    };
 
     useEffect(() => {
         searchMusic();
-    }, [])
+    }, []);
 
-    return(
+    return (
         <Dialog
             open={isFavDialogOpen}
             onClose={handleClose}
             fullWidth={true}
-            maxWidth = {'md'}
+            maxWidth={"md"}
         >
             <DialogTitle>Favorites</DialogTitle>
             <DialogContent>
-                    <List>
-                        {
-                            favorites?.map((favorite: MusicResponse)=> {
-                                return(
-                                    <div key={favorite.id}>
-                                        <ListItem button onClick={()=> playMusic(favorite.id, favorites)}>
-                                            <ListItemText primary={favorite.title}/>
-                                        </ListItem>
-                                        <Divider />
-                                    </div>
-                                )
-                            })
-                        }
-                    </List>
+                <List>
+                    {favorites?.map((favorite: MusicResponse) => {
+                        return (
+                            <div key={favorite.id}>
+                                <ListItem
+                                    button
+                                    onClick={() =>
+                                        playMusic(favorite.id, favorites)
+                                    }
+                                >
+                                    <ListItemText primary={favorite.title} />
+                                </ListItem>
+                                <Divider />
+                            </div>
+                        );
+                    })}
+                </List>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary">Close</Button>
+                <Button onClick={handleClose} color="primary">
+                    Close
+                </Button>
             </DialogActions>
         </Dialog>
-    )
-}
+    );
+};

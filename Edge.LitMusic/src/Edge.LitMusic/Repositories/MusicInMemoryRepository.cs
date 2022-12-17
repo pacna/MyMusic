@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Edge.LitMusic.Repositories.Documents;
 using Edge.LitMusic.Repositories.Models;
 using Edge.LitMusic.Services.Models;
@@ -10,7 +6,7 @@ using MongoDB.Bson;
 namespace Edge.LitMusic.Repositories;
 public class MusicInMemoryRepository : IMusicRepository
 {
-    private static Dictionary<string, MusicDocument> musicInMemory;
+    private static IDictionary<string, MusicDocument> musicInMemory;
 
     static MusicInMemoryRepository()
     {

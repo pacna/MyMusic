@@ -1,14 +1,14 @@
-// react
-import { Fragment } from 'react';
+// React
+import { Fragment } from "react";
 
-// material
-import { CircularProgress, Fade } from "@mui/material"
+// Material
+import { CircularProgress, Fade } from "@mui/material";
 
-// styles
-import coreClasses from './../styles/core.module.scss';
+// Styles
+import coreClasses from "./../styles/core.module.scss";
 
-// others
-import { LoadingContentConfig } from "./types/configs/loading-content-config"
+// Others
+import { LoadingContentConfig } from "./types/configs/loading-content-config";
 
 export const LoadingContent = (props: LoadingContentConfig): JSX.Element => {
     const { isReady, children } = props;
@@ -18,20 +18,18 @@ export const LoadingContent = (props: LoadingContentConfig): JSX.Element => {
             return (
                 <Fade in={true}>
                     <div>
-                        <Fragment> { children }</Fragment>
+                        <Fragment> {children}</Fragment>
                     </div>
                 </Fade>
-            )
+            );
         }
 
         return (
             <div className={coreClasses.centerScreen}>
                 <CircularProgress size={80} />
             </div>
-        )
-    }
+        );
+    };
 
-    return (
-        loadComponent()
-    )
-}
+    return loadComponent();
+};

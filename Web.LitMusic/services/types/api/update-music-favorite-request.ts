@@ -1,3 +1,3 @@
 export interface UpdateMusicFavoriteRequest {
-  isFavorite: boolean;
+    isFavorite: boolean;
 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Edge.LitMusic.Controllers.Models;
 using Edge.LitMusic.Services;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +8,7 @@ namespace Edge.LitMusic.Controllers;
 public class MusicController : BaseController
 {
     private readonly IMusicService _service;
+
     public MusicController(IMusicService service)
     {
         this._service = service;

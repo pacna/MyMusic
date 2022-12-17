@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Edge.LitMusic.Repositories.Documents;
 using Edge.LitMusic.Repositories.Helpers;
 using Edge.LitMusic.Repositories.Models;
 using MongoDB.Driver;
 
 namespace Edge.LitMusic.Repositories;
-public static class MusicQueryBuilder
+internal static class MusicQueryBuilder
 {
     private static FilterDefinitionBuilder<MusicDocument> filterBuilder = Builders<MusicDocument>.Filter;
     private static UpdateDefinitionBuilder<MusicDocument> updateBuilder = Builders<MusicDocument>.Update;

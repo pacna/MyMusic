@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Edge.LitMusic.Repositories.Models;
 public interface IMusicSearchQuery
 {

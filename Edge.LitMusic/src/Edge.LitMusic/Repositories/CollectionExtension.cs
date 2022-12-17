@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Edge.LitMusic.Repositories;
 public static class CollectionExtension
 {
-    public static List<TValue> ToList<TValue>(this Dictionary<string, TValue> dict)
+    public static List<TValue> ToList<TValue>(this IDictionary<string, TValue> dict)
     {
         return dict.Values.ToList();
     }

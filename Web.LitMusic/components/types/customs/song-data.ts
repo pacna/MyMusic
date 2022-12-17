@@ -1,5 +1,5 @@
 export interface SongData {
-  path: string;
-  id: string;
-  visible: boolean;
+    path: string;
+    id: string;
+    visible: boolean;
 }

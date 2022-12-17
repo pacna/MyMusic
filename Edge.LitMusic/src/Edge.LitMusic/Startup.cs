@@ -1,4 +1,3 @@
-using System;
 using Edge.LitMusic.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Edge.LitMusic.Repositories.Documents;
 using Edge.LitMusic.Services.Models;
 using Edge.LitMusic.Settings;
 using MongoDB.Driver;
 
 namespace Edge.LitMusic.Repositories;
-public class MusicRepository : MongoRepository<MusicDocument>, IMusicRepository
+internal class MusicRepository : MongoRepository<MusicDocument>, IMusicRepository
 {
     public MusicRepository(IMongoDBSetting setting) : base(setting: setting, collectionName: "music")
     {

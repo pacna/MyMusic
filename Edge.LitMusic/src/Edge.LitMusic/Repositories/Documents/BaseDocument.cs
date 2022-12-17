@@ -1,4 +1,3 @@
-using System;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Edge.LitMusic.Repositories.Documents;

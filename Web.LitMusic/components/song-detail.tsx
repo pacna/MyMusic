@@ -15,7 +15,7 @@ import { FavoriteBorder, Favorite, MoreHoriz } from "@mui/icons-material";
 
 // Types
 import { SongDetailConfig } from "./types/configs/song-detail-config";
-import { UpdateMusicFavoriteRequest } from "../services/types/api";
+import { UpdateMusicFavoriteRequest } from "@litmusic/services/types/api";
 
 // Third party
 import { AxiosResponse } from "axios";
@@ -26,11 +26,15 @@ import classes from "../styles/song-detail.module.scss";
 import coreClasses from "../styles/core.module.scss";
 
 // Others
-import { setSongData } from "../redux/reducers/song-data-slice";
-import { MusicApiService } from "../services/music-api.service";
+import { setSongData } from "@litmusic/redux/reducers/song-data-slice";
+import { MusicApiService } from "@litmusic/services/music-api.service";
 
-export const SongDetail = (props: SongDetailConfig): JSX.Element => {
-    const { song, id, openEditMenu, searchMusic } = props;
+export const SongDetail = ({
+    song,
+    id,
+    openEditMenu,
+    searchMusic,
+}: SongDetailConfig): JSX.Element => {
     const [menuAnchorElement, setMenuAnchorElement] =
         useState<null | HTMLElement>(null);
     const isOpen: boolean = Boolean(menuAnchorElement);

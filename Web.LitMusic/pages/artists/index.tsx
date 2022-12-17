@@ -15,16 +15,19 @@ import {
 import { ExpandMore } from "@mui/icons-material";
 
 // Types
-import { SongData, Artist, Album, AlbumSong } from "../../components/types";
-import { SearchMusicRequest, MusicResponse } from "../../services/types/api";
+import { SongData, Artist, Album, AlbumSong } from "@litmusic/components/types";
+import {
+    SearchMusicRequest,
+    MusicResponse,
+} from "@litmusic/services/types/api";
 
 // Third party
 import { useDispatch } from "react-redux";
 
 // Others
-import { setSongData } from "../../redux/reducers/song-data-slice";
-import { LoadingContent } from "../../components/loading-content";
-import { MusicApiService } from "../../services/music-api.service";
+import { setSongData } from "@litmusic/redux/reducers/song-data-slice";
+import { LoadingContent } from "@litmusic/components/loading-content";
+import { MusicApiService } from "@litmusic/services/music-api.service";
 
 export default function ArtistsPage(): JSX.Element {
     const [artists, setArtists] = useState<Artist[]>([] as Artist[]);

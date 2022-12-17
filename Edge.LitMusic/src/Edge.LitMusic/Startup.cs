@@ -66,7 +66,7 @@ public class Startup
         try
         {
             this.CORSPolicySettings = configuration.GetSection("CORSPolicy").Get<CORSPolicySettings>();
-            this.UseInMemory = configuration.GetValue<bool>("inmemory");
+            this.UseInMemory = Environment.GetCommandLineArgs().Any(x => string.Equals(x, "--inmemory", StringComparison.OrdinalIgnoreCase));
         }
         catch (Exception ex)
         {

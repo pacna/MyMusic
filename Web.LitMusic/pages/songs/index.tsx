@@ -6,8 +6,11 @@ import { Box, Fab, List } from "@mui/material";
 import { Shuffle, Add } from "@mui/icons-material";
 
 // Types
-import { MusicResponse, SearchMusicRequest } from "../../services/types/api";
-import { Song, SongData } from "../../components/types";
+import {
+    MusicResponse,
+    SearchMusicRequest,
+} from "@litmusic/services/types/api";
+import { Song, SongData } from "@litmusic/components/types";
 
 // Third party
 import { useDispatch } from "react-redux";
@@ -16,12 +19,12 @@ import { useDispatch } from "react-redux";
 import classes from "../../styles/songs-page.module.scss";
 
 // Others
-import { SongDetail } from "../../components/song-detail";
-import { LoadingContent } from "../../components/loading-content";
-import { ModalManagement } from "../../components/modal-management";
-import { MusicManagementDialog } from "../../components/music-management-dialog";
-import { setSongData } from "../../redux/reducers/song-data-slice";
-import { MusicApiService } from "../../services/music-api.service";
+import { SongDetail } from "@litmusic/components/song-detail";
+import { LoadingContent } from "@litmusic/components/loading-content";
+import { ModalManagement } from "@litmusic/components/modal-management";
+import { MusicManagementDialog } from "@litmusic/components/music-management-dialog";
+import { setSongData } from "@litmusic/redux/reducers/song-data-slice";
+import { MusicApiService } from "@litmusic/services/music-api.service";
 
 export default function SongsPage(): JSX.Element {
     const [songs, setSongs] = useState<Song[]>([] as Song[]);

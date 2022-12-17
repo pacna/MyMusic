@@ -10,7 +10,7 @@ import classes from "./../styles/header-content.module.scss";
 // Others
 import { SearchDialog } from "./search-dialog";
 import { ModalManagement } from "./modal-management";
-import { closeSearch } from "../redux/reducers/toggle-search-slice";
+import { closeSearch } from "@litmusic/redux/reducers/toggle-search-slice";
 
 export const HeaderContent = (props: {
     children: ReactElement[];

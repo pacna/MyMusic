@@ -30,7 +30,7 @@ import coreClasses from "./../styles/core.module.scss";
 import classes from "./../styles/music-management.module.scss";
 
 // Others
-import { MusicApiService } from "../services/music-api.service";
+import { MusicApiService } from "@litmusic/services/music-api.service";
 import { isEmpty } from "./helpers/functions";
 
 export const MusicManagementDialog = (

@@ -13,8 +13,8 @@ import { useDispatch } from "react-redux";
 import classes from "./../styles/top-nav.module.scss";
 
 // Others
-import { openDrawer } from "../redux/reducers/toggle-drawer-slice";
-import { openSearch } from "../redux/reducers/toggle-search-slice";
+import { openDrawer } from "@litmusic/redux/reducers/toggle-drawer-slice";
+import { openSearch } from "@litmusic/redux/reducers/toggle-search-slice";
 
 export const TopNav = (): JSX.Element => {
     const dispatch = useDispatch();

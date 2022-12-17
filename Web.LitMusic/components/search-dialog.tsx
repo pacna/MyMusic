@@ -17,18 +17,23 @@ import {
 
 // Types
 import { SearchDialogConfig } from "./types";
-import { SearchMusicRequest, MusicResponse } from "../services/types/api";
+import {
+    SearchMusicRequest,
+    MusicResponse,
+} from "@litmusic/services/types/api";
 
 // Third party
 import { useDispatch } from "react-redux";
 
 // Others
-import { setSongData } from "../redux/reducers/song-data-slice";
-import { MusicApiService } from "../services/music-api.service";
+import { setSongData } from "@litmusic/redux/reducers/song-data-slice";
+import { MusicApiService } from "@litmusic/services/music-api.service";
 import { debounce } from "./helpers/functions";
 
-export const SearchDialog = (props: SearchDialogConfig): JSX.Element => {
-    const { open, closeSearchDialog } = props;
+export const SearchDialog = ({
+    open,
+    closeSearchDialog,
+}: SearchDialogConfig): JSX.Element => {
     const [isSearchDialogOpen, setSearchDialogOpen] = useState<boolean>(open);
     const [songs, setSongs] = useState<MusicResponse[]>([] as MusicResponse[]);
     const service = new MusicApiService();

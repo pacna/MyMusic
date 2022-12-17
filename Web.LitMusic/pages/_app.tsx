@@ -1,5 +1,7 @@
 // Next
 import type { AppProps } from "next/app";
+
+// Styles
 import "../styles/globals.scss";
 
 // Third party

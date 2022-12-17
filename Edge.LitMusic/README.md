@@ -19,13 +19,13 @@ $ cd src/Edge.LitMusic
 $ dotnet run
 
 # run cmd using inmemory
-$ dotnet run inmemory=true
+$ dotnet run --inmemory
 
 # run cmd (watch mode)
 $ dotnet watch run
 
 # run cmd (watch mode) using inmemory
-$ dotnet watch run inmemory=true
+$ dotnet watch run --inmemory
 ```
 
 ## How to run tests
@@ -60,4 +60,4 @@ $ ./Edge.LitMusic
 $ docker-compose up --build
 ```
 
-**note**: Docker runs using the in-memory implementation.
+**note**: Docker runs using the inmemory implementation.

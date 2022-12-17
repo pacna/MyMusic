@@ -15,18 +15,20 @@ import {
 } from "@mui/material";
 
 // Types
-import { MusicResponse, SearchMusicRequest } from "../services/types/api";
+import { MusicResponse, SearchMusicRequest } from "@litmusic/services/types";
 import { FavoritesDialogConfig } from "./types/configs/favorites-dialog-config";
 
 // Third party
 import { useDispatch } from "react-redux";
 
 // Others
-import { setSongData } from "../redux/reducers/song-data-slice";
-import { MusicApiService } from "../services/music-api.service";
+import { setSongData } from "@litmusic/redux/reducers/song-data-slice";
+import { MusicApiService } from "@litmusic/services/music-api.service";
 
-export const FavoritesDialog = (props: FavoritesDialogConfig): JSX.Element => {
-    const { open, closeFavDialog } = props;
+export const FavoritesDialog = ({
+    open,
+    closeFavDialog,
+}: FavoritesDialogConfig): JSX.Element => {
     const [isFavDialogOpen, setIsFavDialogOpen] = useState<boolean>(open);
     const [favorites, setFavorites] = useState<MusicResponse[]>([]);
     const dispatch = useDispatch();

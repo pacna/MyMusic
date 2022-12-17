@@ -13,7 +13,7 @@ import classes from "../styles/react-audio-player.module.scss";
 import {
     showSoundWave,
     hideSoundWave,
-} from "../redux/reducers/toggle-soundwave-slice";
+} from "@litmusic/redux/reducers/toggle-soundwave-slice";
 
 export const ReactAudioPlayer = ({ src }: AudioPlayerConfig): JSX.Element => {
     const dispatch = useDispatch();

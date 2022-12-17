@@ -14,4 +14,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 
 WORKDIR /edge
 COPY --from=build-env /edge/out .
-ENTRYPOINT ["./Edge.LitMusic", "inmemory=true"]
+ENTRYPOINT ["./Edge.LitMusic", "--inmemory"]

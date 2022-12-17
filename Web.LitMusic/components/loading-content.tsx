@@ -7,12 +7,13 @@ import { CircularProgress, Fade } from "@mui/material";
 // Styles
 import coreClasses from "./../styles/core.module.scss";
 
-// Others
+// Types
 import { LoadingContentConfig } from "./types/configs/loading-content-config";
 
-export const LoadingContent = (props: LoadingContentConfig): JSX.Element => {
-    const { isReady, children } = props;
-
+export const LoadingContent = ({
+    isReady,
+    children,
+}: LoadingContentConfig): JSX.Element => {
     const loadComponent = (): JSX.Element => {
         if (isReady) {
             return (

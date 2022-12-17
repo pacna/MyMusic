@@ -1,5 +1,5 @@
 // Types
-import { MusicResponse } from "../../../services/types/api/music-response";
+import { MusicResponse } from "@litmusic/services/types/api/music-response";
 
 export interface Album {
     title: string;

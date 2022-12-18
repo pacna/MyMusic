@@ -237,7 +237,7 @@ public class MusicServiceTests
             foundCount++;
         }
 
-        Assert.Equal(foundCount, 1);
+        Assert.Equal(1, foundCount);
     }
 
     private void AssertEqual(MusicResponse expected, MusicDocument actual)

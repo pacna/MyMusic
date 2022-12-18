@@ -124,22 +124,28 @@ export const SongDetail = ({
                         <Typography className={classes.centerSpacing}>
                             {song.artist}
                             <span className={classes.centerSpacing}>
-                                {displaySoundWave(id)}
-                                <IconButton
-                                    onClick={(evt: MouseEvent) =>
-                                        changeFavorites(evt, song.id)
-                                    }
-                                >
-                                    {isFav ? <Favorite /> : <FavoriteBorder />}
-                                </IconButton>
-                                {song.totalDuration}
-                                <IconButton
-                                    color="primary"
-                                    className={coreClasses.ml8}
-                                    onClick={handleOpenMenu}
-                                >
-                                    {<MoreHoriz />}
-                                </IconButton>
+                                <>
+                                    {displaySoundWave(id)}
+                                    <IconButton
+                                        onClick={(evt: MouseEvent) =>
+                                            changeFavorites(evt, song.id)
+                                        }
+                                    >
+                                        {isFav ? (
+                                            <Favorite />
+                                        ) : (
+                                            <FavoriteBorder />
+                                        )}
+                                    </IconButton>
+                                    {song.totalDuration}
+                                    <IconButton
+                                        color="primary"
+                                        className={coreClasses.ml8}
+                                        onClick={handleOpenMenu}
+                                    >
+                                        {<MoreHoriz />}
+                                    </IconButton>
+                                </>
                             </span>
                         </Typography>
                     }

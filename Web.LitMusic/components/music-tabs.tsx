@@ -16,7 +16,7 @@ export const MusicTabs = (): JSX.Element => {
 
     const changeTab = (
         evt: SyntheticEvent<Element, Event>,
-        tabIndex: number
+        tabIndex: TABS
     ): void => {
         switch (tabIndex) {
             case TABS.SONGS:

@@ -244,6 +244,7 @@ export const MusicManagementDialog = (
         getExistingMusic();
     }, []);
 
+    // Add <> </> to get around "This JSX tag's 'children' prop expects a single child of type 'Element | undefined', but multiple children were provided"
     return (
         <Dialog
             open={isMusicManagementDialogOpen}
@@ -252,66 +253,68 @@ export const MusicManagementDialog = (
         >
             <DialogTitle>{displayMusicManagementTitleText()}</DialogTitle>
             <DialogContent>
-                <TextField
-                    margin="normal"
-                    label="Title"
-                    required
-                    fullWidth
-                    variant="outlined"
-                    onChange={handleTitleChange}
-                    value={musicManagementGroup.title}
-                />
-                <TextField
-                    margin="normal"
-                    label="Album"
-                    required
-                    fullWidth
-                    variant="outlined"
-                    onChange={handleAlbumChange}
-                    value={musicManagementGroup.album}
-                />
-                <TextField
-                    margin="normal"
-                    label="Artist"
-                    fullWidth
-                    variant="outlined"
-                    onChange={handleArtistChange}
-                    value={musicManagementGroup.artist}
-                />
-                <div className={classes.durationContainer}>
+                <>
                     <TextField
                         margin="normal"
-                        label="Minutes"
+                        label="Title"
                         required
                         fullWidth
-                        type="number"
                         variant="outlined"
-                        inputProps={{ min: 0, max: 59 }}
-                        onChange={handleDurationInMinsChange}
-                        value={musicManagementGroup.durationInMins}
+                        onChange={handleTitleChange}
+                        value={musicManagementGroup.title}
                     />
                     <TextField
                         margin="normal"
-                        label="Seconds"
+                        label="Album"
                         required
                         fullWidth
-                        type="number"
                         variant="outlined"
-                        onChange={handleDurationInSecsChange}
-                        inputProps={{ min: 0, max: 59 }}
-                        value={musicManagementGroup.durationInSecs}
+                        onChange={handleAlbumChange}
+                        value={musicManagementGroup.album}
                     />
-                </div>
-                <TextField
-                    margin="normal"
-                    label="Path"
-                    required
-                    fullWidth
-                    variant="outlined"
-                    onChange={handlePathChange}
-                    value={musicManagementGroup.path}
-                />
-                {toggleDisplayingFavoriteCheckbox()}
+                    <TextField
+                        margin="normal"
+                        label="Artist"
+                        fullWidth
+                        variant="outlined"
+                        onChange={handleArtistChange}
+                        value={musicManagementGroup.artist}
+                    />
+                    <div className={classes.durationContainer}>
+                        <TextField
+                            margin="normal"
+                            label="Minutes"
+                            required
+                            fullWidth
+                            type="number"
+                            variant="outlined"
+                            inputProps={{ min: 0, max: 59 }}
+                            onChange={handleDurationInMinsChange}
+                            value={musicManagementGroup.durationInMins}
+                        />
+                        <TextField
+                            margin="normal"
+                            label="Seconds"
+                            required
+                            fullWidth
+                            type="number"
+                            variant="outlined"
+                            onChange={handleDurationInSecsChange}
+                            inputProps={{ min: 0, max: 59 }}
+                            value={musicManagementGroup.durationInSecs}
+                        />
+                    </div>
+                    <TextField
+                        margin="normal"
+                        label="Path"
+                        required
+                        fullWidth
+                        variant="outlined"
+                        onChange={handlePathChange}
+                        value={musicManagementGroup.path}
+                    />
+                    {toggleDisplayingFavoriteCheckbox()}
+                </>
             </DialogContent>
             <DialogActions>
                 <Button color="secondary" onClick={() => handleClose()}>

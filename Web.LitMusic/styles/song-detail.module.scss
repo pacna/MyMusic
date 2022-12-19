@@ -1,20 +1,20 @@
 @import "./colors.scss";
 
 .soundWave {
-  height: 35px;
-  width: 35px;
+    height: 35px;
+    width: 35px;
 }
 
 .centerSpacing {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .editText {
-  color: $primaryBlue !important;
+    color: $primaryBlue !important;
 }
 
 .removeText {
-  color: $plainRed !important;
+    color: $plainRed !important;
 }

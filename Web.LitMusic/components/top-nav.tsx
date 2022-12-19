@@ -1,53 +1,62 @@
-// react
-import React from "react"
+// React
+import React from "react";
 
-// material
-import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search'
+// Material
+import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 
-// third party
+// Third party
 import { useDispatch } from "react-redux";
 
-// others
-import { openDrawer } from "../redux/reducers/toggle-drawer-slice";
-import { openSearch } from "../redux/reducers/toggle-search-slice";
+// Types
+import classes from "./../styles/top-nav.module.scss";
 
-// styles
-import classes from './../styles/top-nav.module.scss'
+// Others
+import { openDrawer } from "@litmusic/redux/reducers/toggle-drawer-slice";
+import { openSearch } from "@litmusic/redux/reducers/toggle-search-slice";
 
 export const TopNav = (): JSX.Element => {
     const dispatch = useDispatch();
 
     const showDrawer = (): void => {
         dispatch(openDrawer());
-    }
+    };
 
     const openSearchDialog = (): void => {
         dispatch(openSearch());
-    }
-    
-    return(
+    };
+
+    return (
         <AppBar position="static">
             <Toolbar>
                 <Grid container alignItems="center">
-                    <Grid item xs={2} >
-                        <IconButton onClick={showDrawer} className={classes.menu}>
+                    <Grid item xs={2}>
+                        <IconButton
+                            onClick={showDrawer}
+                            className={classes.menu}
+                        >
                             <MenuIcon />
                         </IconButton>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="h6" className={classes.musicLibrary}>
+                        <Typography
+                            variant="h6"
+                            className={classes.musicLibrary}
+                        >
                             Music Library
                         </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <IconButton onClick={openSearchDialog} className={classes.search}>
+                        <IconButton
+                            onClick={openSearchDialog}
+                            className={classes.search}
+                        >
                             <SearchIcon />
-                        </IconButton>                               
+                        </IconButton>
                     </Grid>
                 </Grid>
             </Toolbar>
         </AppBar>
-    )
-}
+    );
+};

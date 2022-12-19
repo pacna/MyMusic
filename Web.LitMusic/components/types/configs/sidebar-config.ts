@@ -1,4 +1,4 @@
 export interface SidebarConfig {
-  toggle: boolean;
-  closeDrawer: () => void;
+    toggle: boolean;
+    closeDrawer: () => void;
 }

@@ -1,8 +1,6 @@
-namespace Edge.LitMusic.Settings
+namespace Edge.LitMusic.Settings;
+public interface ICORSPolicySettings
 {
-    public interface ICORSPolicySettings
-    {
-        string PolicyName { get; set; }
-        string[] AllowedOrigins { get; set; }
-    }
+    string PolicyName { get; set; }
+    string[] AllowedOrigins { get; set; }
 }

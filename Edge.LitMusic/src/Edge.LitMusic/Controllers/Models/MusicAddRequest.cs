@@ -1,7 +1,5 @@
-namespace Edge.LitMusic.Controllers.Models
+namespace Edge.LitMusic.Controllers.Models;
+public class MusicAddRequest : MusicUpdateRequest
 {
-    public class MusicAddRequest : MusicUpdateRequest
-    {
-        public bool IsFavorite { get; init; }
-    }
+    public bool IsFavorite { get; init; }
 }

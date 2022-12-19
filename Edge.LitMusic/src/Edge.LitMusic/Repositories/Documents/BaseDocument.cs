@@ -1,14 +1,11 @@
-using System;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Edge.LitMusic.Repositories.Documents
+namespace Edge.LitMusic.Repositories.Documents;
+public abstract class BaseDocument
 {
-    public class BaseDocument
-    {
-        [BsonElement("cd")]
-        public DateTime CreatedDate { get; set; }
+    [BsonElement("cd")]
+    public virtual DateTime CreatedDate { get; set; }
 
-        [BsonElement("ud")]
-        public DateTime UpdatedDate { get; set; }
-    }
+    [BsonElement("ud")]
+    public virtual DateTime UpdatedDate { get; set; }
 }

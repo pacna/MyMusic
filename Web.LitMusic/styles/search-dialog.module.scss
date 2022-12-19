@@ -1,20 +1,20 @@
 @import "./colors.scss";
 
 .list {
-  width: 240px;
+    width: 240px;
 
-  .header {
-    background-color: $primaryGray;
+    .header {
+        background-color: $primaryGray;
 
-    .headerText {
-      color: $primaryRed;
-      font-size: 16px;
-      font-weight: bold;
+        .headerText {
+            color: $primaryRed;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .secondaryHeaderText {
+            color: $plainBlack;
+            font-size: 16px;
+        }
     }
-
-    .secondaryHeaderText {
-      color: $plainBlack;
-      font-size: 16px;
-    }
-  }
 }

@@ -1,15 +1,15 @@
 version: "2"
 # create a network to allow the containers to communicate with each other
 networks:
-  lit-music:
-    driver: bridge
+    lit-music:
+        driver: bridge
 services:
-  edge.litmusic:
-    build: .
-    ports:
-      # expose container port 5000 to local port 5000
-      - 5000:5000
-    networks:
-      lit-music:
-        aliases:
-          - gateway
+    edge.litmusic:
+        build: .
+        ports:
+            # expose container port 5000 to local port 5000
+            - 5000:5000
+        networks:
+            lit-music:
+                aliases:
+                    - gateway

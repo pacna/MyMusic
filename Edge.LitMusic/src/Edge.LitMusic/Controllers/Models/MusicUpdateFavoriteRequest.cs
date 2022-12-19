@@ -1,17 +1,15 @@
 using Edge.LitMusic.Services.Models;
 
-namespace Edge.LitMusic.Controllers.Models
+namespace Edge.LitMusic.Controllers.Models;
+public class MusicUpdateFavoriteRequest
 {
-    public class MusicUpdateFavoriteRequest
-    {
-        public bool IsFavorite { get; init; }
+    public bool IsFavorite { get; init; }
 
-        public UpdateMusicRequest ToDataLayer()
+    public UpdateMusicRequest ToDataLayer()
+    {
+        return new UpdateMusicRequest
         {
-            return new UpdateMusicRequest
-            {
-                IsFavorite = this.IsFavorite
-            };
-        }
+            IsFavorite = this.IsFavorite
+        };
     }
 }

@@ -1,3 +1,3 @@
 export interface AudioPlayerConfig {
-  src: string;
+    src: string;
 }

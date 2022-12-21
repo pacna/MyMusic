@@ -4,10 +4,10 @@ The edge service for Lit Music
 
 ## Prerequisites
 
-1. [dotnet core](https://dotnet.microsoft.com/en-us/download)
-2. [mongoDB](https://www.mongodb.com/try/download/community)
-3. [docker](https://docs.docker.com/install/) (optional)
-4. [docker-compose](https://docs.docker.com/compose/install/) (optional)
+1. [.NET Core](https://dotnet.microsoft.com/en-us/download)
+2. [MongoDB](https://www.mongodb.com/try/download/community)
+3. [Docker](https://docs.docker.com/install/) (optional)
+4. [Docker Compose](https://docs.docker.com/compose/install/) (optional)
 
 ## How to run locally
 

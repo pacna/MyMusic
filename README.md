@@ -1,6 +1,9 @@
 # Lit Music
 
-<img alt="Dotnet test passing" src="https://github.com/pacna/lit-music/workflows/Dotnet%20test/badge.svg" />
+<div style="display: inline-flex; gap: 16px">
+    <img alt="Dotnet test passing" src="https://github.com/pacna/lit-music/workflows/Dotnet%20test/badge.svg" />
+    <img alt="Node test passing" src="https://github.com/pacna/lit-music/workflows/Node%20Test/badge.svg" />
+</div>
 
 A music player that is lit.
 

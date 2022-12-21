@@ -4,7 +4,7 @@ Web.LitMusic is the front end for Lit Music
 
 ## Prerequisites
 
-1. [Nodejs](https://nodejs.org/en/)
+1. [Node.js](https://nodejs.org/en/)
 
 ## Setup Env
 
@@ -34,6 +34,12 @@ Clear out any stuck node processes.
 
 ```bash
 $ npm run clean
+```
+
+## How to run tests
+
+```bash
+$ npm test
 ```
 
 ## Available Scripts for production

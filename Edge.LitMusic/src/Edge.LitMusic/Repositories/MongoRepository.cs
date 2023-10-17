@@ -1,22 +1,23 @@
 using MongoDB.Driver;
 using Edge.LitMusic.Settings;
-using System.Threading;
 
 namespace Edge.LitMusic.Repositories;
-internal class MongoRepository<TDocument>
+internal abstract class MongoRepository<TDocument>
 {
     private readonly IMongoCollection<TDocument> _collection;
 
-    public MongoRepository(IMongoDBSetting setting, string collectionName)
+    protected abstract string CollectionName { get; }
+
+    public MongoRepository(IMongoDBSetting setting)
     {
         try
         {
             IMongoDatabase database = new MongoClient(connectionString: setting.ConnectionString).GetDatabase(name: setting.DatabaseName);
-            this._collection = database.GetCollection<TDocument>(collectionName);
+            this._collection = database.GetCollection<TDocument>(this.CollectionName);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Unable to connect to Mongo {ex.ToString()}");
+            Console.WriteLine($"Unable to connect to Mongo {ex}");
         }
     }
 
@@ -40,9 +41,9 @@ internal class MongoRepository<TDocument>
         return this._collection.UpdateOneAsync(filter, update);
     }
 
-    public Task<TDocument> FindOneAndUpdateAsync(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update, CancellationToken cancellationToken = default)
+    public Task<TDocument> FindOneAndUpdateAsync(FilterDefinition<TDocument> filter, IEnumerable<UpdateDefinition<TDocument>> update, CancellationToken cancellationToken = default)
     {
-        return this._collection.FindOneAndUpdateAsync(filter, update, new FindOneAndUpdateOptions<TDocument, TDocument> { ReturnDocument = ReturnDocument.After }, cancellationToken);
+        return this._collection.FindOneAndUpdateAsync(filter, Builders<TDocument>.Update.Combine(update), new FindOneAndUpdateOptions<TDocument, TDocument> { ReturnDocument = ReturnDocument.After }, cancellationToken);
     }
 
     public async Task<TDocument> InsertOneAsync(TDocument doc)
@@ -55,5 +56,4 @@ internal class MongoRepository<TDocument>
     {
         return this._collection.DeleteOneAsync(filter);
     }
-
 }

@@ -6,7 +6,9 @@ using MongoDB.Driver;
 namespace Edge.LitMusic.Repositories;
 internal class MusicRepository : MongoRepository<MusicDocument>, IMusicRepository
 {
-    public MusicRepository(IMongoDBSetting setting) : base(setting: setting, collectionName: "music")
+    protected override string CollectionName => "music";
+
+    public MusicRepository(IMongoDBSetting setting) : base(setting: setting)
     {
     }
 
@@ -37,7 +39,7 @@ internal class MusicRepository : MongoRepository<MusicDocument>, IMusicRepositor
     public Task<MusicDocument> UpdateMusicAsync(string id, UpdateMusicRequest request)
     {
         FilterDefinition<MusicDocument> filter = MusicQueryBuilder.BuildEntityIdQuery(id: id);
-        UpdateDefinition<MusicDocument> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
+        IEnumerable<UpdateDefinition<MusicDocument>> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
 
         return base.FindOneAndUpdateAsync(filter: filter, update: update);
     }
@@ -51,7 +53,7 @@ internal class MusicRepository : MongoRepository<MusicDocument>, IMusicRepositor
     public Task<MusicDocument> UpdateFavoriteAsync(string id, UpdateMusicRequest request)
     {
         FilterDefinition<MusicDocument> filter = MusicQueryBuilder.BuildEntityIdQuery(id: id);
-        UpdateDefinition<MusicDocument> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
+        IEnumerable<UpdateDefinition<MusicDocument>> update = MusicQueryBuilder.BuildUpdateQuery(query: request);
 
         return base.FindOneAndUpdateAsync(filter: filter, update: update);
     }

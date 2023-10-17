@@ -1,6 +1,7 @@
 using System.Net;
 
 namespace Edge.LitMusic;
+
 public class HttpException : Exception
 {
     public HttpStatusCode StatusCode { get; }

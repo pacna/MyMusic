@@ -1,11 +1,7 @@
 using Edge.LitMusic.Settings;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Edge.LitMusic;
+
 public class Startup
 {
     private IConfiguration Configuration { get; }
@@ -24,12 +20,13 @@ public class Startup
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
-        services.AddServices();
-        services.AddRepositories(useInMemory: this.UseInMemory);
-        services.AddSwagger();
-        services.AddCors(corsPolicySettings: this.CORSPolicySettings);
-        services.AddSettings(configuration: this.Configuration);
+        services
+            .AddMVC()
+            .AddServices()
+            .AddRepositories(useInMemory: this.UseInMemory)
+            .AddSwagger()
+            .AddCors(corsPolicySettings: this.CORSPolicySettings)
+            .AddSettings(configuration: this.Configuration);
 
 #if DEBUG
         Console.WriteLine(this.UseInMemory ? "Setting up InMemory datastore" : "");

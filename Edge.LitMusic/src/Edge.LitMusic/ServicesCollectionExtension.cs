@@ -1,45 +1,48 @@
-using System.Net.Http;
 using Edge.LitMusic.Repositories;
 using Edge.LitMusic.Services;
 using Edge.LitMusic.Settings;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
 namespace Edge.LitMusic;
+
 internal static class ServicesCollectionExtension
 {
-    internal static void AddServices(this IServiceCollection services)
+    internal static IServiceCollection AddMVC(this IServiceCollection services)
     {
-        services.AddSingleton<IMusicService, MusicService>();
-        services.AddSingleton<IValidationService, ValidationService>();
+        services.AddControllers();
+
+        return services;
     }
 
-    internal static void AddRepositories(this IServiceCollection services, bool useInMemory)
+    internal static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        return services
+            .AddSingleton<IMusicService, MusicService>()
+            .AddSingleton<IValidationService, ValidationService>();
+    }
+
+    internal static IServiceCollection AddRepositories(this IServiceCollection services, bool useInMemory)
     {
         if (useInMemory)
         {
-            services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
+            return services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
         }
-        else
-        {
-            services.AddSingleton<IMusicRepository, MusicRepository>();
-        }
+        
+        return services.AddSingleton<IMusicRepository, MusicRepository>();
     }
 
-    internal static void AddSettings(this IServiceCollection services, IConfiguration configuration)
+    internal static IServiceCollection AddSettings(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"));
-        services.AddSingleton<IMongoDBSetting>(provider =>
-            provider.GetRequiredService<IOptions<MongoDBSetting>>().Value
-        );
+        return services
+            .Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"))
+            .AddSingleton<IMongoDBSetting>(provider => provider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
     }
 
-    internal static void AddSwagger(this IServiceCollection services)
+    internal static IServiceCollection AddSwagger(this IServiceCollection services)
     {
-        services.AddSwaggerGen(options =>
+        return services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
@@ -50,9 +53,9 @@ internal static class ServicesCollectionExtension
         });
     }
 
-    internal static void AddCors(this IServiceCollection services, ICORSPolicySettings corsPolicySettings)
+    internal static IServiceCollection AddCors(this IServiceCollection services, ICORSPolicySettings corsPolicySettings)
     {
-        services.AddCors(options =>
+        return services.AddCors(options =>
         {
             options.AddPolicy(name: corsPolicySettings.PolicyName,
                 builder =>

@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
 namespace Edge.LitMusic;
+
 public class Program
 {
     public static void Main(string[] args)

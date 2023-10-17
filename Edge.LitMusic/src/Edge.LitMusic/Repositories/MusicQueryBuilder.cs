@@ -32,47 +32,55 @@ internal static class MusicQueryBuilder
         return filters.Any() ? filterBuilder.And(filters) : filterBuilder.Empty;
     }
 
-    public static UpdateDefinition<MusicDocument> BuildUpdateQuery(IMusicUpdateQuery query)
+    public static IEnumerable<UpdateDefinition<MusicDocument>> BuildUpdateQuery(IMusicUpdateQuery query)
     {
-        List<UpdateDefinition<MusicDocument>> updates = new();
+        bool hasChanged = false;
 
         if (!string.IsNullOrEmpty(query.Album))
         {
-            updates.Add(updateBuilder.Set(m => m.Album, query.Album));
+            hasChanged = true;
+            yield return updateBuilder.Set(m => m.Album, query.Album);
         }
 
         if (!string.IsNullOrEmpty(query.Artist))
         {
-            updates.Add(updateBuilder.Set(m => m.Artist, query.Artist));
-            updates.Add(updateBuilder.Set(m => m.ArtistAlphabetIndex, MusicHelper.CalculateAlphabetIndex(artistFirstChar: query.Artist[0])));
+            hasChanged = true;
+            yield return updateBuilder.Set(m => m.Artist, query.Artist);
+            yield return updateBuilder.Set(m => m.ArtistAlphabetIndex, MusicHelper.CalculateAlphabetIndex(artistFirstChar: query.Artist[0]));
+
         }
 
         if (query.Length > 0)
         {
-            updates.Add(updateBuilder.Set(m => m.Length, query.Length));
+            hasChanged = true;
+            yield return updateBuilder.Set(m => m.Length, query.Length);
+
         }
 
         if (!string.IsNullOrEmpty(query.Path))
         {
-            updates.Add(updateBuilder.Set(m => m.Path, query.Path));
+            hasChanged = true;
+            yield return updateBuilder.Set(m => m.Path, query.Path);
+
         }
 
         if (!string.IsNullOrEmpty(query.Title))
         {
-            updates.Add(updateBuilder.Set(m => m.Title, query.Title));
+            hasChanged = true;
+            yield return updateBuilder.Set(m => m.Title, query.Title);
         }
 
         if (query.IsFavorite.HasValue)
         {
-            updates.Add(updateBuilder.Set(m => m.IsFavorite, query.IsFavorite));
+            hasChanged = true;
+            yield return updateBuilder.Set(m => m.IsFavorite, query.IsFavorite);
+
         }
 
-        if (updates.Any())
+        if (hasChanged)
         {
-            updates.Add(updateBuilder.Set(m => m.UpdatedDate, DateTime.UtcNow));
+            yield return updateBuilder.Set(m => m.UpdatedDate, DateTime.UtcNow);
         }
-
-        return updates.Any() ? updateBuilder.Combine(updates) : null;
     }
 
     public static SortDefinition<MusicDocument> BuildSortQuery(string sortBy)

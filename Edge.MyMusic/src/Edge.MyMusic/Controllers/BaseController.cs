@@ -10,7 +10,7 @@ public class BaseController : ControllerBase
     public IActionResult OkIfFound<TResult>(TResult result)
     {
         return result == null
-            ? this.NotFound()
-            : this.Ok(result);
+            ? NotFound()
+            : Ok(result);
     }
 }

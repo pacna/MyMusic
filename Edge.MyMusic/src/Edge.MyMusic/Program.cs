@@ -1,17 +1,20 @@
 using Edge.MyMusic;
+using Edge.MyMusic.Settings;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Conventions.Add(new LowerCaseControllerNamingConvention());
-});
+CORSPolicySetting cors = builder.Configuration.GetSection("CORSPolicy").Get<CORSPolicySetting>()!;
+
+builder
+    .Services
+    .AddCustomControllers()
+    .AddControllerConvention()
+    .AddServices()
+    .AddRepositories()
+    .AddCors(cors)
+    .AddEndpointsApiExplorer() // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    .AddSwaggerGen();
 
 WebApplication? app = builder.Build();
 
@@ -36,5 +39,6 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors(cors.PolicyName);
 
 app.Run();

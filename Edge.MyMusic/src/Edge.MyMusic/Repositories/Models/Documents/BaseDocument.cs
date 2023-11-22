@@ -7,12 +7,12 @@ public abstract class BaseDocument
 {
 #nullable disable
     [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-    protected string Id { get; set; }
+    public string Id { get; set; }
 #nullable enable
 
     [BsonElement("cd")]
-    protected DateTime CreateDate { get; set; }
+    public DateTime CreateDate { get; set; }
 
     [BsonElement("ud")]
-    protected DateTime UpdateDate { get; set; }
+    public DateTime UpdateDate { get; set; }
 }

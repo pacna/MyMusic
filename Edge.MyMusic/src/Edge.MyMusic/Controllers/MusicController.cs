@@ -1,25 +1,34 @@
 using Edge.MyMusic.Controllers.Models;
 using Edge.MyMusic.Services;
+using Edge.MyMusic.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Edge.MyMusic.Controllers;
 
 public class MusicController : BaseController
 {
-
-    private readonly ILogger<MusicController> _logger;
     private readonly IMusicService _musicService;
 
-    public MusicController(ILogger<MusicController> logger, IMusicService musicService)
+    public MusicController(IMusicService musicService)
     {
-        _logger = logger;
         _musicService = musicService;
     }
 
     [HttpGet]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(CollectionModel<MusicResponse>))]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> SearchMusicAsync([FromQuery] MusicSearchRequest request)
     {
-        return OkIfFound(await this._musicService.SearchMusicAsync(request));
+        return this.OkIfFound(await _musicService.SearchMusicAsync(request));
+    }
+
+    [HttpPost]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(MusicResponse))]
+    [ProducesResponseType(statusCode: StatusCodes.Status412PreconditionFailed)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AddMusicAsync([FromBody] MusicPostRequest request)
+    {
+        return this.OkIfFound(await _musicService.AddMusicAsync(request: request));
     }
 
     [HttpGet("{id}")]
@@ -27,6 +36,6 @@ public class MusicController : BaseController
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetMusicAsync([FromRoute] string id)
     {
-        return OkIfFound(await _musicService.GetMusicAsync(id));
+        return this.OkIfFound(await _musicService.GetMusicAsync(id));
     }
 }

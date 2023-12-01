@@ -1,16 +1,14 @@
+using Edge.MyMusic.Services.Models;
 using Edge.MyMusic.Shared;
 
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class MusicSearchRequest
+public sealed class MusicSearchRequest : IMusicSearchQuery
 {
-    public bool IsFavorite { get; init; }
-#nullable disable
+    public List<AlphabetType>? ArtistAlphabetIndices { get; init; }
 
-    public List<AlphabetType> ArtistAlphabetCategories { get; init; }
+    public string? SortBy { get; init; }
 
-    public string SortBy { get; init; }
-
-    public string Title { get; init; }
-#nullable enable
+    public string? Title { get; init; }
+    public bool? IsFavorite { get; init; }
 }

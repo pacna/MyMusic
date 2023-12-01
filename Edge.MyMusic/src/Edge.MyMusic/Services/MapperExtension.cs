@@ -1,13 +1,33 @@
 using Edge.MyMusic.Controllers.Models;
 using Edge.MyMusic.Repositories.Models.Documents;
+using Edge.MyMusic.Shared;
 
 namespace Edge.MyMusic.Services;
 
 public static class MapperExtension
 {
-    public static List<MusicResponse> ToResponse(this List<MusicDocument> docs)
+    public static MusicDocument ToDocument(this MusicPostRequest request)
     {
-        return docs.ConvertAll(m => m.ToResponse());
+        return new MusicDocument
+        {
+            Album = request.Album,
+            Artist = request.Artist,
+            ArtistAlphabetIndex = MusicHelperExtension.GetUpperCaseAlphabetIndex(request.Artist[0]),
+            IsFavorite = request.IsFavorite,
+            Length = request.Length,
+            Path = request.Path,
+            Title = request.Title
+        };
+    }
+
+    public static CollectionModel<MusicResponse> ToResponse(this List<MusicDocument> docs)
+    {
+        return new CollectionModel<MusicResponse>
+        {
+            List = docs.ConvertAll(m => m.ToResponse()),
+            Num = 1,
+            Total = docs.Count
+        };
     }
 
     public static MusicResponse ToResponse(this MusicDocument doc)

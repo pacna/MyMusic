@@ -5,11 +5,19 @@ namespace Edge.MyMusic.Repositories.Models.Documents;
 
 public class MusicDocument : BaseDocument
 {
+#nullable disable
     [BsonElement("al")]
-    public string? Album { get; set; }
+    public string Album { get; set; }
 
     [BsonElement("a")]
-    public string? Artist { get; set; }
+    public string Artist { get; set; }
+
+    [BsonElement("p")]
+    public string Path { get; set; }
+
+    [BsonElement("t")]
+    public string Title { get; set; }
+#nullable enable
 
     [BsonElement("aai")]
     public AlphabetType ArtistAlphabetIndex { get; set; }
@@ -19,10 +27,4 @@ public class MusicDocument : BaseDocument
 
     [BsonElement("l")]
     public int Length { get; set; }
-
-    [BsonElement("p")]
-    public string? Path { get; set; }
-
-    [BsonElement("t")]
-    public string? Title { get; set; }
 }

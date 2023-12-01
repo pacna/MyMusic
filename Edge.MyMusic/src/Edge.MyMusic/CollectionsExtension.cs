@@ -2,8 +2,8 @@ namespace Edge.MyMusic;
 
 public static class CollectionExtensions
 {
-    public static List<TValue> ToList<TKey, TValue>(this IDictionary<TKey, TValue> dict) where TKey: notnull
+    public static bool IsNullOrEmpty<T>(this IList<T>? list)
     {
-        return dict.Values.ToList();
+        return list == null || list.Count == 0;
     }
 }

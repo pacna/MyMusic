@@ -27,4 +27,14 @@ public class MusicService : IMusicService
     {
         return (await _musicRepository.GetMusicAsync(id))?.ToResponse();
     }
+
+    public async Task<MusicResponse?> UpdateMusicAsync(string id, MusicPutRequest request)
+    {
+        return (await _musicRepository.UpdateMusicAsync(id, request))?.ToResponse();
+    }
+
+    public Task DeleteMusicAsync(string id)
+    {
+        return _musicRepository.DeleteMusicAsync(id);
+    }
 }

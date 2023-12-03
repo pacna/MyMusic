@@ -1,4 +1,3 @@
-using Edge.MyMusic.Shared;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Edge.MyMusic.Repositories.Models.Documents;
@@ -18,9 +17,6 @@ public class MusicDocument : BaseDocument
     [BsonElement("t")]
     public string Title { get; set; }
 #nullable enable
-
-    [BsonElement("aai")]
-    public AlphabetType ArtistAlphabetIndex { get; set; }
 
     [BsonElement("if")]
     public bool IsFavorite { get; set; }

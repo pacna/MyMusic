@@ -4,7 +4,7 @@ using Edge.MyMusic.Shared;
 
 namespace Edge.MyMusic.Services;
 
-public static class MapperExtension
+internal static class MapperExtension
 {
     public static MusicDocument ToDocument(this MusicPostRequest request)
     {
@@ -12,7 +12,6 @@ public static class MapperExtension
         {
             Album = request.Album,
             Artist = request.Artist,
-            ArtistAlphabetIndex = MusicHelperExtension.GetUpperCaseAlphabetIndex(request.Artist[0]),
             IsFavorite = request.IsFavorite,
             Length = request.Length,
             Path = request.Path,
@@ -36,7 +35,6 @@ public static class MapperExtension
         {
             Album = doc.Album,
             Artist = doc.Artist,
-            ArtistAlphabetCategory = doc.ArtistAlphabetIndex,
             Id = doc.Id,
             IsFavorite = doc.IsFavorite,
             Length = doc.Length,

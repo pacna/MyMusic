@@ -2,11 +2,13 @@ using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Services;
 using Edge.MyMusic.Settings;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 
 namespace Edge.MyMusic;
 
-internal static class ServicesCollectionExtension
+internal static class ServiceCollectionExtension
 {
     internal static IServiceCollection AddCustomControllers(this IServiceCollection services)
     {
@@ -14,12 +16,12 @@ internal static class ServicesCollectionExtension
         {
             options.InvalidModelStateResponseFactory = context => 
             {
-                if (context.ModelState.IsValid)
+                if (string.IsNullOrEmpty(context.HttpContext.Request.Headers.IfMatch))
                 {
-                    return new BadRequestObjectResult(context.ModelState);
+                    return new PreconditionFailedObjectResult(context.ModelState);
                 }
 
-                return new PreconditionFailedObjectResult(context.ModelState);
+                return new BadRequestObjectResult(context.ModelState);
             };
         });
 
@@ -46,8 +48,30 @@ internal static class ServicesCollectionExtension
         return services;
     }
 
-    internal static IServiceCollection AddCors(this IServiceCollection services, CORSPolicySetting cors)
+    internal static IServiceCollection AddSwagger(this IServiceCollection services)
     {
+        return services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "Edge.MyMusic",
+                Description = "The edge service for MyMusic"
+            });
+        });
+    }
+
+    internal static IServiceCollection AddMongoSetting(this IServiceCollection services, IConfiguration configuration)
+    {
+        return services
+            .Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"))
+            .AddSingleton<IMongoDBSetting>(provider => provider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
+    }
+
+    internal static IServiceCollection AddCors(this IServiceCollection services, IConfiguration configuration)
+    {
+        CORSPolicySetting cors = configuration.GetSection("CORSPolicy").Get<CORSPolicySetting>()!;
+
         return services.AddCors(options =>
         {
             options.AddPolicy(name: cors.PolicyName,

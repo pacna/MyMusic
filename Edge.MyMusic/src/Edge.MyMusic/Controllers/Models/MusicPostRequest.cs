@@ -25,9 +25,9 @@ public sealed class MusicPostRequest: IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (!char.IsUpper(this.Artist[0]))
+        if (this.Length <= 0)
         {
-            yield return new ValidationResult("Artist needs to be capitalize", new[] { nameof(this.Artist) });
+            yield return new ValidationResult($"{nameof(this.Length)} needs to be greater than 0", new[] { nameof(this.Length)});
         }
     }
 }

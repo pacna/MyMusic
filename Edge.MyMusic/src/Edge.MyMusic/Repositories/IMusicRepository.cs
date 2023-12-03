@@ -8,4 +8,6 @@ public interface IMusicRepository
     Task<List<MusicDocument>> SearchMusicAsync(IMusicSearchQuery query);
     Task<MusicDocument> AddMusicAsync(MusicDocument doc);
     Task<MusicDocument?> GetMusicAsync(string id);
+    Task<MusicDocument?> UpdateMusicAsync(string id, IMusicUpdateQuery query);
+    Task DeleteMusicAsync(string id);
 }

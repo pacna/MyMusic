@@ -1,4 +1,4 @@
-import { MusicResponse } from "../types";
+import { CollectionResponse, SongResponse } from "../types";
 import { BaseApiService } from "./base-api.service";
 import { IMusicApiService } from "./imusic-api.service";
 
@@ -6,13 +6,17 @@ export class MusicApiService
     extends BaseApiService
     implements IMusicApiService
 {
-    private readonly musicSegment: string = "/v1/music";
+    private readonly songSegment: string = "/v1/song";
 
-    async getMusic(id: string): Promise<[MusicResponse, Error]> {
-        return this.get<MusicResponse>(`${this.musicSegment}/${id}`);
+    async searchSongs(): Promise<[CollectionResponse<SongResponse>, Error]> {
+        return this.get(this.songSegment);
     }
 
-    async deleteMusic(id: string): Promise<[void, Error]> {
-        return this.delete(`${this.musicSegment}/${id}`);
+    async getSong(id: string): Promise<[SongResponse, Error]> {
+        return this.get<SongResponse>(`${this.songSegment}/${id}`);
+    }
+
+    async deleteSong(id: string): Promise<[void, Error]> {
+        return this.delete(`${this.songSegment}/${id}`);
     }
 }

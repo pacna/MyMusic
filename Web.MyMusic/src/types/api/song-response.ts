@@ -1,4 +1,4 @@
-export interface MusicResponse {
+export type SongResponse = {
     album: string;
     artist: string;
     id: string;
@@ -6,4 +6,4 @@ export interface MusicResponse {
     length: number;
     path: string;
     title: string;
-}
+};

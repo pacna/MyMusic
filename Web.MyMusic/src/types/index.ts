@@ -1,3 +1,2 @@
-export * from "./collection-response";
-export * from "./music-response";
-export * from "./colors";
+export * from "./api";
+export * from "./local";

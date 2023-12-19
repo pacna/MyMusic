@@ -3,14 +3,21 @@ import ReactDOM from "react-dom/client";
 import { Layout } from "./components/layout";
 import { ServiceApiContext } from "./contexts";
 import { MusicApiService } from "./services";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { SongsPage } from "./pages/songs";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <ServiceApiContext.Provider value={new MusicApiService()}>
             <BrowserRouter>
                 <Layout>
-                    <div>hi dad</div>
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={<Navigate to="songs" />}
+                        ></Route>
+                        <Route path="songs" element={<SongsPage />}></Route>
+                    </Routes>
                 </Layout>
             </BrowserRouter>
         </ServiceApiContext.Provider>

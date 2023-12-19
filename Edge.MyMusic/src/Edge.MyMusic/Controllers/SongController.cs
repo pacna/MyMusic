@@ -17,7 +17,7 @@ public class SongController : BaseController
     [HttpGet]
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(CollectionModel<SongResponse>))]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> SearchSongsAsync([FromQuery] SongsSearchRequest request)
+    public async Task<IActionResult> SearchSongsAsync([FromQuery] SongSearchRequest request)
     {
         return this.OkIfFound(await _musicService.SearchSongsAsync(request));
     }

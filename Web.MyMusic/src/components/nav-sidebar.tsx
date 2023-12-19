@@ -1,6 +1,5 @@
 import {
     AppBar,
-    Box,
     Drawer,
     IconButton,
     List,
@@ -13,8 +12,8 @@ import {
 } from "@mui/material";
 import { ReactElement, useState } from "react";
 import { FavoriteBorder, Menu, Home } from "@mui/icons-material";
-import { Color } from "../types/colors";
-import { NavListHeader } from "./nav-listheader";
+import { Color } from "../types/local/colors";
+import { NavListHeader } from "./nav-list-header";
 
 const StyledListItemButton = styled(ListItemButton)({
     "&:hover": {
@@ -40,28 +39,24 @@ export const NavSidebar = (): ReactElement => {
     return (
         <>
             <Drawer open={toggleDrawer} onClose={handleCloseDrawer}>
-                <Box sx={{ width: 280 }}>
-                    <List>
-                        <NavListHeader name={"General"} />
-                        <StyledListItemButton>
-                            <ListItemIcon>
-                                <Home />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={<Typography>Home</Typography>}
-                            />
-                        </StyledListItemButton>
-                        <NavListHeader name={"My List"} />
-                        <StyledListItemButton>
-                            <ListItemIcon>
-                                <FavoriteBorder />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={<Typography>Favorites</Typography>}
-                            />
-                        </StyledListItemButton>
-                    </List>
-                </Box>
+                <List sx={{ width: 280, paddingTop: 0 }}>
+                    <NavListHeader name={"General"} />
+                    <StyledListItemButton>
+                        <ListItemIcon>
+                            <Home />
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography>Home</Typography>} />
+                    </StyledListItemButton>
+                    <NavListHeader name={"My List"} />
+                    <StyledListItemButton>
+                        <ListItemIcon>
+                            <FavoriteBorder />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={<Typography>Favorites</Typography>}
+                        />
+                    </StyledListItemButton>
+                </List>
             </Drawer>
 
             <AppBar position="static" sx={{ background: Color.ViolentViolet }}>

@@ -13,7 +13,7 @@ public class MusicService : IMusicService
         _musicRepository = musicRepository;
     }
 
-    public async Task<CollectionModel<SongResponse>> SearchSongsAsync(SongsSearchRequest request)
+    public async Task<CollectionModel<SongResponse>> SearchSongsAsync(SongSearchRequest request)
     {
         return (await _musicRepository.SearchMusicAsync(request)).ToResponse();
     }

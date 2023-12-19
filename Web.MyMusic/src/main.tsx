@@ -1,13 +1,18 @@
-import { ThemeProvider } from "@emotion/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { theme } from "./theme";
 import { Layout } from "./components/layout";
+import { ServiceApiContext } from "./contexts";
+import { MusicApiService } from "./services";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <Layout />
-        </ThemeProvider>
+        <ServiceApiContext.Provider value={new MusicApiService()}>
+            <BrowserRouter>
+                <Layout>
+                    <div>hi dad</div>
+                </Layout>
+            </BrowserRouter>
+        </ServiceApiContext.Provider>
     </React.StrictMode>
 );

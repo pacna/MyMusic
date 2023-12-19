@@ -1,12 +1,12 @@
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class MusicFavoritePatchRequest
+public sealed class SongFavoritePatchRequest
 {
     public bool IsFavorite { get; init; }
 
-    internal MusicPutRequest ToRequest()
+    internal SongPutRequest ToRequest()
     {
-        return new MusicPutRequest
+        return new SongPutRequest
         {
             IsFavorite = this.IsFavorite
         };

@@ -14,6 +14,9 @@ builder.Services
     .AddEndpointsApiExplorer() // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     .AddSwaggerGen();
 
+// Add logging
+builder.Logging.AddConsole();
+
 WebApplication? application = builder.Build();
 
 application

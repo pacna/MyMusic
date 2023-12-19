@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class MusicPostRequest: IValidatableObject
+public sealed class SongPostRequest: IValidatableObject
 {
-    public MusicPostRequest(
+    public SongPostRequest(
         string album, 
         string artist,
         string path, 

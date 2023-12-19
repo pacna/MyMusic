@@ -1,6 +1,6 @@
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class MusicResponse
+public sealed class SongResponse
 {
 #nullable disable
     public string Album { get; init; }

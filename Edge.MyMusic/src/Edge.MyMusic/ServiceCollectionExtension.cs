@@ -1,7 +1,6 @@
 using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Services;
 using Edge.MyMusic.Settings;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
@@ -12,18 +11,7 @@ internal static class ServiceCollectionExtension
 {
     internal static IServiceCollection AddCustomControllers(this IServiceCollection services)
     {
-        services.AddControllers().ConfigureApiBehaviorOptions(options => 
-        {
-            options.InvalidModelStateResponseFactory = context => 
-            {
-                if (string.IsNullOrEmpty(context.HttpContext.Request.Headers.IfMatch))
-                {
-                    return new PreconditionFailedObjectResult(context.ModelState);
-                }
-
-                return new BadRequestObjectResult(context.ModelState);
-            };
-        });
+        services.AddControllers();
 
         return services;
     }

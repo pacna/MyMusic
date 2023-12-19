@@ -4,7 +4,7 @@ using MongoDB.Bson;
 
 namespace Edge.MyMusic.Repositories;
 
-public class MusicInMemoryRepository : IMusicRepository
+internal class MusicInMemoryRepository : IMusicRepository
 {
     private readonly static IDictionary<string, MusicDocument> _datastore;
 

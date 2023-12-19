@@ -1,0 +1,97 @@
+import {
+    AppBar,
+    Box,
+    Drawer,
+    IconButton,
+    List,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Toolbar,
+    Typography,
+    styled,
+} from "@mui/material";
+import { ReactElement, useState } from "react";
+import { FavoriteBorder, Menu, Home } from "@mui/icons-material";
+import { Color } from "../types/colors";
+import { NavListHeader } from "./nav-listheader";
+
+const StyledListItemButton = styled(ListItemButton)({
+    "&:hover": {
+        backgroundColor: Color.NeonPink,
+        color: "white",
+        "& .MuiSvgIcon-root": {
+            color: Color.White, // Change the color of the icon on hover
+        },
+    },
+});
+
+export const NavSidebar = (): ReactElement => {
+    const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+
+    const handleOpenDrawer = (): void => {
+        setToggleDrawer(true);
+    };
+
+    const handleCloseDrawer = (): void => {
+        setToggleDrawer(false);
+    };
+
+    return (
+        <>
+            <Drawer open={toggleDrawer} onClose={handleCloseDrawer}>
+                <Box sx={{ width: 280 }}>
+                    <List>
+                        <NavListHeader name={"General"} />
+                        <StyledListItemButton>
+                            <ListItemIcon>
+                                <Home />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={<Typography>Home</Typography>}
+                            />
+                        </StyledListItemButton>
+                        <NavListHeader name={"My List"} />
+                        <StyledListItemButton>
+                            <ListItemIcon>
+                                <FavoriteBorder />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={<Typography>Favorites</Typography>}
+                            />
+                        </StyledListItemButton>
+                    </List>
+                </Box>
+            </Drawer>
+
+            <AppBar position="static" sx={{ background: Color.ViolentViolet }}>
+                <Toolbar>
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr 1fr",
+                            width: "100%",
+                        }}
+                    >
+                        <IconButton
+                            style={{ justifySelf: "left" }}
+                            onClick={handleOpenDrawer}
+                        >
+                            <Menu sx={{ color: Color.White }} />
+                        </IconButton>
+                        <Typography
+                            variant="h1"
+                            sx={{
+                                placeSelf: "center",
+                                fontSize: "20px",
+                                fontWeight: 500,
+                            }}
+                        >
+                            Music Library
+                        </Typography>
+                    </div>
+                </Toolbar>
+            </AppBar>
+        </>
+    );
+};

@@ -6,7 +6,7 @@ namespace Edge.MyMusic.Services;
 
 internal static class MapperExtension
 {
-    public static MusicDocument ToDocument(this MusicPostRequest request)
+    public static MusicDocument ToDocument(this SongPostRequest request)
     {
         return new MusicDocument
         {
@@ -19,19 +19,18 @@ internal static class MapperExtension
         };
     }
 
-    public static CollectionModel<MusicResponse> ToResponse(this List<MusicDocument> docs)
+    public static CollectionModel<SongResponse> ToResponse(this List<MusicDocument> docs)
     {
-        return new CollectionModel<MusicResponse>
+        return new CollectionModel<SongResponse>
         {
             List = docs.ConvertAll(m => m.ToResponse()),
-            Num = 1,
             Total = docs.Count
         };
     }
 
-    public static MusicResponse ToResponse(this MusicDocument doc)
+    public static SongResponse ToResponse(this MusicDocument doc)
     {
-        return new MusicResponse
+        return new SongResponse
         {
             Album = doc.Album,
             Artist = doc.Artist,

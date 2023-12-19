@@ -13,27 +13,27 @@ public class MusicService : IMusicService
         _musicRepository = musicRepository;
     }
 
-    public async Task<CollectionModel<MusicResponse>> SearchMusicAsync(MusicSearchRequest request)
+    public async Task<CollectionModel<SongResponse>> SearchSongsAsync(SongsSearchRequest request)
     {
         return (await _musicRepository.SearchMusicAsync(request)).ToResponse();
     }
 
-    public async Task<MusicResponse> AddMusicAsync(MusicPostRequest request)
+    public async Task<SongResponse> AddSongAsync(SongPostRequest request)
     {
         return (await _musicRepository.AddMusicAsync(request.ToDocument())).ToResponse();
     }
 
-    public async Task<MusicResponse?> GetMusicAsync(string id)
+    public async Task<SongResponse?> GetSongAsync(string id)
     {
         return (await _musicRepository.GetMusicAsync(id))?.ToResponse();
     }
 
-    public async Task<MusicResponse?> UpdateMusicAsync(string id, MusicPutRequest request)
+    public async Task<SongResponse?> UpdateSongAsync(string id, SongPutRequest request)
     {
         return (await _musicRepository.UpdateMusicAsync(id, request))?.ToResponse();
     }
 
-    public Task DeleteMusicAsync(string id)
+    public Task DeleteSongAsync(string id)
     {
         return _musicRepository.DeleteMusicAsync(id);
     }

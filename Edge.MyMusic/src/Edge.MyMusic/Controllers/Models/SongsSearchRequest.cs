@@ -3,7 +3,7 @@ using Edge.MyMusic.Shared;
 
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class MusicSearchRequest : BaseCollectionRequest, IMusicSearchQuery
+public sealed class SongsSearchRequest : BaseCollectionRequest, IMusicSearchQuery
 {
     public string? SortBy { get; init; }
     public string? Title { get; init; }

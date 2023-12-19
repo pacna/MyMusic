@@ -3,7 +3,7 @@ using Edge.MyMusic.Services.Models;
 
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class MusicPutRequest : IValidatableObject, IMusicUpdateQuery
+public sealed class SongPutRequest : IValidatableObject, IMusicUpdateQuery
 {
     public string? Album { get; init; }
     public string? Artist { get; init; }

@@ -5,9 +5,9 @@ namespace Edge.MyMusic.Services;
 
 public interface IMusicService
 {
-    Task<CollectionModel<MusicResponse>> SearchMusicAsync(MusicSearchRequest request);
-    Task<MusicResponse> AddMusicAsync(MusicPostRequest request);
-    Task<MusicResponse?> GetMusicAsync(string id);
-    Task<MusicResponse?> UpdateMusicAsync(string id, MusicPutRequest request);
-    Task DeleteMusicAsync(string id);
+    Task<CollectionModel<SongResponse>> SearchSongsAsync(SongsSearchRequest request);
+    Task<SongResponse> AddSongAsync(SongPostRequest request);
+    Task<SongResponse?> GetSongAsync(string id);
+    Task<SongResponse?> UpdateSongAsync(string id, SongPutRequest request);
+    Task DeleteSongAsync(string id);
 }

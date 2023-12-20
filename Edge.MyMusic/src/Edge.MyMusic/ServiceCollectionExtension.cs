@@ -1,3 +1,5 @@
+using Edge.MyMusic.Processor;
+using Edge.MyMusic.Providers;
 using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Services;
 using Edge.MyMusic.Settings;
@@ -26,6 +28,26 @@ internal static class ServiceCollectionExtension
         return services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
     }
 
+    internal static IServiceCollection AddProviders(this IServiceCollection services)
+    {
+        return services
+            .AddHttpClient()
+            .AddSingleton<IAudioProvider, AudioProvider>();
+    }
+
+    internal static IServiceCollection AddHostedServices(this IServiceCollection services)
+    {
+        return services.AddHostedService<StartupProcessor>();
+    }
+
+    internal static IServiceCollection AddApplicationSetting(this IServiceCollection services, IConfiguration configuration, string[] cmdArgs)
+    {
+        services.Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting")).AddSingleton(provider => provider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
+        services.AddSingleton(new CommandArgsSetting { AudiosPath = CommandLineArgsParser.ParseAudioFolderPath(cmdArgs)});
+    
+        return services;
+    }
+
     internal static IServiceCollection AddControllerConvention(this IServiceCollection services)
     {
         services.AddControllersWithViews(options =>
@@ -47,13 +69,6 @@ internal static class ServiceCollectionExtension
                 Description = "The edge service for MyMusic"
             });
         });
-    }
-
-    internal static IServiceCollection AddMongoSetting(this IServiceCollection services, IConfiguration configuration)
-    {
-        return services
-            .Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting"))
-            .AddSingleton<IMongoDBSetting>(provider => provider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
     }
 
     internal static IServiceCollection AddCors(this IServiceCollection services, IConfiguration configuration)

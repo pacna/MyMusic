@@ -14,6 +14,7 @@ import { ReactElement, useState } from "react";
 import { FavoriteBorder, Menu, Home } from "@mui/icons-material";
 import { Color } from "../types/local/colors";
 import { NavListHeader } from "./nav-list-header";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const StyledListItemButton = styled(ListItemButton)({
     "&:hover": {
@@ -27,6 +28,7 @@ const StyledListItemButton = styled(ListItemButton)({
 
 export const NavSidebar = (): ReactElement => {
     const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+    const navigate: NavigateFunction = useNavigate();
 
     const handleOpenDrawer = (): void => {
         setToggleDrawer(true);
@@ -36,13 +38,18 @@ export const NavSidebar = (): ReactElement => {
         setToggleDrawer(false);
     };
 
+    const goToHome = (): void => {
+        navigate("songs");
+        handleCloseDrawer();
+    };
+
     return (
         <>
             <Drawer open={toggleDrawer} onClose={handleCloseDrawer}>
                 <List sx={{ width: 280, paddingTop: 0 }}>
                     <NavListHeader name={"General"} />
                     <StyledListItemButton>
-                        <ListItemIcon>
+                        <ListItemIcon onClick={goToHome}>
                             <Home />
                         </ListItemIcon>
                         <ListItemText primary={<Typography>Home</Typography>} />

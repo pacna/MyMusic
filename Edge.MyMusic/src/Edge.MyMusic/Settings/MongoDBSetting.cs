@@ -1,6 +1,6 @@
 namespace Edge.MyMusic.Settings;
 
-internal class MongoDBSetting : IMongoDBSetting
+internal class MongoDBSetting
 {
 #nullable disable
     public string ConnectionString { get; set; }

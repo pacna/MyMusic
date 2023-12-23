@@ -1,6 +1,5 @@
 import { Context, createContext } from "react";
-import { AudioPlayerInfo } from "../types/local";
+import { AudioPlayerContextConfig } from "../types/local";
 
-export const AudioPlayerContext: Context<AudioPlayerInfo> = createContext(
-    {} as AudioPlayerInfo
-);
+export const AudioPlayerContext: Context<AudioPlayerContextConfig> =
+    createContext({} as AudioPlayerContextConfig);

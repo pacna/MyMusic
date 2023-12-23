@@ -1,6 +1,7 @@
 export enum Color {
     Timberwolf = "#DBD7D6",
-    ViolentViolet = "#321068",
+    BlueMarguerite = "#7061CA",
     NeonPink = "#F638A8",
-    White = "white",
+    White = "#FFFFFF",
+    Black = "#000000",
 }

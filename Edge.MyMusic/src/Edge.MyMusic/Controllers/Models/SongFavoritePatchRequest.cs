@@ -4,7 +4,7 @@ public sealed class SongFavoritePatchRequest
 {
     public bool IsFavorite { get; init; }
 
-    internal SongPutRequest ToRequest()
+    public SongPutRequest ToRequest()
     {
         return new SongPutRequest
         {

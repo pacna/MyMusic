@@ -28,7 +28,7 @@ internal static class ApplicationBuilderExtension
 
     internal static IApplicationBuilder UseCustomPath(this IApplicationBuilder application, string[] args)
     {
-        string? audiosPath = CommandLineArgsParser.ParseAudioFolderPath(args);
+        string? audiosPath = CommandLineArgsParser.ExtractAudioFolderPath(args);
 
         if (!string.IsNullOrEmpty(audiosPath))
         {
@@ -40,6 +40,20 @@ internal static class ApplicationBuilderExtension
         }
 
         return application;
+    }
+
+    internal static IApplicationBuilder UseSPARouting(this IApplicationBuilder application)
+    {
+        return application
+                .UseRouting()
+                .UseEndpoints(endpoints => 
+                {
+                    endpoints.MapFallback(context =>
+                    {
+                        context.Response.Redirect("/");
+                        return Task.CompletedTask;
+                    });
+                });
     }
 
     internal static IApplicationBuilder UseCors(this IApplicationBuilder application, IConfiguration configuration)

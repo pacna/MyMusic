@@ -19,12 +19,12 @@ internal static class MapperExtension
         };
     }
 
-    public static CollectionModel<SongResponse> ToResponse(this List<MusicDocument> from)
+    public static CollectionModel<SongResponse> ToResponse(this CollectionModel<MusicDocument> from)
     {
         return new CollectionModel<SongResponse>
         {
-            List = from.ConvertAll(m => m.ToResponse()),
-            Total = from.Count
+            List = from.List.ConvertAll(m => m.ToResponse()),
+            Total = from.Total
         };
     }
 

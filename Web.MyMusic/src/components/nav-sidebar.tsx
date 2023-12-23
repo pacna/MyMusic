@@ -48,8 +48,8 @@ export const NavSidebar = (): ReactElement => {
             <Drawer open={toggleDrawer} onClose={handleCloseDrawer}>
                 <List sx={{ width: 280, paddingTop: 0 }}>
                     <NavListHeader name={"General"} />
-                    <StyledListItemButton>
-                        <ListItemIcon onClick={goToHome}>
+                    <StyledListItemButton onClick={goToHome}>
+                        <ListItemIcon>
                             <Home />
                         </ListItemIcon>
                         <ListItemText primary={<Typography>Home</Typography>} />
@@ -66,7 +66,7 @@ export const NavSidebar = (): ReactElement => {
                 </List>
             </Drawer>
 
-            <AppBar position="static" sx={{ background: Color.ViolentViolet }}>
+            <AppBar position="static" sx={{ background: Color.BlueMarguerite }}>
                 <Toolbar>
                     <div
                         style={{

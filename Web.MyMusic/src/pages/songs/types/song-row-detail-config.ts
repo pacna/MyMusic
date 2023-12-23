@@ -1,4 +1,9 @@
-import { SongResponse } from "../../../types";
+import { SongResponse } from "@mymusic/types";
 
 export type SongRowDetailConfig =
-    | Pick<SongResponse, "title" | "artist" | "length"> & { index: number };
+    | Pick<
+          SongResponse,
+          "id" | "path" | "title" | "artist" | "length" | "isFavorite"
+      > & {
+          index: number;
+      };

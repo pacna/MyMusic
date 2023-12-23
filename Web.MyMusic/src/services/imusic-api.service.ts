@@ -1,7 +1,18 @@
-import { CollectionResponse, SongResponse } from "../types";
+import {
+    CollectionResponse,
+    SongFavoritePatchRequest,
+    SongResponse,
+    SongSearchRequest,
+} from "../types";
 
 export interface IMusicApiService {
-    searchSongs(): Promise<[CollectionResponse<SongResponse>, Error]>;
+    searchSongs(
+        request: SongSearchRequest
+    ): Promise<[CollectionResponse<SongResponse>, Error]>;
     getSong(id: string): Promise<[SongResponse, Error]>;
+    updateFavoriteSong(
+        id: string,
+        request: SongFavoritePatchRequest
+    ): Promise<[SongResponse, Error]>;
     deleteSong(id: string): Promise<[void, Error]>;
 }

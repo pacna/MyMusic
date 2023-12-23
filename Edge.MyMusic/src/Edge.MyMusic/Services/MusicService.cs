@@ -15,7 +15,7 @@ public class MusicService : IMusicService
 
     public async Task<CollectionModel<SongResponse>> SearchSongsAsync(SongSearchRequest request)
     {
-        return (await _musicRepository.SearchMusicAsync(request)).ToResponse();
+        return (await _musicRepository.SearchMusicAsync(request, request.GetPagingInfo())).ToResponse();
     }
 
     public async Task<SongResponse> AddSongAsync(SongPostRequest request)

@@ -1,5 +1,7 @@
+using Edge.MyMusic.Repositories.Models;
 using Edge.MyMusic.Repositories.Models.Documents;
 using Edge.MyMusic.Services.Models;
+using Edge.MyMusic.Shared;
 using MongoDB.Bson;
 
 namespace Edge.MyMusic.Repositories;
@@ -19,23 +21,23 @@ internal class MusicInMemoryRepository : IMusicRepository
         _datastore.TryAdd(musicId1, new MusicDocument
         {
             Id = musicId1,
-            Artist = "Linkin Park",
-            Album = "Meteora",
+            Artist = "Unknown",
+            Album = "Unknown",
             IsFavorite = true,
-            Length = 185, // 3 mins and 5 secs
-            Title = "Numb",
-            Path = "www.google.com/numb.mp3"
+            Length = 169, // 2m 49s
+            Title = "Anitek Komorebi",
+            Path = "https://assets.codepen.io/4358584/Anitek_-_Komorebi.mp3"
         });
 
         _datastore.TryAdd(musicId2, new MusicDocument
         {
             Id = musicId2,
-            Artist = "Vanessa Carlton",
-            Album = "Legally Blonde",
+            Artist = "Unknown",
+            Album = "Unknown",
             IsFavorite = false,
-            Length = 240, // 4 mins
-            Title = "A Thousand Miles",
-            Path = "/music/1000Miles.mp3"
+            Length = 2, // 2s
+            Title = "T-Rex",
+            Path = "https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
         });
 
         _datastore.TryAdd(musicId3, new MusicDocument
@@ -44,13 +46,13 @@ internal class MusicInMemoryRepository : IMusicRepository
             Artist = "Unknown",
             Album = "Unknown",
             IsFavorite = false,
-            Length = 1, // 1 sec
+            Length = 1, // 1s
             Title = "Horse",
             Path = "https://www.w3schools.com/tags/horse.mp3"
         });
     }
 
-    public Task<List<MusicDocument>> SearchMusicAsync(IMusicSearchQuery query)
+    public Task<CollectionModel<MusicDocument>> SearchMusicAsync(IMusicSearchQuery query, IPaging pagingInfo)
     {
         IEnumerable<MusicDocument> collection = _datastore.Values;
 
@@ -63,8 +65,22 @@ internal class MusicInMemoryRepository : IMusicRepository
         {
             collection = collection.Where(x => x.Title.ToLowerInvariant().Contains(query.Title.ToLowerInvariant()));
         }
-        
-        return Task.FromResult(collection.ToList()); 
+
+        if (!string.IsNullOrEmpty(query.Artist))
+        {
+            collection = collection.Where(x => x.Artist == query.Artist);
+        }
+
+        if (!string.IsNullOrEmpty(query.SortBy))
+        {
+            collection = SortBy(query.SortBy, collection);
+        }
+
+        return Task.FromResult(new CollectionModel<MusicDocument>
+        {
+            List = collection.Skip(pagingInfo.Idx).Take(pagingInfo.Qty!.Value).ToList(),
+            Total = collection.Count()
+        }); 
     }
 
     public Task<MusicDocument> AddMusicAsync(MusicDocument doc)
@@ -123,5 +139,25 @@ internal class MusicInMemoryRepository : IMusicRepository
         _datastore.Remove(id);
 
         return Task.CompletedTask;
+    }
+
+    private static IEnumerable<MusicDocument> SortBy(string sortBy, IEnumerable<MusicDocument> collection)
+    {
+        Dictionary<string, Func<MusicDocument, string>> propertyToFunc = new()
+        {
+            { nameof(IMusicSearchQuery.Artist).ToLowerInvariant(), x => x.Artist },
+            { nameof(IMusicSearchQuery.Title).ToLowerInvariant(), x => x.Title }
+        };
+
+        (string propertyName, string direction) = SortKey.Parse(sortBy);
+
+        if (propertyToFunc.TryGetValue(propertyName, out Func<MusicDocument, string>? func))
+        {
+            collection = direction == SortKey.Ascending
+                ? collection.OrderBy(func)
+                : collection.OrderByDescending(func);
+        }
+
+        return collection;
     }
 }

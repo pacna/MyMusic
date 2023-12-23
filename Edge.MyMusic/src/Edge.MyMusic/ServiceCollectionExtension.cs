@@ -42,10 +42,9 @@ internal static class ServiceCollectionExtension
 
     internal static IServiceCollection AddApplicationSetting(this IServiceCollection services, IConfiguration configuration, string[] cmdArgs)
     {
-        services.Configure<MongoDBSetting>(configuration.GetSection("MongoDBSetting")).AddSingleton(provider => provider.GetRequiredService<IOptions<MongoDBSetting>>().Value);
-        services.AddSingleton(new CommandArgsSetting { AudiosPath = CommandLineArgsParser.ParseAudioFolderPath(cmdArgs)});
-    
-        return services;
+        return services
+            .AddSingleton(provider => configuration.GetSection("MongoDBSetting").Get<MongoDBSetting>() ?? new MongoDBSetting())
+            .AddSingleton(new CommandArgsSetting { AudiosPath = CommandLineArgsParser.ExtractAudioFolderPath(cmdArgs)});
     }
 
     internal static IServiceCollection AddControllerConvention(this IServiceCollection services)

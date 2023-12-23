@@ -2,6 +2,7 @@ using Edge.MyMusic.Controllers.Models;
 using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Repositories.Models.Documents;
 using Edge.MyMusic.Services;
+using Edge.MyMusic.Services.Models;
 using MongoDB.Bson;
 
 namespace Edge.MyMusic.Tests;
@@ -112,6 +113,37 @@ public class MusicServiceTests
 
         // ASSERT
         _repo.Verify(m => m.DeleteMusicAsync(id), Times.Once);
+    }
+
+    [Fact]
+    public async Task CanUpdateFavoriteSongAsync()
+    {
+        // ARRANGE
+        string id = ObjectId.GenerateNewId().ToString();
+        SongFavoritePatchRequest request = new()
+        {
+            IsFavorite = true
+        };
+
+        MusicDocument expected = new()
+        {
+            Id = id,
+            Artist = "Linkin Park",
+            IsFavorite = false
+        };
+
+        _repo
+            .Setup(m => m.UpdateMusicAsync(id, It.Is<IMusicUpdateQuery>(r => r.IsFavorite == request.IsFavorite)))
+            .Callback(() => expected.IsFavorite = expected.IsFavorite)
+            .ReturnsAsync(expected);
+
+        // ACT
+        SongResponse? response = await _service.UpdateSongAsync(id, request.ToRequest());
+
+        // ASSERT
+        Assert.NotNull(response);
+        AssertEqual(expected: expected, actual: response);
+        _repo.Verify(m => m.UpdateMusicAsync(id, It.Is<IMusicUpdateQuery>(r => r.IsFavorite == request.IsFavorite)), Times.Once);
     }
 
 

@@ -1,6 +1,6 @@
-namespace Edge.MyMusic;
+namespace Edge.MyMusic.Shared;
 
-public static class CollectionExtensions
+public static class CollectionExtension
 {
     public static bool IsNullOrEmpty<T>(this IList<T>? list)
     {

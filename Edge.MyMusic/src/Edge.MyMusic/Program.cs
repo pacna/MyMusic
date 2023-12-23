@@ -25,6 +25,7 @@ application
     .UseCustomSwagger()
     .UseWebRoot()
     .UseCustomPath(cmdArgs)
+    .UseSPARouting()
     .UseServerHandler()
     .UseAuthorization()
     .UseCors(builder.Configuration);

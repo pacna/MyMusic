@@ -1,10 +1,10 @@
 import { SetStateAction, useEffect, useState } from "react";
 
-export function useLocalStorage<K extends string, V>(
-    key: K,
-    defaultValue: V
-): [V, (value: SetStateAction<V>) => void] {
-    const getInitialState = (): V => {
+export function useLocalStorage<T>(
+    key: string,
+    defaultValue: T
+): [T, (value: SetStateAction<T>) => void] {
+    const getInitialState = (): T => {
         try {
             return JSON.parse(localStorage.getItem(key));
         } catch {
@@ -12,7 +12,7 @@ export function useLocalStorage<K extends string, V>(
         }
     };
 
-    const [cache, setCache] = useState<V>(getInitialState());
+    const [cache, setCache] = useState<T>(getInitialState());
 
     useEffect(() => {
         localStorage.setItem(key, JSON.stringify(cache ?? defaultValue));

@@ -1,9 +1,8 @@
 import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { Search } from "@mui/icons-material";
 import { InputAdornment, TextField } from "@mui/material";
-import { Color } from "@mymusic/types/local";
-import { SongSearchRequest } from "@mymusic/types/api";
-import { useLocalStorage } from "@mymusic/hooks";
+import { Color } from "@mymusic/shared/types/local";
+import { useLocalStorage } from "@mymusic/shared/hooks";
 
 const debounce = (fn: (...event: any[]) => void, ms: number) => {
     let timeout: any;
@@ -16,20 +15,23 @@ const debounce = (fn: (...event: any[]) => void, ms: number) => {
 };
 
 export const SongTitleSearch = ({
-    searchAndSetSongs,
+    searchRequestDispatch,
 }: {
-    searchAndSetSongs: (request: SongSearchRequest) => Promise<void>;
+    searchRequestDispatch: (value: {
+        property: string;
+        payload: string;
+    }) => void;
 }): ReactElement => {
-    const [cache, setCache] = useLocalStorage<string, string>("search", "");
+    const [cache, setCache] = useLocalStorage<string>("search", "");
     const [title, setTitle] = useState<string>(cache);
 
     const searchTitleName = debounce(
         (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             setTitle(evt.target.value);
-            searchAndSetSongs({
-                title: evt.target.value,
-                sortBy: "title:asc",
-            } as SongSearchRequest);
+            searchRequestDispatch({
+                property: "title",
+                payload: evt.target.value,
+            });
         },
         300
     );

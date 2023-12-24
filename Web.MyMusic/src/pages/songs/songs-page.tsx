@@ -1,10 +1,4 @@
-import {
-    ReactElement,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from "react";
+import { ReactElement, useContext, useReducer } from "react";
 import {
     Box,
     Fab,
@@ -17,38 +11,60 @@ import {
     TableRow,
 } from "@mui/material";
 import { Add, Shuffle } from "@mui/icons-material";
-import { IMusicApiService } from "@mymusic/services/imusic-api.service";
-import { ServiceApiContext } from "@mymusic/contexts";
+import { AudioPlayerContext } from "@mymusic/shared/contexts";
 import {
+    AudioPlayerContextConfig,
+    AudioPlayerInfo,
     CollectionResponse,
     Color,
     SongResponse,
     SongSearchRequest,
-} from "@mymusic/types";
-import { useLocalStorage } from "@mymusic/hooks";
+} from "@mymusic/shared/types";
+import { useLocalStorage, useSearch } from "@mymusic/shared/hooks";
 import { SongRowDetail, SongTitleSearch } from "./components";
 
+function searchRequestReducer(
+    state: SongSearchRequest,
+    action: { property: string; payload: string }
+): SongSearchRequest {
+    switch (action.property) {
+        case "sortBy":
+            return {
+                ...state,
+                sortBy: action.payload,
+            };
+
+        case "title":
+            return {
+                ...state,
+                title: action.payload,
+            };
+        default:
+            return state;
+    }
+}
+
 export const SongsPage = (): ReactElement => {
-    const service: IMusicApiService =
-        useContext<IMusicApiService>(ServiceApiContext);
-    const [songs, setSongs] = useState<SongResponse[]>([]);
-    const [cacheTitle, _] = useLocalStorage<string, string>("search", "");
-
-    const searchAndSetSongs = useCallback(
-        async (request: SongSearchRequest) => {
-            const [collection, _]: [CollectionResponse<SongResponse>, Error] =
-                await service.searchSongs(request);
-            setSongs(collection.list);
-        },
-        [service]
+    const { audioPlayerDispatch } =
+        useContext<AudioPlayerContextConfig>(AudioPlayerContext);
+    const [cacheTitle, _] = useLocalStorage<string>("search", "");
+    const [searchRequestState, searchRequestDispatch] = useReducer(
+        searchRequestReducer,
+        { title: cacheTitle, sortBy: "title:asc" } as SongSearchRequest
     );
+    const collection: CollectionResponse<SongResponse> =
+        useSearch(searchRequestState);
 
-    useEffect((): void => {
-        searchAndSetSongs({
-            title: cacheTitle,
-            sortBy: "title:asc",
-        } as SongSearchRequest);
-    }, [searchAndSetSongs]);
+    const playRandomSong = (songs: SongResponse[]): void => {
+        const random: number = Math.floor(Math.random() * songs.length);
+        audioPlayerDispatch({
+            property: ["id", "path"],
+            payload: {
+                id: songs[random].id,
+                path: songs[random].path,
+            } as AudioPlayerInfo,
+        });
+    };
 
     return (
         <Box>
@@ -61,14 +77,33 @@ export const SongsPage = (): ReactElement => {
                 }}
             >
                 <div style={{ display: "flex", gap: "12px" }}>
-                    <Fab sx={{ backgroundColor: Color.BlueMarguerite }}>
+                    <Fab
+                        sx={{
+                            backgroundColor: Color.BlueMarguerite,
+                            "&:hover": {
+                                backgroundColor: Color.BlueMarguerite,
+                            },
+                        }}
+                        aria-label="add"
+                    >
                         <Add sx={{ color: Color.White }} />
                     </Fab>
-                    <Fab sx={{ backgroundColor: Color.NeonPink }}>
+                    <Fab
+                        onClick={() => playRandomSong(collection.list)}
+                        sx={{
+                            backgroundColor: Color.NeonPink,
+                            "&:hover": {
+                                backgroundColor: Color.NeonPink,
+                            },
+                        }}
+                        aria-label="shuffle songs"
+                    >
                         <Shuffle sx={{ color: Color.White }} />
                     </Fab>
                 </div>
-                <SongTitleSearch searchAndSetSongs={searchAndSetSongs} />
+                <SongTitleSearch
+                    searchRequestDispatch={searchRequestDispatch}
+                />
             </Box>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: "320px" }}>
@@ -81,20 +116,22 @@ export const SongsPage = (): ReactElement => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {songs.map((song: SongResponse, index: number) => (
-                            <SongRowDetail
-                                key={song.id}
-                                config={{
-                                    id: song.id,
-                                    path: song.path,
-                                    title: song.title,
-                                    artist: song.artist,
-                                    length: song.length,
-                                    isFavorite: song.isFavorite,
-                                    index: index,
-                                }}
-                            />
-                        ))}
+                        {collection.list.map(
+                            (song: SongResponse, index: number) => (
+                                <SongRowDetail
+                                    key={song.id}
+                                    config={{
+                                        id: song.id,
+                                        path: song.path,
+                                        title: song.title,
+                                        artist: song.artist,
+                                        length: song.length,
+                                        isFavorite: song.isFavorite,
+                                        index: index,
+                                    }}
+                                />
+                            )
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

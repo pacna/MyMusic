@@ -1,8 +1,11 @@
 using Edge.MyMusic.Controllers.Models;
+using Edge.MyMusic.Providers;
+using Edge.MyMusic.Providers.Models;
 using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Repositories.Models.Documents;
 using Edge.MyMusic.Services;
 using Edge.MyMusic.Services.Models;
+using Edge.MyMusic.Shared;
 using MongoDB.Bson;
 
 namespace Edge.MyMusic.Tests;
@@ -10,12 +13,42 @@ namespace Edge.MyMusic.Tests;
 public class MusicServiceTests
 {
     private readonly Mock<IMusicRepository> _repo;
+    private readonly Mock<IAudioProvider> _audioProvider;
     private readonly IMusicService _service;
 
     public MusicServiceTests()
     {
         _repo = new Mock<IMusicRepository>(MockBehavior.Strict);
-        _service  = new MusicService(_repo.Object);
+        _audioProvider = new Mock<IAudioProvider>(MockBehavior.Strict);
+        _service  = new MusicService(_audioProvider.Object, _repo.Object);
+    }
+
+    [Fact]
+    public async Task CanSearchSongsAsync()
+    {
+        // ARRANGE
+        SongSearchRequest request = new();
+
+        List<MusicDocument> collection = Enumerable.Range(0, request.GetPagingInfo().Qty!.Value).Select(x => new MusicDocument()).ToList();
+
+        CollectionModel<MusicDocument> expected = new();
+
+        _repo
+            .Setup(m => m.SearchMusicAsync(request, It.IsAny<IPaging>()))
+            .Callback(() => 
+            {
+                expected.List = collection;
+                expected.Total = collection.Count;
+            })
+            .ReturnsAsync(expected);
+
+        // ACT
+        CollectionModel<SongResponse> response = await _service.SearchSongsAsync(request);
+
+        // ASSERT
+        Assert.NotNull(response);
+        Assert.Equal(request.GetPagingInfo().Qty, expected.List.Count);
+        _repo.Verify(m => m.SearchMusicAsync(request, It.IsAny<IPaging>()), Times.Once);
     }
 
     [Fact]
@@ -24,8 +57,12 @@ public class MusicServiceTests
         // ARRANGE
         SongPostRequest request = new(album: "Meteora", artist: "Linkin Park", path: "https://foobar.com/numb.mp3", title: "Numb")
         {
-            Length = 185,
             IsFavorite = false
+        };
+
+        AudioResponse expectedMetaData = new(title: request.Title, album: request.Album, artist: request.Artist)
+        {
+            Duration = 185
         };
 
         MusicDocument expected = new()
@@ -35,11 +72,15 @@ public class MusicServiceTests
             Album = request.Album,
             Path = request.Path,
             Title = request.Title,
-            Length = request.Length,
+            Length = expectedMetaData.Duration,
             IsFavorite = request.IsFavorite,
             CreateDate = DateTime.UtcNow,
             UpdateDate = DateTime.UtcNow
         };
+
+        _audioProvider
+            .Setup(m => m.GetMetadataAsync(request.Path))
+            .ReturnsAsync(expectedMetaData);
 
         _repo
             .Setup(m => m.AddMusicAsync(It.Is<MusicDocument>(r => (
@@ -47,7 +88,7 @@ public class MusicServiceTests
                 r.Artist == request.Artist &&
                 r.Path == request.Path &&
                 r.Title == request.Title &&
-                r.Length == request.Length &&
+                r.Length == expectedMetaData.Duration &&
                 r.IsFavorite == request.IsFavorite
             ))))
             .ReturnsAsync(expected);
@@ -63,9 +104,10 @@ public class MusicServiceTests
                 r.Artist == request.Artist &&
                 r.Path == request.Path &&
                 r.Title == request.Title &&
-                r.Length == request.Length &&
+                r.Length == expectedMetaData.Duration &&
                 r.IsFavorite == request.IsFavorite
-        ))));
+        ))), Times.Once);
+        _audioProvider.Verify(m => m.GetMetadataAsync(request.Path), Times.Once);
     }
 
     [Fact]
@@ -134,7 +176,7 @@ public class MusicServiceTests
 
         _repo
             .Setup(m => m.UpdateMusicAsync(id, It.Is<IMusicUpdateQuery>(r => r.IsFavorite == request.IsFavorite)))
-            .Callback(() => expected.IsFavorite = expected.IsFavorite)
+            .Callback(() => expected.IsFavorite = request.IsFavorite)
             .ReturnsAsync(expected);
 
         // ACT
@@ -142,6 +184,7 @@ public class MusicServiceTests
 
         // ASSERT
         Assert.NotNull(response);
+        Assert.Equal(request.IsFavorite, response.IsFavorite);
         AssertEqual(expected: expected, actual: response);
         _repo.Verify(m => m.UpdateMusicAsync(id, It.Is<IMusicUpdateQuery>(r => r.IsFavorite == request.IsFavorite)), Times.Once);
     }

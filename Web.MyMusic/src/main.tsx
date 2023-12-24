@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Layout } from "./components/layout";
-import { ServiceApiContext } from "./contexts";
-import { MusicApiService } from "./services";
+import { Layout } from "./shared/components/layout";
+import { ServiceApiContext } from "./shared/contexts";
+import { MusicApiService } from "./shared/services";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { SongsPage } from "./pages/songs";
 import { NotFoundPage } from "./pages/not-found";

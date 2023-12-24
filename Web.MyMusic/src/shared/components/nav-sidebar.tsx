@@ -10,7 +10,7 @@ import {
     Typography,
     styled,
 } from "@mui/material";
-import { ReactElement, useState } from "react";
+import { ReactElement, Suspense, lazy, useState } from "react";
 import { FavoriteBorder, Menu, Home } from "@mui/icons-material";
 import { Color } from "../types/local/colors";
 import { NavListHeader } from "./nav-list-header";
@@ -26,26 +26,31 @@ const StyledListItemButton = styled(ListItemButton)({
     },
 });
 
+const FavoriteModal = lazy(() => import("./favorites-modal"));
+
 export const NavSidebar = (): ReactElement => {
     const [toggleDrawer, setToggleDrawer] = useState<boolean>(false);
+    const [toggleFavorite, setToggleFavorite] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate();
 
-    const handleOpenDrawer = (): void => {
-        setToggleDrawer(true);
-    };
-
-    const handleCloseDrawer = (): void => {
+    const closeDrawer = (): void => {
         setToggleDrawer(false);
     };
 
     const goToHome = (): void => {
         navigate("songs");
-        handleCloseDrawer();
+        closeDrawer();
     };
 
     return (
         <>
-            <Drawer open={toggleDrawer} onClose={handleCloseDrawer}>
+            <Suspense>
+                <FavoriteModal
+                    open={toggleFavorite}
+                    closeModal={() => setToggleFavorite(false)}
+                />
+            </Suspense>
+            <Drawer open={toggleDrawer} onClose={closeDrawer}>
                 <List sx={{ width: 280, paddingTop: 0 }}>
                     <NavListHeader name={"General"} />
                     <StyledListItemButton onClick={goToHome}>
@@ -55,7 +60,9 @@ export const NavSidebar = (): ReactElement => {
                         <ListItemText primary={<Typography>Home</Typography>} />
                     </StyledListItemButton>
                     <NavListHeader name={"My List"} />
-                    <StyledListItemButton>
+                    <StyledListItemButton
+                        onClick={() => setToggleFavorite(true)}
+                    >
                         <ListItemIcon>
                             <FavoriteBorder />
                         </ListItemIcon>
@@ -77,7 +84,7 @@ export const NavSidebar = (): ReactElement => {
                     >
                         <IconButton
                             style={{ justifySelf: "left" }}
-                            onClick={handleOpenDrawer}
+                            onClick={() => setToggleDrawer(true)}
                         >
                             <Menu sx={{ color: Color.White }} />
                         </IconButton>

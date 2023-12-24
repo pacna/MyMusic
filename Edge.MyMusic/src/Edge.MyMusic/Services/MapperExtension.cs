@@ -6,14 +6,14 @@ namespace Edge.MyMusic.Services;
 
 internal static class MapperExtension
 {
-    public static MusicDocument ToDocument(this SongPostRequest from)
+    public static MusicDocument ToDocument(this SongPostRequest from, int? duration)
     {
         return new MusicDocument
         {
             Album = from.Album,
             Artist = from.Artist,
             IsFavorite = from.IsFavorite,
-            Length = from.Length,
+            Length = duration ?? 0,
             Path = from.Path,
             Title = from.Title
         };

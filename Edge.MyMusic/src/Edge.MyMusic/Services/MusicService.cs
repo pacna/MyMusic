@@ -1,4 +1,5 @@
 using Edge.MyMusic.Controllers.Models;
+using Edge.MyMusic.Providers;
 using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Shared;
 
@@ -6,10 +7,12 @@ namespace Edge.MyMusic.Services;
 
 public class MusicService : IMusicService
 {
+    private readonly IAudioProvider _audioProvider;
     private readonly IMusicRepository _musicRepository;
 
-    public MusicService(IMusicRepository musicRepository)
+    public MusicService(IAudioProvider audioProvider, IMusicRepository musicRepository)
     {
+        _audioProvider = audioProvider;
         _musicRepository = musicRepository;
     }
 
@@ -20,7 +23,14 @@ public class MusicService : IMusicService
 
     public async Task<SongResponse> AddSongAsync(SongPostRequest request)
     {
-        return (await _musicRepository.AddMusicAsync(request.ToDocument())).ToResponse();
+        try
+        {
+            return (await _musicRepository.AddMusicAsync(request.ToDocument((await _audioProvider.GetMetadataAsync(request.Path))?.Duration))).ToResponse();
+        }
+        catch
+        {
+            throw new Exception("Unable to add song");
+        }
     }
 
     public async Task<SongResponse?> GetSongAsync(string id)

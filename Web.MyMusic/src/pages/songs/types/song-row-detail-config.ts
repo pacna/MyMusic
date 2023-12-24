@@ -1,4 +1,4 @@
-import { SongResponse } from "@mymusic/types";
+import { SongResponse } from "@mymusic/shared/types";
 
 export type SongRowDetailConfig =
     | Pick<

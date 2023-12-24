@@ -13,7 +13,7 @@ internal class AudioProvider : BaseHttpProvider<IAudioProvider>, IAudioProvider
 
     public async Task<AudioResponse?> GetMetadataAsync(string url)
     {
-        string tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + Path.GetExtension(url));
+        string tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));
 
         try
         {

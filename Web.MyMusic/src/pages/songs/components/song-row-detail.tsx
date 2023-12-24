@@ -10,10 +10,13 @@ import {
     AudioPlayerContextConfig,
     AudioPlayerInfo,
     Color,
-} from "@mymusic/types/local";
-import { IMusicApiService } from "@mymusic/services/imusic-api.service";
-import { AudioPlayerContext, ServiceApiContext } from "@mymusic/contexts";
-import wavePath from "@mymusic/assets/wave.gif";
+} from "@mymusic/shared/types/local";
+import { IMusicApiService } from "@mymusic/shared/services/imusic-api.service";
+import {
+    AudioPlayerContext,
+    ServiceApiContext,
+} from "@mymusic/shared/contexts";
+import wavePath from "../assets/wave.gif";
 import { SongRowDetailConfig } from "../types/song-row-detail-config";
 
 export const SongRowDetail = (props: {

@@ -18,16 +18,29 @@ public sealed class SongPostRequest: IValidatableObject
 
     public string Album { get; init; }
     public string Artist { get; init; }
-    public int Length { get; init; }
     public string Path { get; init; }
     public string Title { get; init; }
     public bool IsFavorite { get; init; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (this.Length <= 0)
+        return Validate(new Dictionary<string, string>
         {
-            yield return new ValidationResult($"{nameof(this.Length)} needs to be greater than 0", new[] { nameof(this.Length)});
+            { nameof(this.Album), this.Album},
+            { nameof(this.Artist), this.Artist},
+            { nameof(this.Path), this.Path},
+            { nameof(this.Title), this.Title},
+        });
+    }
+
+    internal IEnumerable<ValidationResult> Validate(IReadOnlyDictionary<string, string> propertiesAndValues)
+    {
+        foreach(KeyValuePair<string, string> kv in propertiesAndValues)
+        {
+            if (string.IsNullOrWhiteSpace(kv.Value))
+            {
+                yield return new ValidationResult($"{kv.Key} cannot be empty", new[] { kv.Key});
+            }
         }
     }
 }

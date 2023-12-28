@@ -16,6 +16,6 @@ jobs:
               uses: actions/setup-dotnet@v2
               with:
                   dotnet-version: 7.0.x
-            - working-directory: ./Edge.LitMusic
+            - working-directory: ./Edge.MyMusic
               run: |
                   dotnet test

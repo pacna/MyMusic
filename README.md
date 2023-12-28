@@ -1,18 +1,38 @@
-# Lit Music
+# MyMusic
 
-<div style="display: inline-flex; gap: 16px">
-    <img alt="Dotnet test passing" src="https://github.com/pacna/lit-music/workflows/Dotnet%20test/badge.svg" />
-    <img alt="Node test passing" src="https://github.com/pacna/lit-music/workflows/Node%20Test/badge.svg" />
-</div>
+<img alt="Dotnet test passing" src="https://github.com/pacna/MyMusic/workflows/Dotnet%20test/badge.svg" />
 
-A music player that is lit.
+Your go-to platform for playing and effortlessly managing all your favorite tunes in one centralized space.
 
-![lit-music](./docs/lit-music.png)
+![mymusic](./docs/mymusic.png)
 
-## How to setup backend
+## Prerequisites
 
-Follow the [README](./Edge.LitMusic/README.md) in `Edge.LitMusic` directory.
+1. [Node.js](https://nodejs.org/en/) (v16+)
+2. [.NET Core](https://dotnet.microsoft.com/en-us/download) (v7+)
+3. [Make](https://www.gnu.org/software/make/)
 
-## How to setup frontend
+## Usage
 
-Follow the [README](./Web.LitMusic/README.md) in `Web.LitMusic` directory.
+To run MyMusic on your local machine, execute the following command:
+
+```bash
+# web
+$ make web
+
+# server
+$ make server
+```
+
+To run MyMusic in production mode, execute the following command:
+
+```bash
+$ make up
+```
+
+## Further Details
+
+For a deeper dive into either the backend or frontend aspects, refer to the README files in the following repositories:
+
+-   Explore the [README](./Edge.MyMusic/README.md) in `Edge.MyMusic` for backend insights.
+-   Refer to the [README](./Web.MyMusic/README.md) in `Web.MyMusic` for frontend specifics.

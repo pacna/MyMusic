@@ -5,7 +5,9 @@ import {
     DialogContent,
     DialogTitle,
 } from "@mui/material";
-import { Color, IMusicApiService, ServiceApiContext } from "@mymusic/shared";
+import { Color } from "@shared/types/local";
+import { IMusicApiService } from "@shared/services";
+import { ServiceApiContext } from "@shared/contexts";
 import { ReactElement, useContext } from "react";
 
 export default function SongRemovalModal({

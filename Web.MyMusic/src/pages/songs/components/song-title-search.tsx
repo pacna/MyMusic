@@ -1,8 +1,7 @@
 import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { Search } from "@mui/icons-material";
 import { InputAdornment, TextField } from "@mui/material";
-import { Color } from "@mymusic/shared/types/local";
-import { useLocalStorage } from "@mymusic/shared/hooks";
+import { useLocalStorage } from "@shared/hooks";
 
 const debounce = (fn: (...event: any[]) => void, ms: number) => {
     let timeout: any;
@@ -53,13 +52,6 @@ export const SongTitleSearch = ({
                 variant="standard"
                 onChange={searchTitleName}
                 defaultValue={title}
-                sx={{
-                    "& .MuiInputBase-root": {
-                        "&.Mui-focused::after": {
-                            borderColor: Color.BlueMarguerite,
-                        },
-                    },
-                }}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">

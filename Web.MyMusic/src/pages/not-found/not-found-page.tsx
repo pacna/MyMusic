@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
-import { Center, StyledPrimaryButton } from "@mymusic/shared/components";
+import { Box, Button, Typography } from "@mui/material";
+import { Center } from "@shared/components";
 import { ReactElement } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
@@ -8,11 +8,13 @@ export const NotFoundPage = (): ReactElement => {
 
     return (
         <Center>
-            <div
-                style={{
+            <Box
+                sx={{
                     display: "grid",
                     placeItems: "center",
-                    gap: "40px",
+                    gap: "2em",
+                    minWidth: "300px",
+                    maxWidth: "600px",
                 }}
             >
                 <Typography
@@ -24,7 +26,6 @@ export const NotFoundPage = (): ReactElement => {
                 <Typography
                     variant="body1"
                     sx={{
-                        maxWidth: "600px",
                         textAlign: "center",
                     }}
                 >
@@ -32,13 +33,10 @@ export const NotFoundPage = (): ReactElement => {
                     requested page. Click the home button below to return to the
                     main page
                 </Typography>
-                <StyledPrimaryButton
-                    onClick={() => navigate("songs")}
-                    variant="outlined"
-                >
+                <Button onClick={() => navigate("songs")} variant="outlined">
                     Home
-                </StyledPrimaryButton>
-            </div>
+                </Button>
+            </Box>
         </Center>
     );
 };

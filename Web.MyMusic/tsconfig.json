@@ -20,7 +20,7 @@
         "noFallthroughCasesInSwitch": true,
         "baseUrl": "src",
         "paths": {
-            "@mymusic/*": ["./*"]
+            "@shared/*": ["./shared/*"]
         }
     },
     "include": ["src"],

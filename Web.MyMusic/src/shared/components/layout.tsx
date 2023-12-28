@@ -12,32 +12,14 @@ function audioPlayerReducer(
     }
 ): AudioPlayerInfo {
     if (Array.isArray(action.property)) {
-        let id: string;
-        let visible: boolean;
-        let path: string;
-
-        for (const p of action.property) {
-            if (p === "id") {
-                id = (action.payload as AudioPlayerInfo).id;
-            }
-
-            if (p === "visible") {
-                visible = (action.payload as AudioPlayerInfo).visible;
-            }
-
-            if (p === "path") {
-                path = (action.payload as AudioPlayerInfo).path;
-            }
-        }
-
-        id ??= state.id;
-        visible ??= state.visible;
-        path ??= state.path;
-
         return {
-            id,
-            visible,
-            path,
+            ...state,
+            ...Object.fromEntries(
+                action.property.map((p: string) => [
+                    p,
+                    (action.payload as AudioPlayerInfo)[p] ?? state[p],
+                ])
+            ),
         };
     }
 

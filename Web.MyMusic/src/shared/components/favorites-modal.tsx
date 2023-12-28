@@ -1,4 +1,5 @@
 import {
+    Button,
     Dialog,
     DialogActions,
     DialogContent,
@@ -13,7 +14,6 @@ import { SongResponse, SongSearchRequest } from "../types/api";
 import { useSearch } from "../hooks/use-search";
 import { AudioPlayerContextConfig, AudioPlayerInfo } from "../types/local";
 import { AudioPlayerContext } from "../contexts/audio-player-context";
-import { StyledPrimaryButton } from "./styled-buttons";
 
 export default function FavoritesModal({
     open,
@@ -73,9 +73,7 @@ export default function FavoritesModal({
             <DialogTitle>Favorites</DialogTitle>
             <DialogContent> {renderSongs()}</DialogContent>
             <DialogActions>
-                <StyledPrimaryButton onClick={closeModal}>
-                    Close
-                </StyledPrimaryButton>
+                <Button onClick={closeModal}>Close</Button>
             </DialogActions>
         </Dialog>
     );

@@ -12,13 +12,9 @@ import {
     DialogActions,
     Switch,
 } from "@mui/material";
-import {
-    IMusicApiService,
-    ServiceApiContext,
-    SongPutRequest,
-    SongResponse,
-    StyledPrimaryButton,
-} from "@mymusic/shared";
+import { Color, SongPutRequest, SongResponse } from "@shared/types";
+import { IMusicApiService } from "@shared/services";
+import { ServiceApiContext } from "@shared/contexts";
 import {
     ChangeEvent,
     ReactElement,
@@ -266,13 +262,14 @@ export default function SongManagementModal({
             </DialogContent>
             <DialogActions sx={{ marginTop: "20px" }}>
                 <Button onClick={handleCloseDialog}>Close</Button>
-                <StyledPrimaryButton
+                <Button
+                    sx={{ color: Color.MaterialBlue }}
                     onClick={handleSubmit}
                     type="submit"
                     disabled={!isValid()}
                 >
                     Submit
-                </StyledPrimaryButton>
+                </Button>
             </DialogActions>
         </Dialog>
     );

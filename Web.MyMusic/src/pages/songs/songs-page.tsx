@@ -19,15 +19,14 @@ import {
     TableRow,
 } from "@mui/material";
 import { Add, Shuffle } from "@mui/icons-material";
-import { AudioPlayerContext } from "@mymusic/shared/contexts";
+import { AudioPlayerContext } from "@shared/contexts";
 import {
     AudioPlayerContextConfig,
     AudioPlayerInfo,
-    Color,
     SongResponse,
     SongSearchRequest,
-} from "@mymusic/shared/types";
-import { useLocalStorage, useSearch } from "@mymusic/shared/hooks";
+} from "@shared/types";
+import { useLocalStorage, useSearch } from "@shared/hooks";
 import { SongRowDetail, SongTitleSearch } from "./components";
 
 const SongManagementModal = lazy(
@@ -125,27 +124,17 @@ export const SongsPage = (): ReactElement => {
                     <div style={{ display: "flex", gap: "12px" }}>
                         <Fab
                             onClick={() => setToggleManagement(true)}
-                            sx={{
-                                backgroundColor: Color.BlueMarguerite,
-                                "&:hover": {
-                                    backgroundColor: Color.BlueMarguerite,
-                                },
-                            }}
+                            color="primary"
                             aria-label="add"
                         >
-                            <Add sx={{ color: Color.White }} />
+                            <Add />
                         </Fab>
                         <Fab
                             onClick={() => playRandomSong(collection.list)}
-                            sx={{
-                                backgroundColor: Color.NeonPink,
-                                "&:hover": {
-                                    backgroundColor: Color.NeonPink,
-                                },
-                            }}
+                            color="secondary"
                             aria-label="shuffle songs"
                         >
-                            <Shuffle sx={{ color: Color.White }} />
+                            <Shuffle />
                         </Fab>
                     </div>
                     <SongTitleSearch

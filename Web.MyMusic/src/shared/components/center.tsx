@@ -9,7 +9,7 @@ export const Center = ({
         <div
             style={{
                 position: "absolute",
-                top: `calc(50% - 64px)`, // 64px is from the top bar
+                top: `50%`,
                 left: "50%",
                 transform: "translate(-50%, -50%)",
             }}

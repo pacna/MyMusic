@@ -4,6 +4,7 @@ import {
     Suspense,
     lazy,
     useContext,
+    useEffect,
     useState,
 } from "react";
 import {
@@ -24,12 +25,9 @@ import {
     AudioPlayerContextConfig,
     AudioPlayerInfo,
     Color,
-} from "@mymusic/shared/types/local";
-import { IMusicApiService } from "@mymusic/shared/services/imusic-api.service";
-import {
-    AudioPlayerContext,
-    ServiceApiContext,
-} from "@mymusic/shared/contexts";
+} from "@shared/types";
+import { IMusicApiService } from "@shared/services";
+import { AudioPlayerContext, ServiceApiContext } from "@shared/contexts";
 import wavePath from "../assets/wave.gif";
 import { SongRowDetailConfig } from "../types/song-row-detail-config";
 
@@ -102,6 +100,10 @@ export const SongRowDetail = (props: {
         setToggleRemoval(false);
         props.forceCollectionUpdate();
     };
+
+    useEffect((): void => {
+        setFavorite(isFavorite);
+    }, [isFavorite]);
 
     return (
         <>

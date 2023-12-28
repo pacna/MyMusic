@@ -73,7 +73,7 @@ export const NavSidebar = (): ReactElement => {
                 </List>
             </Drawer>
 
-            <AppBar position="static" sx={{ background: Color.BlueMarguerite }}>
+            <AppBar position="static">
                 <Toolbar>
                     <div
                         style={{

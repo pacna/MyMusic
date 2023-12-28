@@ -47,7 +47,7 @@ internal static class ServiceCollectionExtension
     internal static IServiceCollection AddApplicationSetting(this IServiceCollection services, ApplicationSetting applicationSetting)
     {
         return services
-            .AddSingleton<IMongoDBSetting>(provider => applicationSetting)
+            .AddSingleton<IMongoDBSetting>(applicationSetting)
             .AddSingleton<IArgsSetting>(applicationSetting);
     }
 

@@ -24,9 +24,8 @@ WebApplication? application = builder.Build();
 
 application
     .UseCustomSwagger()
-    .UseWebRoot()
+    .UseWebApp(appSetting)
     .UseCustomPath(appSetting)
-    .UseSPARouting(appSetting)
     .UseServerHandler()
     .UseAuthorization()
     .UseCors(appSetting);

@@ -18,12 +18,22 @@ internal static class ApplicationBuilderExtension
                 });
     }
 
-    internal static IApplicationBuilder UseWebRoot(this IApplicationBuilder application)
+    internal static IApplicationBuilder UseWebApp(this IApplicationBuilder application, IArgsSetting argsSetting)
     {
-        // Need these two methods to embed webapp to dotnet core app https://learn.microsoft.com/en-us/aspnet/core/tutorials/web-api-javascript?view=aspnetcore-7.0
-        return application
-                .UseDefaultFiles()
-                .UseStaticFiles();
+        if (argsSetting.UseWebApp)
+        {
+            // Need UseDefaultFiles() and UseStaticFiles() to embed webapp to dotnet core app https://learn.microsoft.com/en-us/aspnet/core/tutorials/web-api-javascript?view=aspnetcore-7.0
+            application
+                    .UseDefaultFiles()
+                    .UseStaticFiles()
+                    .UseRouting()
+                    .UseEndpoints(endpoints => 
+                    {
+                        endpoints.MapFallbackToFile("index.html");
+                    });
+        }
+
+        return application;
     }
 
     internal static IApplicationBuilder UseCustomPath(this IApplicationBuilder application, IArgsSetting argsSetting)
@@ -35,25 +45,6 @@ internal static class ApplicationBuilderExtension
                 FileProvider = new PhysicalFileProvider(Path.Combine(argsSetting.AudiosPath)),
                 RequestPath = "/audios"
             });
-        }
-
-        return application;
-    }
-
-    internal static IApplicationBuilder UseSPARouting(this IApplicationBuilder application, IArgsSetting argsSetting)
-    {
-        if (argsSetting.UseInMemory)
-        {
-            application
-                .UseRouting()
-                .UseEndpoints(endpoints => 
-                {
-                    endpoints.MapFallback(context =>
-                    {
-                        context.Response.Redirect("/");
-                        return Task.CompletedTask;
-                    });
-                });
         }
 
         return application;

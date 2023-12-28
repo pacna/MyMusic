@@ -77,7 +77,7 @@ export const SongsPage = (): ReactElement => {
             title: cacheTitle,
             sortBy: "title:asc",
             idx: 0,
-            qty: 20,
+            qty: 10,
         } as SongSearchRequest
     );
     const [collection, forceCollectionUpdate] = useSearch(searchRequestState);
@@ -99,7 +99,10 @@ export const SongsPage = (): ReactElement => {
     };
 
     const handlePagination = (_: any, value: number): void => {
-        searchRequestDispatch({ property: "idx", payload: value - 1 });
+        searchRequestDispatch({
+            property: "idx",
+            payload: (value - 1) * searchRequestState.qty,
+        });
     };
 
     return (
@@ -189,7 +192,7 @@ export const SongsPage = (): ReactElement => {
                             paddingBlock: "1em",
                         }}
                         onChange={handlePagination}
-                        count={Math.floor(
+                        count={Math.ceil(
                             collection.total / searchRequestState.qty
                         )}
                         showFirstButton

@@ -111,6 +111,42 @@ public class MusicServiceTests
     }
 
     [Fact]
+    public async Task CanUpdateSongAsync()
+    {
+        // ARRANGE
+        string id = ObjectId.GenerateNewId().ToString();
+
+        SongPutRequest request = new()
+        {
+            Artist = "Linkin Park",
+            Album = "Meteora",
+            Path = "https://foobar.com/numb.mp3",
+            Title = "Numb"
+        };
+
+        MusicDocument expected = new();
+
+        _repo
+            .Setup(m => m.UpdateMusicAsync(id, request))
+            .Callback(() => 
+            {
+                expected.Artist = request.Artist;
+                expected.Album = request.Album;
+                expected.Path = request.Path;
+                expected.Title = request.Title;
+            })
+            .ReturnsAsync(expected);
+
+        // ACT
+        SongResponse? response = await _service.UpdateSongAsync(id, request);
+
+        // ASSERT
+        Assert.NotNull(response);
+        AssertEqual(expected, response);
+        _repo.Verify(m => m.UpdateMusicAsync(id, request), Times.Once);
+    }
+
+    [Fact]
     public async Task CanGetSongAsync()
     {
         // ARRANGE

@@ -1,6 +1,5 @@
-import { Button, Typography } from "@mui/material";
-import { Center } from "@mymusic/shared/components";
-import { Color } from "@mymusic/shared/types/local";
+import { Typography } from "@mui/material";
+import { Center, StyledPrimaryButton } from "@mymusic/shared/components";
 import { ReactElement } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
@@ -33,17 +32,12 @@ export const NotFoundPage = (): ReactElement => {
                     requested page. Click the home button below to return to the
                     main page
                 </Typography>
-
-                <Button
+                <StyledPrimaryButton
                     onClick={() => navigate("songs")}
                     variant="outlined"
-                    sx={{
-                        color: Color.BlueMarguerite,
-                        borderColor: Color.BlueMarguerite,
-                    }}
                 >
                     Home
-                </Button>
+                </StyledPrimaryButton>
             </div>
         </Center>
     );

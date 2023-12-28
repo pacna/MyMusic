@@ -2,7 +2,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Edge.MyMusic.Repositories.Models.Documents;
 
-public class MusicDocument : BaseDocument
+public sealed class MusicDocument : BaseDocument
 {
 #nullable disable
     [BsonElement("al")]

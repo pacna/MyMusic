@@ -4,4 +4,6 @@ export enum Color {
     NeonPink = "#F638A8",
     White = "#FFFFFF",
     Black = "#000000",
+    MaterialBlue = "#1976D2",
+    Red = "red",
 }

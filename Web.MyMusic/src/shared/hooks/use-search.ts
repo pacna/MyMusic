@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { IMusicApiService } from "../services";
 import {
     CollectionResponse,
@@ -9,7 +9,12 @@ import { ServiceApiContext } from "../contexts";
 
 export function useSearch(
     request: SongSearchRequest
-): CollectionResponse<SongResponse> {
+): [CollectionResponse<SongResponse>, () => void] {
+    const [forceUpdate, setForceUpdate] = useState<number>(0);
+    const cacheRequest: SongSearchRequest = useMemo(
+        () => request,
+        [request.title, request.idx]
+    );
     const service: IMusicApiService =
         useContext<IMusicApiService>(ServiceApiContext);
 
@@ -20,11 +25,11 @@ export function useSearch(
     useEffect((): void => {
         (async () => {
             const [collection, _]: [CollectionResponse<SongResponse>, Error] =
-                await service.searchSongs(request);
+                await service.searchSongs(cacheRequest);
 
             setCollection(collection);
         })();
-    }, [request]);
+    }, [cacheRequest, forceUpdate]);
 
-    return collection;
+    return [collection, () => setForceUpdate((prev: number) => prev + 1)];
 }

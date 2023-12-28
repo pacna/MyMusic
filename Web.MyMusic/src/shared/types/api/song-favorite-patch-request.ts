@@ -1,3 +1,3 @@
-export type SongFavoritePatchRequest = {
-    isFavorite: boolean;
-};
+import { SongPutRequest } from "./song-put-request";
+
+export type SongFavoritePatchRequest = Pick<SongPutRequest, "isFavorite">;

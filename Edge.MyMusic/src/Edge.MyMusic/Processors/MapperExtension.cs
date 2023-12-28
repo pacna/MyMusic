@@ -1,7 +1,7 @@
 using Edge.MyMusic.Providers.Models;
 using Edge.MyMusic.Repositories.Models.Documents;
 
-namespace Edge.MyMusic.Processor;
+namespace Edge.MyMusic.Processors;
 
 internal static class MapperExtension
 {

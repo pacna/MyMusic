@@ -1,11 +1,25 @@
-import { ReactElement, useContext, useState } from "react";
+import {
+    MouseEvent,
+    ReactElement,
+    Suspense,
+    lazy,
+    useContext,
+    useState,
+} from "react";
 import {
     Favorite,
     FavoriteBorder,
     MoreHoriz,
     PlayArrow,
 } from "@mui/icons-material";
-import { IconButton, TableCell, TableRow } from "@mui/material";
+import {
+    Box,
+    IconButton,
+    Menu,
+    MenuItem,
+    TableCell,
+    TableRow,
+} from "@mui/material";
 import {
     AudioPlayerContextConfig,
     AudioPlayerInfo,
@@ -19,10 +33,18 @@ import {
 import wavePath from "../assets/wave.gif";
 import { SongRowDetailConfig } from "../types/song-row-detail-config";
 
+const SongManagementModal = lazy(() => import("./song-management-modal"));
+const SongRemovalModal = lazy(() => import("./song-removal-modal"));
+
 export const SongRowDetail = (props: {
     config: SongRowDetailConfig;
+    forceCollectionUpdate: () => void;
 }): ReactElement => {
     const { id, path, title, artist, length, isFavorite, index } = props.config;
+    const [menuAnchorElement, setMenuAnchorElement] =
+        useState<null | HTMLElement>(null);
+    const [toggleManagement, setToggleManagement] = useState<boolean>(false);
+    const [toggleRemoval, setToggleRemoval] = useState<boolean>(false);
     const [hovered, setHovered] = useState<boolean>(false);
     const [favorite, setFavorite] = useState<boolean>(isFavorite);
     const service: IMusicApiService =
@@ -66,49 +88,99 @@ export const SongRowDetail = (props: {
         }`;
     };
 
+    const handleOpenMenu = (evt: MouseEvent<HTMLButtonElement>): void => {
+        evt.stopPropagation();
+        setMenuAnchorElement(evt.currentTarget);
+    };
+
+    const closeManagementModal = (): void => {
+        setToggleManagement(false);
+        props.forceCollectionUpdate();
+    };
+
+    const closeRemovalModal = (): void => {
+        setToggleRemoval(false);
+        props.forceCollectionUpdate();
+    };
+
     return (
-        <TableRow
-            onMouseOver={() => setHovered(true)}
-            onMouseOut={() => setHovered(false)}
-        >
-            <TableCell>
-                {hovered ? (
-                    <IconButton onClick={playSong}>
-                        <PlayArrow sx={{ color: Color.Black }} />
-                    </IconButton>
-                ) : (
-                    index + 1
-                )}
-            </TableCell>
-            <TableCell align="left">{title}</TableCell>
-            <TableCell align="left">{artist}</TableCell>
-            <TableCell
-                align="right"
-                sx={{
-                    display: "flex",
-                }}
+        <>
+            <Suspense>
+                <SongRemovalModal
+                    id={id}
+                    title={title}
+                    open={toggleRemoval}
+                    closeModal={closeRemovalModal}
+                />
+            </Suspense>
+            <Suspense>
+                <SongManagementModal
+                    id={id}
+                    open={toggleManagement}
+                    closeModal={closeManagementModal}
+                />
+            </Suspense>
+            <TableRow
+                onMouseOver={() => setHovered(true)}
+                onMouseOut={() => setHovered(false)}
             >
-                <div
-                    style={{
-                        display: "inherit",
-                        alignItems: "center",
-                        gap: "8px",
+                <TableCell>
+                    {hovered ? (
+                        <IconButton onClick={playSong}>
+                            <PlayArrow sx={{ color: Color.Black }} />
+                        </IconButton>
+                    ) : (
+                        index + 1
+                    )}
+                </TableCell>
+                <TableCell align="left">{title}</TableCell>
+                <TableCell align="left">{artist}</TableCell>
+                <TableCell
+                    align="right"
+                    sx={{
+                        display: "flex",
                     }}
                 >
-                    {displayWave()}
-                    <IconButton onClick={toggleFavorite}>
-                        {favorite ? (
-                            <Favorite sx={{ color: Color.Black }} />
-                        ) : (
-                            <FavoriteBorder sx={{ color: Color.Black }} />
-                        )}
-                    </IconButton>
-                    {displayDuration(length)}
-                    <IconButton>
-                        <MoreHoriz sx={{ color: Color.Black }} />
-                    </IconButton>
-                </div>
-            </TableCell>
-        </TableRow>
+                    <Box
+                        sx={{
+                            display: "inherit",
+                            alignItems: "center",
+                            gap: "8px",
+                        }}
+                    >
+                        {displayWave()}
+                        <IconButton onClick={toggleFavorite}>
+                            {favorite ? (
+                                <Favorite sx={{ color: Color.Black }} />
+                            ) : (
+                                <FavoriteBorder sx={{ color: Color.Black }} />
+                            )}
+                        </IconButton>
+                        {displayDuration(length)}
+                        <IconButton onClick={handleOpenMenu}>
+                            <MoreHoriz sx={{ color: Color.Black }} />
+                        </IconButton>
+                    </Box>
+                </TableCell>
+            </TableRow>
+            <Menu
+                anchorEl={menuAnchorElement}
+                open={Boolean(menuAnchorElement)}
+                onClose={() => setMenuAnchorElement(null)}
+            >
+                <MenuItem
+                    onClick={() => setToggleManagement(true)}
+                    sx={{ color: Color.BlueMarguerite }}
+                >
+                    Edit
+                </MenuItem>
+                <MenuItem
+                    onClick={() => setToggleRemoval(true)}
+                    sx={{ color: Color.Red }}
+                >
+                    Delete
+                </MenuItem>
+            </Menu>
+        </>
     );
 };

@@ -1,6 +1,6 @@
 namespace Edge.MyMusic.Providers.Models;
 
-public class AudioResponse
+public sealed class AudioResponse
 {
     public AudioResponse(string title, string album, string artist)
     {

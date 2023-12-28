@@ -97,14 +97,12 @@ internal class MusicInMemoryRepository : IMusicRepository
 
     public Task<MusicDocument?> GetMusicAsync(string id)
     {
-        _datastore.TryGetValue(id, out MusicDocument? doc);
-
-        if (doc == null)
+        if (_datastore.TryGetValue(id, out MusicDocument? doc))
         {
-            return Task.FromResult<MusicDocument?>(null);
+            return Task.FromResult<MusicDocument?>(doc);
         }
 
-        return Task.FromResult<MusicDocument?>(doc);
+        return Task.FromResult<MusicDocument?>(null);
     }
 
     public Task<MusicDocument?> UpdateMusicAsync(string id, IMusicUpdateQuery query)

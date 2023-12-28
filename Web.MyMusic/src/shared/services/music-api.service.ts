@@ -1,6 +1,8 @@
 import {
     CollectionResponse,
     SongFavoritePatchRequest,
+    SongPostRequest,
+    SongPutRequest,
     SongResponse,
     SongSearchRequest,
 } from "../types";
@@ -34,11 +36,30 @@ export class MusicApiService
             params.append("title", request.title);
         }
 
+        if (typeof request.idx === "number") {
+            params.append("idx", request.idx.toString());
+        }
+
+        if (typeof request.qty === "number") {
+            params.append("qty", request.qty.toString());
+        }
+
         return this.get(`${this.songSegment}?${params.toString()}`);
+    }
+
+    async createSong(request: SongPostRequest): Promise<[SongResponse, Error]> {
+        return this.post(this.songSegment, request);
     }
 
     async getSong(id: string): Promise<[SongResponse, Error]> {
         return this.get<SongResponse>(`${this.songSegment}/${id}`);
+    }
+
+    async updateSong(
+        id: string,
+        request: SongPutRequest
+    ): Promise<[SongResponse, Error]> {
+        return this.put(`${this.songSegment}/${id}`, request);
     }
 
     async updateFavoriteSong(

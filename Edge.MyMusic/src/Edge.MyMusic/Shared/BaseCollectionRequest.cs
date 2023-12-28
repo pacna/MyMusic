@@ -10,7 +10,7 @@ public abstract class BaseCollectionRequest : IPaging
         return new PagingInfo
         {
             Idx = this.Idx,
-            Qty = this.Qty ?? 20
+            Qty = this.Qty.GetValueOrDefault(20)
         };
     }
 }

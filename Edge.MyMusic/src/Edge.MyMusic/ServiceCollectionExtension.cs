@@ -1,9 +1,8 @@
-using Edge.MyMusic.Processor;
+using Edge.MyMusic.Processors;
 using Edge.MyMusic.Providers;
 using Edge.MyMusic.Repositories;
 using Edge.MyMusic.Services;
 using Edge.MyMusic.Settings;
-using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 

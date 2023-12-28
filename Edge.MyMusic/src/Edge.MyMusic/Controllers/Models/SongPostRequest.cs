@@ -16,10 +16,10 @@ public sealed class SongPostRequest: IValidatableObject
         this.Title = title;
     }
 
-    public string Album { get; init; }
-    public string Artist { get; init; }
-    public string Path { get; init; }
-    public string Title { get; init; }
+    public string Album { get; }
+    public string Artist { get; }
+    public string Path { get; }
+    public string Title { get; }
     public bool IsFavorite { get; init; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

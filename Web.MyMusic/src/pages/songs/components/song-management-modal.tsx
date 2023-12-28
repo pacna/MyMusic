@@ -8,9 +8,9 @@ import {
     InputLabel,
     OutlinedInput,
     styled,
-    Checkbox,
     Button,
     DialogActions,
+    Switch,
 } from "@mui/material";
 import {
     IMusicApiService,
@@ -177,7 +177,7 @@ export default function SongManagementModal({
                 });
             }
         })();
-    }, []);
+    }, [open, id]);
 
     return (
         <Dialog open={open} fullWidth={true} onClose={handleCloseDialog}>
@@ -248,7 +248,7 @@ export default function SongManagementModal({
                         }}
                         label="Favorite"
                         control={
-                            <Checkbox
+                            <Switch
                                 sx={{ pointerEvents: "auto" }}
                                 onChange={(
                                     evt: ChangeEvent<HTMLInputElement>
@@ -258,7 +258,7 @@ export default function SongManagementModal({
                                         payload: evt.target.checked,
                                     })
                                 }
-                                defaultChecked={managementState.isFavorite}
+                                checked={managementState.isFavorite}
                             />
                         }
                     />

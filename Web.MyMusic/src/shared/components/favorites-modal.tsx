@@ -8,14 +8,13 @@ import {
     ListItemText,
     Typography,
 } from "@mui/material";
-import { ReactElement, useContext } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import { SongResponse, SongSearchRequest } from "../types/api";
 import { useSearch } from "../hooks/use-search";
 import { AudioPlayerContextConfig, AudioPlayerInfo } from "../types/local";
 import { AudioPlayerContext } from "../contexts/audio-player-context";
 import { StyledPrimaryButton } from "./styled-buttons";
 
-// this needs the export default to lazy load. weird
 export default function FavoritesModal({
     open,
     closeModal,
@@ -25,7 +24,7 @@ export default function FavoritesModal({
 }): ReactElement {
     const { audioPlayerDispatch } =
         useContext<AudioPlayerContextConfig>(AudioPlayerContext);
-    const [collection, _] = useSearch({
+    const [collection, forceCollectionUpdate] = useSearch({
         sortBy: "title:asc",
         isFavorite: true,
     } as SongSearchRequest);
@@ -62,6 +61,13 @@ export default function FavoritesModal({
             </List>
         );
     };
+
+    useEffect((): void => {
+        if (open) {
+            forceCollectionUpdate();
+        }
+    }, [open]);
+
     return (
         <Dialog open={open} onClose={closeModal} fullWidth={true}>
             <DialogTitle>Favorites</DialogTitle>

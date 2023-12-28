@@ -25,7 +25,7 @@ $ dotnet run -inmemory
 $ dotnet run -webapp
 ```
 
--   `audios`: Specify the folder or file path for your audio files. This enables you to seamlessly embed the files in the server for efficient access.
+-   `--audios`: Specify the folder or file path for your audio files. This enables you to seamlessly embed the files in the server for efficient access.
 
 ```bash
 $ dotnet run --audios=path/to/folder/or/file

@@ -22,9 +22,14 @@ internal static class ServiceCollectionExtension
         return services.AddSingleton<IMusicService, MusicService>();
     }
 
-    internal static IServiceCollection AddRepositories(this IServiceCollection services)
+    internal static IServiceCollection AddRepositories(this IServiceCollection services, IArgsSetting argsSetting)
     {
-        return services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
+        if (argsSetting.UseInMemory)
+        {
+            return services.AddSingleton<IMusicRepository, MusicInMemoryRepository>();
+        }
+
+        return services.AddSingleton<IMusicRepository, MusicRepository>();
     }
 
     internal static IServiceCollection AddProviders(this IServiceCollection services)
@@ -39,11 +44,11 @@ internal static class ServiceCollectionExtension
         return services.AddHostedService<StartupProcessor>();
     }
 
-    internal static IServiceCollection AddApplicationSetting(this IServiceCollection services, IConfiguration configuration, string[] cmdArgs)
+    internal static IServiceCollection AddApplicationSetting(this IServiceCollection services, ApplicationSetting applicationSetting)
     {
         return services
-            .AddSingleton(provider => configuration.GetSection("MongoDBSetting").Get<MongoDBSetting>() ?? new MongoDBSetting())
-            .AddSingleton(new CommandArgsSetting { AudiosPath = CommandLineArgsParser.ExtractAudioFolderPath(cmdArgs)});
+            .AddSingleton<IMongoDBSetting>(provider => applicationSetting)
+            .AddSingleton<IArgsSetting>(applicationSetting);
     }
 
     internal static IServiceCollection AddControllerConvention(this IServiceCollection services)
@@ -69,10 +74,8 @@ internal static class ServiceCollectionExtension
         });
     }
 
-    internal static IServiceCollection AddCors(this IServiceCollection services, IConfiguration configuration)
+    internal static IServiceCollection AddCors(this IServiceCollection services, ICORSPolicySetting cors)
     {
-        CORSPolicySetting cors = configuration.GetSection("CORSPolicy").Get<CORSPolicySetting>()!;
-
         return services.AddCors(options =>
         {
             options.AddPolicy(name: cors.PolicyName,

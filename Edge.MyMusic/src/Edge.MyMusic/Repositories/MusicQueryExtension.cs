@@ -1,3 +1,4 @@
+using Edge.MyMusic.Repositories.Models;
 using Edge.MyMusic.Repositories.Models.Documents;
 using Edge.MyMusic.Services.Models;
 using MongoDB.Driver;
@@ -72,6 +73,37 @@ internal static class MusicQueryExtension
         if (hasChanged)
         {
             yield return Builders<MusicDocument>.Update.Set(m => m.UpdateDate, DateTime.UtcNow);
+        }
+    }
+
+    public static SortDefinition<MusicDocument>? ToSortDefinition(this IMusicSearchQuery query)
+    {
+        SortDefinition<MusicDocument>? sort = null;
+
+        if (string.IsNullOrEmpty(query.SortBy))
+        {
+            return sort;
+        }
+
+        try
+        {
+            (string propertyName, string direction) = SortKey.Parse(query.SortBy);
+            Dictionary<string, FieldDefinition<MusicDocument>> propertyToField = new()
+            {
+                { nameof(MusicDocument.Artist).ToLowerInvariant(), nameof(MusicDocument.Artist)},
+                { nameof(MusicDocument.Title).ToLowerInvariant(), nameof(MusicDocument.Title)}
+            };
+
+            if (propertyToField.TryGetValue(propertyName, out FieldDefinition<MusicDocument>? fieldName))
+            {
+                sort = direction == SortKey.Ascending ? Builders<MusicDocument>.Sort.Ascending(fieldName) : Builders<MusicDocument>.Sort.Descending(fieldName);
+            }
+
+            return sort;
+        }
+        catch
+        {
+            return sort;
         }
     }
 }

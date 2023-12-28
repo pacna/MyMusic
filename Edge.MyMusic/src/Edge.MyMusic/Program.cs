@@ -1,18 +1,19 @@
 using Edge.MyMusic;
+using Edge.MyMusic.Settings;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
-string[] cmdArgs = Environment.GetCommandLineArgs();
+ApplicationSetting appSetting = ApplicationParser.Parse(Environment.GetCommandLineArgs(), builder.Configuration);
 
 builder.Services
     .AddCustomControllers()
     .AddControllerConvention()
     .AddServices()
-    .AddRepositories()
+    .AddRepositories(appSetting)
     .AddProviders()
     .AddHostedServices()
     .AddSwagger()
-    .AddApplicationSetting(builder.Configuration, cmdArgs)
-    .AddCors(builder.Configuration)
+    .AddApplicationSetting(appSetting)
+    .AddCors(appSetting)
     .AddEndpointsApiExplorer() // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     .AddSwaggerGen();
 
@@ -24,11 +25,11 @@ WebApplication? application = builder.Build();
 application
     .UseCustomSwagger()
     .UseWebRoot()
-    .UseCustomPath(cmdArgs)
-    .UseSPARouting()
+    .UseCustomPath(appSetting)
+    .UseSPARouting(appSetting)
     .UseServerHandler()
     .UseAuthorization()
-    .UseCors(builder.Configuration);
+    .UseCors(appSetting);
 
 application.MapControllers();
 application.Run();

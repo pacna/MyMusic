@@ -26,15 +26,13 @@ internal static class ApplicationBuilderExtension
                 .UseStaticFiles();
     }
 
-    internal static IApplicationBuilder UseCustomPath(this IApplicationBuilder application, string[] args)
+    internal static IApplicationBuilder UseCustomPath(this IApplicationBuilder application, IArgsSetting argsSetting)
     {
-        string? audiosPath = CommandLineArgsParser.ExtractAudioFolderPath(args);
-
-        if (!string.IsNullOrEmpty(audiosPath))
+        if (!string.IsNullOrEmpty(argsSetting.AudiosPath))
         {
             application.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(audiosPath)),
+                FileProvider = new PhysicalFileProvider(Path.Combine(argsSetting.AudiosPath)),
                 RequestPath = "/audios"
             });
         }
@@ -42,9 +40,11 @@ internal static class ApplicationBuilderExtension
         return application;
     }
 
-    internal static IApplicationBuilder UseSPARouting(this IApplicationBuilder application)
+    internal static IApplicationBuilder UseSPARouting(this IApplicationBuilder application, IArgsSetting argsSetting)
     {
-        return application
+        if (argsSetting.UseInMemory)
+        {
+            application
                 .UseRouting()
                 .UseEndpoints(endpoints => 
                 {
@@ -54,11 +54,14 @@ internal static class ApplicationBuilderExtension
                         return Task.CompletedTask;
                     });
                 });
+        }
+
+        return application;
     }
 
-    internal static IApplicationBuilder UseCors(this IApplicationBuilder application, IConfiguration configuration)
+    internal static IApplicationBuilder UseCors(this IApplicationBuilder application, ICORSPolicySetting cors)
     {
-        return application.UseCors(configuration.GetSection("CORSPolicy").Get<CORSPolicySetting>()!.PolicyName);
+        return application.UseCors(cors.PolicyName);
     }
 
     internal static IApplicationBuilder UseServerHandler(this IApplicationBuilder application)

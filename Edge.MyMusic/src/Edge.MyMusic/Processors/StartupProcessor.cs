@@ -11,7 +11,7 @@ internal class StartupProcessor : IHostedService
     private readonly ILogger _logger;
     private readonly IMusicRepository _musicRepository;
     private readonly IAudioProvider _audioProvider;
-    private readonly CommandArgsSetting _commandArgsSetting;
+    private readonly IArgsSetting _argsSetting;
 
     private const string _baseUri = "http://localhost:5000";
 
@@ -20,20 +20,20 @@ internal class StartupProcessor : IHostedService
         ILogger<StartupProcessor> logger, 
         IMusicRepository musicRepository, 
         IAudioProvider audioProvider,
-        CommandArgsSetting commandArgsSetting)
+        IArgsSetting argsSetting)
     {
         _applicationLifetime = applicationLifetime;
         _logger = logger;
         _musicRepository = musicRepository;
         _audioProvider = audioProvider;
-        _commandArgsSetting = commandArgsSetting;
+        _argsSetting = argsSetting;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation($"{nameof(StartupProcessor)} is starting...");
 
-        if (string.IsNullOrEmpty(_commandArgsSetting.AudiosPath))
+        if (string.IsNullOrEmpty(_argsSetting.AudiosPath))
         {
             return Task.CompletedTask;
         }
@@ -41,7 +41,7 @@ internal class StartupProcessor : IHostedService
         // run only after the application host has fully started.
         _applicationLifetime.ApplicationStarted.Register(async () =>
         {
-            IEnumerable<string> files = Directory.GetFiles(_commandArgsSetting.AudiosPath);
+            IEnumerable<string> files = Directory.GetFiles(_argsSetting.AudiosPath);
 
             foreach(string filePath in files)
             {

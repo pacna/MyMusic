@@ -14,7 +14,7 @@
 
 .PHONY:server
 server:
-	dotnet watch run --project=./Edge.MyMusic/src/Edge.MyMusic
+	dotnet watch run -inmemory --project=./Edge.MyMusic/src/Edge.MyMusic
 
 .PHONY:web
 web:

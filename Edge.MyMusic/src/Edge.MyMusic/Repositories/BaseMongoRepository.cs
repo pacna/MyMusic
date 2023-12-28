@@ -9,7 +9,7 @@ internal abstract class BaseMongoRepository<TDocument> where TDocument : notnull
 {
     private readonly IMongoCollection<TDocument> _collection;
 
-    public BaseMongoRepository(ILogger<BaseMongoRepository<TDocument>> logger, MongoDBSetting setting)
+    public BaseMongoRepository(ILogger<BaseMongoRepository<TDocument>> logger, IMongoDBSetting setting)
     {
         try
         {            
@@ -37,9 +37,12 @@ internal abstract class BaseMongoRepository<TDocument> where TDocument : notnull
 
         using IAsyncCursor<TDocument> cursor = await query.Skip(paging.Idx).Limit(paging.Qty).ToCursorAsync();
 
-        await foreach (TDocument doc in cursor.ToAsyncEnumerable())
+        while (await cursor.MoveNextAsync())
         {
-            yield return doc;
+            foreach (TDocument current in cursor.Current)
+            {
+                yield return current;
+            }
         }
     }
 

@@ -78,10 +78,10 @@ internal static class ServiceCollectionExtension
     {
         return services.AddCors(options =>
         {
-            options.AddPolicy(name: cors.PolicyName,
+            options.AddPolicy(name: cors.PolicyName!,
                 builder =>
                 {
-                    builder.WithOrigins(cors.AllowedOrigins);
+                    builder.WithOrigins(cors.AllowedOrigins!);
                     // https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api
                     // If you set headers to anything other than "*", 
                     // you should include at least "accept", "content-type", and "origin", 

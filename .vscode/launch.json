@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Edge.MyMusic/src/Edge.MyMusic/bin/Debug/net7.0/Edge.MyMusic.dll",
+            "program": "${workspaceFolder}/Edge.MyMusic/src/Edge.MyMusic/bin/Debug/net8.0/Edge.MyMusic.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Edge.MyMusic/src/Edge.MyMusic",
             "stopAtEntry": false,

@@ -1,7 +1,7 @@
 namespace Edge.MyMusic.Settings;
 
-internal interface IMongoDBSetting
+public interface IMongoDBSetting
 {
-    string ConnectionString { get; set; }
-    string DatabaseName { get; set; }
+    string? ConnectionString { get; init; }
+    string? DatabaseName { get; init; }
 }

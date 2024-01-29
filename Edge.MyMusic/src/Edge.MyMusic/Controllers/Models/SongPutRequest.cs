@@ -8,6 +8,8 @@ public sealed class SongPutRequest : IValidatableObject, IMusicUpdateQuery
 {
     public string? Album { get; init; }
     public string? Artist { get; init; }
+
+    [Range(1, int.MaxValue)]
     public int? Length { get; init; }
     public string? Path { get; init; }
     public string? Title { get; init; }
@@ -19,28 +21,23 @@ public sealed class SongPutRequest : IValidatableObject, IMusicUpdateQuery
         {
             { nameof(this.Album), this.Album},
             { nameof(this.Artist), this.Artist},
-            { nameof(this.Path), this.Path},
             { nameof(this.Title), this.Title},
         });
     }
 
-    internal IEnumerable<ValidationResult> Validate(IReadOnlyDictionary<string, string?> propertiesAndValues)
+    private IEnumerable<ValidationResult> Validate(IReadOnlyDictionary<string, string?> properties)
     {
-        if (this.Length <= 0)
+
+        if (!string.IsNullOrEmpty(this.Path) && !Uri.IsWellFormedUriString(this.Path, UriKind.Absolute))
         {
-            yield return new ValidationResult($"{nameof(this.Length)} needs to be greater than 0", new[] { nameof(this.Length)});
+            yield return new ValidationResult("Invalid url", new[] { this.Path });
         }
 
-        foreach(KeyValuePair<string, string?> kv in propertiesAndValues)
+        foreach(KeyValuePair<string, string?> property in properties.Where(kv => kv.Value != null))
         {
-            if (kv.Value == null)
+            if (property.Value!.IsEmptyOrWhiteSpace())
             {
-                continue;
-            }
-
-            if (kv.Value.IsEmptyOrWhiteSpace())
-            {
-                yield return new ValidationResult($"{kv.Key} cannot be empty", new[] { kv.Key});
+                yield return new ValidationResult($"{property.Key} cannot be empty", new[] { property.Key});
             }
         }
     }

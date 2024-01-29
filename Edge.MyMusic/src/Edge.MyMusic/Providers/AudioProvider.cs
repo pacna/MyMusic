@@ -2,14 +2,9 @@ using Edge.MyMusic.Providers.Models;
 
 namespace Edge.MyMusic.Providers;
 
-internal class AudioProvider : BaseHttpProvider<IAudioProvider>, IAudioProvider
+internal class AudioProvider(ILogger<AudioProvider> logger, IHttpClientFactory factory) : BaseHttpProvider<IAudioProvider>(factory), IAudioProvider
 {
-    private readonly ILogger<AudioProvider> _logger;
-
-    public AudioProvider(ILogger<AudioProvider> logger, IHttpClientFactory factory) : base(factory)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<AudioProvider> _logger = logger;
 
     public async Task<AudioResponse?> GetMetadataAsync(string url)
     {
@@ -23,10 +18,13 @@ internal class AudioProvider : BaseHttpProvider<IAudioProvider>, IAudioProvider
                 await File.WriteAllBytesAsync(tempFilePath, await response.Content.ReadAsByteArrayAsync());
             }
 
-            TagLib.File metadata = TagLib.File.Create(tempFilePath);
+            using TagLib.File metadata = TagLib.File.Create(tempFilePath);
 
-            return new AudioResponse(title: metadata.Tag.Title, album: metadata.Tag.Album, artist: metadata.Tag.FirstPerformer)
+            return new AudioResponse
             {
+                Title = metadata.Tag.Title,
+                Album = metadata.Tag.Album,
+                Artist = metadata.Tag.FirstPerformer,
                 Duration = (int) metadata.Properties.Duration.TotalSeconds
             };
         }

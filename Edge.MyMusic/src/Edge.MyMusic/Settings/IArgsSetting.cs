@@ -1,8 +1,9 @@
 namespace Edge.MyMusic.Settings;
 
-internal interface IArgsSetting
+public interface IArgsSetting
 {
-    string? AudiosPath { get; set; }
-    bool UseInMemory { get; set; }
-    bool UseWebApp { get; set; }
+    string? AudiosPath { get; init; }
+    string? BaseUrl { get; init; }
+    bool UseInMemory { get; init; }
+    bool UseWebApp { get; init; }
 }

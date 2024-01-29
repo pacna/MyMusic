@@ -7,6 +7,7 @@ ApplicationSetting appSetting = ApplicationParser.Parse(Environment.GetCommandLi
 builder.Services
     .AddCustomControllers()
     .AddControllerConvention()
+    .AddLogging()
     .AddServices()
     .AddRepositories(appSetting)
     .AddProviders()
@@ -14,11 +15,8 @@ builder.Services
     .AddSwagger()
     .AddApplicationSetting(appSetting)
     .AddCors(appSetting)
-    .AddEndpointsApiExplorer() // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    .AddEndpointsApiExplorer()
     .AddSwaggerGen();
-
-// Add logging
-builder.Logging.AddConsole();
 
 WebApplication? application = builder.Build();
 

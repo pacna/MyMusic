@@ -1,7 +1,7 @@
 namespace Edge.MyMusic.Settings;
 
-internal interface ICORSPolicySetting
+public interface ICORSPolicySetting
 {
-    string PolicyName { get; set; }
-    string[] AllowedOrigins { get; set; }
+    string? PolicyName { get; init; }
+    string[]? AllowedOrigins { get; init; }
 }

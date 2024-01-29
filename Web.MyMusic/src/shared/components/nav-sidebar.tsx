@@ -21,7 +21,7 @@ const StyledListItemButton = styled(ListItemButton)({
         backgroundColor: Color.NeonPink,
         color: "white",
         "& .MuiSvgIcon-root": {
-            color: Color.White, // Change the color of the icon on hover
+            color: Color.White,
         },
     },
 });

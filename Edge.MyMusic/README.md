@@ -31,6 +31,12 @@ $ dotnet run -webapp
 $ dotnet run --audios=path/to/folder/or/file
 ```
 
+-   `--base-url`: Specifies the base URL for the server. If not provided, the default is `http://localhost:5000`.
+
+```bash
+$ dotnet run --base-url=https://www.mymusic.com
+```
+
 ## How to Run Tests
 
 Execute the following command:

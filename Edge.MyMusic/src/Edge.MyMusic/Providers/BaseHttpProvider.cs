@@ -1,16 +1,11 @@
 namespace Edge.MyMusic.Providers;
 
-internal abstract class BaseHttpProvider<TProvider>
+internal abstract class BaseHttpProvider<TProvider>(IHttpClientFactory factory)
 {
-    private readonly IHttpClientFactory _factory;
-
-    protected BaseHttpProvider(IHttpClientFactory factory)
-    {
-        _factory = factory;
-    }
+    private readonly IHttpClientFactory _factory = factory;
 
     protected HttpClient GetClient()
     {
-        return _factory.CreateClient(nameof(TProvider));
+        return _factory.CreateClient(typeof(TProvider).Name);
     }
 }

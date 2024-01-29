@@ -6,13 +6,9 @@ using MongoDB.Driver;
 
 namespace Edge.MyMusic.Repositories;
 
-internal class MusicRepository : BaseMongoRepository<MusicDocument>, IMusicRepository
+internal class MusicRepository(ILogger<MusicRepository> logger, IMongoDBSetting setting) : BaseMongoRepository<MusicDocument>(logger, setting), IMusicRepository
 {
     protected override string CollectionName => "music";
-
-    public MusicRepository(ILogger<MusicRepository> logger, IMongoDBSetting setting) : base(logger, setting)
-    {
-    }
 
     public async Task<CollectionModel<MusicDocument>> SearchMusicAsync(IMusicSearchQuery query, IPaging pagingInfo)
     {

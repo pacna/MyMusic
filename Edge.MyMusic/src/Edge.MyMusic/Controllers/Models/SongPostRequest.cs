@@ -2,24 +2,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Edge.MyMusic.Controllers.Models;
 
-public sealed class SongPostRequest: IValidatableObject
+public sealed class SongPostRequest(
+    string album,
+    string artist,
+    string path,
+    string title) : IValidatableObject
 {
-    public SongPostRequest(
-        string album, 
-        string artist,
-        string path, 
-        string title)
-    {
-        this.Album = album;
-        this.Artist = artist;
-        this.Path = path;
-        this.Title = title;
-    }
-
-    public string Album { get; }
-    public string Artist { get; }
-    public string Path { get; }
-    public string Title { get; }
+    public string Album => album;
+    public string Artist => artist;
+    public string Path => path;
+    public string Title => title;
     public bool IsFavorite { get; init; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -28,18 +20,22 @@ public sealed class SongPostRequest: IValidatableObject
         {
             { nameof(this.Album), this.Album},
             { nameof(this.Artist), this.Artist},
-            { nameof(this.Path), this.Path},
             { nameof(this.Title), this.Title},
         });
     }
 
-    internal IEnumerable<ValidationResult> Validate(IReadOnlyDictionary<string, string> propertiesAndValues)
+    private IEnumerable<ValidationResult> Validate(IReadOnlyDictionary<string, string> properties)
     {
-        foreach(KeyValuePair<string, string> kv in propertiesAndValues)
+        if (!Uri.IsWellFormedUriString(this.Path, UriKind.Absolute))
         {
-            if (string.IsNullOrWhiteSpace(kv.Value))
+            yield return new ValidationResult("Invalid url", new[] { this.Path });
+        }
+
+        foreach(KeyValuePair<string, string> property in properties)
+        {
+            if (string.IsNullOrWhiteSpace(property.Value))
             {
-                yield return new ValidationResult($"{kv.Key} cannot be empty", new[] { kv.Key});
+                yield return new ValidationResult($"{property.Key} cannot be empty", new[] { property.Key});
             }
         }
     }

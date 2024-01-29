@@ -1,68 +1,79 @@
 using Edge.MyMusic.Providers;
 using Edge.MyMusic.Providers.Models;
 using Edge.MyMusic.Repositories;
+using Edge.MyMusic.Repositories.Models.Documents;
 using Edge.MyMusic.Settings;
 
 namespace Edge.MyMusic.Processors;
 
-internal class StartupProcessor : IHostedService
+public class StartupProcessor(
+    ILogger<StartupProcessor> logger,
+    IMusicRepository musicRepository,
+    IAudioProvider audioProvider,
+    IArgsSetting argsSetting) : BaseProcessor
 {
-    private readonly IHostApplicationLifetime _applicationLifetime;
-    private readonly ILogger _logger;
-    private readonly IMusicRepository _musicRepository;
-    private readonly IAudioProvider _audioProvider;
-    private readonly IArgsSetting _argsSetting;
+    private readonly ILogger<StartupProcessor> _logger = logger;
+    private readonly IMusicRepository _musicRepository = musicRepository;
+    private readonly IAudioProvider _audioProvider = audioProvider;
+    private readonly IArgsSetting _argsSetting = argsSetting;
 
-    private const string _baseUri = "http://localhost:5000";
+    private const string _default = "Unknown";
 
-    public StartupProcessor(
-        IHostApplicationLifetime applicationLifetime, 
-        ILogger<StartupProcessor> logger, 
-        IMusicRepository musicRepository, 
-        IAudioProvider audioProvider,
-        IArgsSetting argsSetting)
-    {
-        _applicationLifetime = applicationLifetime;
-        _logger = logger;
-        _musicRepository = musicRepository;
-        _audioProvider = audioProvider;
-        _argsSetting = argsSetting;
-    }
-
-    public Task StartAsync(CancellationToken cancellationToken)
+    public override Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation($"{nameof(StartupProcessor)} is starting...");
+        return Task.CompletedTask;
+    }
 
+    public override Task StartedAsync(CancellationToken cancellationToken)
+    {
         if (string.IsNullOrEmpty(_argsSetting.AudiosPath))
         {
             return Task.CompletedTask;
         }
 
-        // run only after the application host has fully started.
-        _applicationLifetime.ApplicationStarted.Register(async () =>
+        try
         {
-            IEnumerable<string> files = Directory.GetFiles(_argsSetting.AudiosPath);
-
-            foreach(string filePath in files)
+            return Parallel.ForEachAsync(
+                Directory.EnumerateFiles(_argsSetting.AudiosPath), 
+                new ParallelOptions { MaxDegreeOfParallelism = 3, 
+                CancellationToken = cancellationToken }, async (file, ct) => 
             {
-                string path = $"{_baseUri}/audios/{Path.GetFileName(filePath)}";
+                ct.ThrowIfCancellationRequested();
+
+                string path = $"{_argsSetting.BaseUrl}/audios/{Path.GetFileName(file)}";
                 AudioResponse? audio =  await _audioProvider.GetMetadataAsync(path);
 
                 if (audio == null)
                 {
-                    _logger.LogWarning($"Unable to find audio file {path}", new[] { path});
-                    continue;
+                    _logger.LogWarning($"Unable to find audio file", new[] { path });
+                    return;
                 }
 
-                await _musicRepository.AddMusicAsync(audio.ToDocument(path));
-            };
-        });
-
-        return Task.CompletedTask;
-
+                await _musicRepository.AddMusicAsync(new MusicDocument
+                {
+                    Album = audio.Album ?? _default,
+                    Artist = audio.Artist ?? _default,
+                    IsFavorite = false,
+                    Length = audio.Duration,
+                    Path = path,
+                    Title = audio.Title ?? _default  
+                });
+            });
+        }
+        catch(OperationCanceledException)
+        {
+            // ignore
+            return Task.CompletedTask;
+        }
+        catch(Exception ex)
+        {
+            _logger.LogWarning($"An issue occurred in the {nameof(StartupProcessor)} during the {nameof(StartedAsync)}", new[] { ex.Message });
+            return Task.CompletedTask;
+        }
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public override Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation($"{nameof(StartupProcessor)} is stopping...");
         return Task.CompletedTask;

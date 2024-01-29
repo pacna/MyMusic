@@ -52,11 +52,16 @@ internal static class ApplicationBuilderExtension
 
     internal static IApplicationBuilder UseCors(this IApplicationBuilder application, ICORSPolicySetting cors)
     {
-        return application.UseCors(cors.PolicyName);
+        return application.UseCors(cors.PolicyName!);
     }
 
     internal static IApplicationBuilder UseServerHandler(this IApplicationBuilder application)
     {
+        JsonSerializerOptions options = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
         return application.UseExceptionHandler(app => 
         {
             app.Run(async context =>
@@ -77,10 +82,7 @@ internal static class ApplicationBuilderExtension
                                 Type = exceptionHandlerPathFeature.Error.GetType().Name,
                                 exceptionHandlerPathFeature.Error.Message
                             },
-                            new JsonSerializerOptions()
-                            {
-                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                            }
+                            options
                         ));
                     }
                 }

@@ -3,6 +3,10 @@ obj
 bin
 out
 
+## wwwroot
+Edge.MyMusic/src/Edge.MyMusic/wwwroot/*
+!Edge.MyMusic/src/Edge.MyMusic/wwwroot/__blank__
+
 
 # Web.MyMusic
 

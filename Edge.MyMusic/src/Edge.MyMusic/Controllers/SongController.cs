@@ -5,14 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Edge.MyMusic.Controllers;
 
-public class SongController : BaseController
+public class SongController(IMusicService musicService) : BaseController
 {
-    private readonly IMusicService _musicService;
-
-    public SongController(IMusicService musicService)
-    {
-        _musicService = musicService;
-    }
+    private readonly IMusicService _musicService = musicService;
 
     [HttpGet]
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, Type = typeof(CollectionModel<SongResponse>))]

@@ -5,16 +5,10 @@ using Edge.MyMusic.Shared;
 
 namespace Edge.MyMusic.Services;
 
-public class MusicService : IMusicService
+public class MusicService(IAudioProvider audioProvider, IMusicRepository musicRepository) : IMusicService
 {
-    private readonly IAudioProvider _audioProvider;
-    private readonly IMusicRepository _musicRepository;
-
-    public MusicService(IAudioProvider audioProvider, IMusicRepository musicRepository)
-    {
-        _audioProvider = audioProvider;
-        _musicRepository = musicRepository;
-    }
+    private readonly IAudioProvider _audioProvider = audioProvider;
+    private readonly IMusicRepository _musicRepository = musicRepository;
 
     public async Task<CollectionModel<SongResponse>> SearchSongsAsync(SongSearchRequest request)
     {
@@ -23,14 +17,7 @@ public class MusicService : IMusicService
 
     public async Task<SongResponse> AddSongAsync(SongPostRequest request)
     {
-        try
-        {
-            return (await _musicRepository.AddMusicAsync(request.ToDocument((await _audioProvider.GetMetadataAsync(request.Path))?.Duration))).ToResponse();
-        }
-        catch
-        {
-            throw new Exception("Unable to add song");
-        }
+        return (await _musicRepository.AddMusicAsync(request.ToDocument((await _audioProvider.GetMetadataAsync(request.Path))?.Duration))).ToResponse();
     }
 
     public async Task<SongResponse?> GetSongAsync(string id)

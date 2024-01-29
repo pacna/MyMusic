@@ -9,15 +9,8 @@ internal static class ApplicationParser
         ICORSPolicySetting? cors = configuration.GetSection("CORSPolicy").Get<ApplicationSetting>();
         IMongoDBSetting? dbSetting = configuration.GetSection("MongoDBSetting").Get<ApplicationSetting>();
 
-        static bool HasInMemoryFlag(string[] args)
-        {
-            return args.Any(arg => arg == "-inmemory");
-        }
-
-        static bool HasWebAppFlag(string[] args)
-        {
-            return args.Any(arg => arg == "-webapp");
-        }
+        static bool HasInMemoryFlag(string[] args) => args.Any(arg => arg == "-inmemory");
+        static bool HasWebAppFlag(string[] args) => args.Any(arg => arg == "-webapp");
 
         static string? ExtractAudioFolderPath(string[] args)
         {
@@ -28,6 +21,11 @@ internal static class ApplicationParser
                 : flag!.Split("=")[1];
         }
 
+        static string ExtractBaseUrlPath(string[] args)
+        {
+            return args.FirstOrDefault(x => x.StartsWith("--base-url="))?.Split("=")[1] ?? "http://localhost:5000";
+        }
+
         return new ApplicationSetting
         {
             PolicyName =  cors?.PolicyName,
@@ -35,6 +33,7 @@ internal static class ApplicationParser
             ConnectionString = dbSetting?.ConnectionString,
             DatabaseName = dbSetting?.DatabaseName,
             AudiosPath = ExtractAudioFolderPath(args),
+            BaseUrl = ExtractBaseUrlPath(args),
             UseInMemory = HasInMemoryFlag(args),
             UseWebApp = HasWebAppFlag(args)
         };

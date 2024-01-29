@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Edge.MyMusic/src/Edge.MyMusic/Edge.MyMusic.csproj",
+                "${workspaceFolder}/Edge.MyMusic/Edge.MyMusic.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Edge.MyMusic/src/Edge.MyMusic/Edge.MyMusic.csproj",
+                "${workspaceFolder}/Edge.MyMusic/Edge.MyMusic.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Edge.MyMusic/src/Edge.MyMusic/Edge.MyMusic.csproj"
+                "${workspaceFolder}/Edge.MyMusic/Edge.MyMusic.sln"
             ],
             "problemMatcher": "$msCompile"
         }

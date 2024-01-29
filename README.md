@@ -9,7 +9,7 @@ Your go-to platform for playing and effortlessly managing all your favorite tune
 ## Prerequisites
 
 1. [Node.js](https://nodejs.org/en/) (v18)
-2. [.NET Core](https://dotnet.microsoft.com/en-us/download) (v7+)
+2. [.NET Core](https://dotnet.microsoft.com/en-us/download) (v8)
 3. [Make](https://www.gnu.org/software/make/)
 
 ## Usage

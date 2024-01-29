@@ -60,8 +60,11 @@ public class MusicServiceTests
             IsFavorite = false
         };
 
-        AudioResponse expectedMetaData = new(title: request.Title, album: request.Album, artist: request.Artist)
+        AudioResponse expectedMetaData = new()
         {
+            Title = request.Title,
+            Album = request.Album,
+            Artist = request.Artist,
             Duration = 185
         };
 
@@ -226,7 +229,7 @@ public class MusicServiceTests
     }
 
 
-    internal void AssertEqual(MusicDocument expected, SongResponse actual)
+    private static void AssertEqual(MusicDocument expected, SongResponse actual)
     {
         Assert.Equal(expected.Id, actual.Id);
         Assert.Equal(expected.Album, actual.Album);

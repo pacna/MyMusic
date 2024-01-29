@@ -1,14 +1,13 @@
 namespace Edge.MyMusic.Settings;
 
-internal class ApplicationSetting : ICORSPolicySetting, IArgsSetting, IMongoDBSetting
+internal class ApplicationSetting : IApplicationSetting
 {
-#nullable disable
-    public string PolicyName { get; set; }
-    public string[] AllowedOrigins { get; set; }
-    public string ConnectionString { get; set; }
-    public string DatabaseName { get; set; }
-#nullable enable
-    public string? AudiosPath { get; set; }
-    public bool UseInMemory { get; set; }
-    public bool UseWebApp { get; set; }
+    public string? PolicyName { get; init; }
+    public string[]? AllowedOrigins { get; init; }
+    public string? ConnectionString { get; init; }
+    public string? DatabaseName { get; init; }
+    public string? AudiosPath { get; init; }
+    public string? BaseUrl { get; init; }
+    public bool UseInMemory { get; init; }
+    public bool UseWebApp { get; init; }
 }

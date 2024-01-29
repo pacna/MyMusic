@@ -13,7 +13,7 @@ internal static class MapperExtension
             Album = from.Album,
             Artist = from.Artist,
             IsFavorite = from.IsFavorite,
-            Length = duration ?? 0,
+            Length = duration.GetValueOrDefault(-1),
             Path = from.Path,
             Title = from.Title
         };
